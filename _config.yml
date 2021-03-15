@@ -18,12 +18,28 @@ description: >- # this means to ignore newlines until "baseurl:"
   just a little blog of mine.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
-facebook_username:  Hikarii0703
-github_username:  Hikarii0703
+
+plainwhite:
+  name: Hikarii0703
+  tagline: A rather abnormal student.
+  date_format: "%b %-d, %Y"
+  portfolio_image: "assets/suisei.png"
+
+  social_links:
+    facebook: Hikarii0703
+    github: Hikarii0703
+
+  sitemap: true
+
+  navigation:
+    - title: About
+      url: "/about"
+  search: true
+  dark_mode: true
 
 # Build settings
 markdown: kramdown
-theme: minima
+remote_theme: samarsault/plainwhite-jekyll
 plugins:
   - jekyll-feed
 
