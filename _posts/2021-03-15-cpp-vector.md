@@ -8,7 +8,7 @@ categories: programming cpp
 C++ là một ngôn ngữ có rất nhiều data structures mạnh mẽ, hữu ích cho competitive programming. Tuy nhiên, có một hiện tượng là các em dường như chưa nắm rõ được bản chất, cũng như cách dùng.
 
 Có rất nhiều blog trên mạng về các loại data structures này rồi, search là ra một rổ. Cơ mà vì muốn quảng bá blog (hihi) nên anh cũng rảnh háng ngồi viết bài chơi.
-**Lưu ý: anh sẽ bỏ qua một số kiến thức phức tạp như iterator, cấu trúc data bên trong các data structures, capacity,...** Đứa nào muốn tìm hiểu thêm thì có thể alo anh hoặc giải KK VOI 2021, dlbm1302.
+**Lưu ý: anh sẽ bỏ qua một số kiến thức phức tạp như iterator, cấu trúc data bên trong các data structures, capacity,...** Đứa nào muốn tìm hiểu thêm thì có thể alo anh hoặc giải KK VOI 2021, **dlbm1302** (orz).
 
 Bài viết đầu tiên trong series sẽ là về **vector**, một data structure cơ bản và rất thường dùng trong C++, cũng như competitive programming.
 
