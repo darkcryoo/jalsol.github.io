@@ -8,3 +8,8 @@ Hi, I'm **Hikarii0703**. I'm *just a little spark of light*, looking to shine br
 
 This is my personal blog, where I share stuff that people would probably see as boring.<br/>
 Most likely, they will be just things that happen in my life, and some academic things I want to write.
+
+Social media:
+* [Facebook](https://www.facebook.com/Hikarii0703)
+* [Github](https://github.com/Hikarii0703)
+* [SoundCloud](https://soundcloud.com/hikarii0703)
