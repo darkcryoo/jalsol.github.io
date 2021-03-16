@@ -39,8 +39,8 @@ plainwhite:
 
 # Build settings
 markdown: kramdown
-# theme: plainwhite
-remote_theme: samarsault/plainwhite-jekyll
+theme: plainwhite
+# remote_theme: samarsault/plainwhite-jekyll
 plugins:
   - jekyll-feed
 

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<title>[Vietnamese] BFS on Grid</title>
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>[Vietnamese] BFS on Grid | Hikarii</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="[Vietnamese] BFS on Grid" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="BFS on Grid" />
+<meta property="og:description" content="BFS on Grid" />
+<link rel="canonical" href="http://localhost:4000/programming/cpp/2021/03/16/bfs-on-grid.html" />
+<meta property="og:url" content="http://localhost:4000/programming/cpp/2021/03/16/bfs-on-grid.html" />
+<meta property="og:site_name" content="Hikarii" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-03-16T08:10:51+07:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[Vietnamese] BFS on Grid" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/programming/cpp/2021/03/16/bfs-on-grid.html"},"url":"http://localhost:4000/programming/cpp/2021/03/16/bfs-on-grid.html","headline":"[Vietnamese] BFS on Grid","dateModified":"2021-03-16T08:10:51+07:00","datePublished":"2021-03-16T08:10:51+07:00","description":"BFS on Grid","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/assets/js/darkmode.js"></script>
+
+</head><body>
+  <main class="container">
+    <section class="about">
+      <div class="about-header ">
+      <div class="about-title">
+      <a href="/">
+        
+        <img src="/assets/suisei.png" alt="Hikarii" />
+        
+      </a>
+      <h2 id="title">
+        <a href="/">Hikarii</a>
+      </h2>
+      </div><p class="tagline">An abnormal student.</p></div>
+      
+      <ul class="social about-footer "><a href="https://github.com/Hikarii0703" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://facebook.com/Hikarii0703" target="_blank">
+          <li>
+            <i class="icon-facebook-squared"></i>
+          </li>
+        </a></ul><nav class="navigation about-footer ">
+        <ul>
+          
+          <li>
+            <a href="/about">About</a>
+          </li>
+          
+        </ul>
+      </nav><p class="about-footer ">&copy;
+        2021</p><div class="about-footer ">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </section>
+    <section class="content">
+      <div class="post-container">
+  <a class="post-link" href="/programming/cpp/2021/03/16/bfs-on-grid.html">
+    <h2 class="post-title">[Vietnamese] BFS on Grid</h2>
+  </a>
+  <div class="post-meta">
+    <div class="post-date"><i class="icon-calendar"></i>Mar 16, 2021</div><ul class="post-categories"><li>programming</li><li>cpp</li></ul></div>
+  <div class="post">
+    <h1 id="bfs-on-grid">BFS on Grid</h1>
+
+<p>BFS on Grid (BFS trên lưới, loang trên lưới) là một trong những kiến thức cơ bản của BFS, và hoàn toàn có thể ra trong đề thi OLP 30/4 cho khối 10.
+Thầy Khắc dạy có vẻ hơi chậm, nên nhảy sang đồ thị mà chưa được tiếp cận với BFS on Grid. Vì thế mà hôm nay, anh sẽ giới thiệu sơ qua về topic này.</p>
+
+<p>Hiện tại anh thấy có Văn Hoàng là đã sử dụng được kỹ thuật này, Trần Mạnh Hùng thì có hỏi anh và có cài thử.
+Mấy đứa có thể liên hệ những đứa này để hiểu thêm.</p>
+
+<h2 id="đề-bài">Đề bài</h2>
+<p>Cho một lưới kích thước <code class="language-plaintext highlighter-rouge">n x m</code>. Tìm đường đi <strong>ngắn nhất</strong> từ ô <code class="language-plaintext highlighter-rouge">'S'</code> đến ô <code class="language-plaintext highlighter-rouge">'D'</code>. Những ô <code class="language-plaintext highlighter-rouge">'.'</code> là những ô được đi qua, còn những ô <code class="language-plaintext highlighter-rouge">'#'</code> thì không.
+Từ một ô, chỉ được phép di chuyển sang các ô kề cạnh (trên, dưới, trái, phải, <strong>không được đi chéo</strong>). In ra <code class="language-plaintext highlighter-rouge">-1</code> nếu không tìm thấy đường đi.<br />
+VD:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Input:
+#.#S
+.#..
+#...
+D...
+
+Output:
+6
+
+Input:
+#.#S
+.#..
+#...
+D...
+
+Output:
+-1
+</code></pre></div></div>
+
+<h2 id="phân-tích">Phân tích</h2>
+
+<p>Việc dùng BFS là ý tưởng hiển nhiên. <strong>BFS luôn cho phép tìm đường đi ngắn nhất giữa 2 điểm bất kì (cạnh không trọng số)</strong>.<br />
+Trước hết, anh giới thiệu loại mảng đặc biệt, để hỗ trợ việc di chuyển kề cạnh:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="kt">int</span> <span class="n">numDir</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span> <span class="c1">// có 4 ô kề cạnh</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">dx</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">0</span><span class="p">};</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">dy</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">};</span>
+</code></pre></div></div>
+<p>Ý nghĩa của 2 mảng trên để làm gì?<br />
+Giả sử, ta đang ở ô có tọa độ <strong>(x, y)</strong>:</p>
+
+<p><img src="/assets/bfs_on_grid/grid1.png" alt="grid1" /></p>
+
+<p>Di chuyển sang các ô <strong>kề cạnh</strong>, tức là di chuyển sang các ô <strong>(x - 1, y)</strong>, <strong>(x, y + 1)</strong>, <strong>(x + 1, y)</strong>, <strong>(x, y - 1)</strong>:</p>
+
+<p><img src="/assets/bfs_on_grid/grid2.png" alt="grid2" /></p>
+
+<p>Vậy, ta chỉ cần dùng một vòng for đơn giản:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">;</span> <span class="c1">// tọa độ hiện tại</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numDir</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">nx</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">dx</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="kt">int</span> <span class="n">ny</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">dy</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="c1">// lúc này, (nx, ny) là ô kề với ô (x, y)</span>
+    <span class="c1">// xử lý với (nx, ny)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Ta sẽ xây dựng mô hình lời giải như sau:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">;</span> <span class="c1">// kích thước của lưới</span>
+<span class="kt">char</span> <span class="n">grid</span><span class="p">[</span><span class="n">N</span><span class="p">][</span><span class="n">N</span><span class="p">];</span> <span class="c1">// lưới nhập vào</span>
+
+<span class="kt">int</span> <span class="n">stx</span><span class="p">,</span> <span class="n">sty</span><span class="p">;</span> <span class="c1">// tọa độ ô 'S'</span>
+<span class="kt">int</span> <span class="n">enx</span><span class="p">,</span> <span class="n">eny</span><span class="p">;</span> <span class="c1">// tọa độ ô 'D'</span>
+<span class="n">queue</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">q</span><span class="p">;</span>
+<span class="kt">bool</span> <span class="n">visited</span><span class="p">[</span><span class="n">N</span><span class="p">][</span><span class="n">N</span><span class="p">];</span> <span class="c1">// đánh dấu ô đã thăm chưa</span>
+<span class="kt">int</span> <span class="n">steps</span><span class="p">[</span><span class="n">N</span><span class="p">][</span><span class="n">N</span><span class="p">];</span> <span class="c1">// đánh dấu khoảng cách</span>
+
+<span class="k">const</span> <span class="kt">int</span> <span class="n">numDir</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">dx</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">0</span><span class="p">};</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">dy</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">};</span>
+
+<span class="kt">bool</span> <span class="nf">inside</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">&lt;=</span> <span class="n">m</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">BFS</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">stx</span><span class="p">,</span> <span class="n">sty</span><span class="p">));</span>
+    <span class="n">steps</span><span class="p">[</span><span class="n">stx</span><span class="p">][</span><span class="n">sty</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+        <span class="c1">// tọa độ hiện tại</span>
+        <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">().</span><span class="n">first</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">().</span><span class="n">second</span><span class="p">;</span>
+        <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+
+        <span class="c1">// tìm được ô đích</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="n">enx</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">==</span> <span class="n">eny</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">steps</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">];</span>
+        <span class="p">}</span>
+
+        <span class="c1">// xét các ô kề</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numDir</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">nx</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">dx</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            <span class="kt">int</span> <span class="n">ny</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">dy</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+
+            <span class="c1">// Lưu ý: (nx, ny) có thể sẽ đi ra khỏi lưới</span>
+            <span class="c1">// =&gt; kiểm tra (nx, ny) có nằm trong lưới không</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">inside</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">))</span> <span class="k">continue</span><span class="p">;</span>
+
+            <span class="c1">// (nx, ny) == '#' =&gt; không đi được</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="n">nx</span><span class="p">][</span><span class="n">ny</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'#'</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+
+            <span class="c1">// ô (nx, ny) chưa thăm</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">nx</span><span class="p">][</span><span class="n">ny</span><span class="p">])</span> <span class="p">{</span>
+                <span class="n">visited</span><span class="p">[</span><span class="n">nx</span><span class="p">][</span><span class="n">ny</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+                <span class="n">steps</span><span class="p">[</span><span class="n">nx</span><span class="p">][</span><span class="n">ny</span><span class="p">]</span> <span class="o">=</span> <span class="n">steps</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+                <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">));</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// BFS xong nhưng vẫn chưa tìm được ô đích</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Ngoài ra, nếu các bài toán yêu cầu ta di chuyển sang các ô <strong>kề cạnh</strong> và <strong>kề góc</strong>, ta chỉ cần chỉnh sửa mảng <code class="language-plaintext highlighter-rouge">dx[]</code> và <code class="language-plaintext highlighter-rouge">dy[]</code> như sau:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="kt">int</span> <span class="n">numDir</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">dx</span><span class="p">[]</span>  <span class="o">=</span> <span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">};</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">dy</span><span class="p">[]</span>  <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">};</span>
+</code></pre></div></div>
+
+<h2 id="nguồn">Nguồn</h2>
+<ul>
+  <li><a href="https://www.geeksforgeeks.org/shortest-distance-two-cells-matrix-grid/">geeksforgeeks</a></li>
+</ul>
+
+<h2 id="bài-tập-liên-quan">Bài tập liên quan</h2>
+<ul>
+  <li><a href="https://codeforces.com/group/FLVn1Sc504/contest/274857/problem/W">VNOI - VMUNCH</a></li>
+  <li><a href="https://cses.fi/problemset/task/1192">CSES - Counting Rooms</a></li>
+  <li><a href="https://www.spoj.com/PTIT/problems/BCLKCOUN">PTIT - BCLKCOUN</a></li>
+  <li><a href="https://cses.fi/problemset/task/1193">CSES - Labyrinth</a></li>
+  <li><a href="https://cses.fi/problemset/task/1194">CSES - Monsters</a></li>
+</ul>
+
+  </div></div>
+
+    </section>
+    <footer class="">
+      <ul class="social about-footer "><a href="https://github.com/Hikarii0703" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://facebook.com/Hikarii0703" target="_blank">
+          <li>
+            <i class="icon-facebook-squared"></i>
+          </li>
+        </a></ul><nav class="navigation about-footer ">
+        <ul>
+          
+          <li>
+            <a href="/about">About</a>
+          </li>
+          
+        </ul>
+      </nav><p class="about-footer ">&copy;
+        2021</p><div class="about-footer ">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </footer>
+  </main>
+  
+  <script type="text/javascript" src="/assets/js/darkmode.js"></script>
+  
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  
+</body>
+
+</html>
