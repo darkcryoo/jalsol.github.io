@@ -14,15 +14,15 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="C++ là một ngôn ngữ có rất nhiều data structures mạnh mẽ, hữu ích cho competitive programming. Tuy nhiên, có một hiện tượng là các em dường như chưa nắm rõ được bản chất, cũng như cách dùng." />
 <meta property="og:description" content="C++ là một ngôn ngữ có rất nhiều data structures mạnh mẽ, hữu ích cho competitive programming. Tuy nhiên, có một hiện tượng là các em dường như chưa nắm rõ được bản chất, cũng như cách dùng." />
-<link rel="canonical" href="/programming/cpp/2021/03/15/cpp-vector.html" />
-<meta property="og:url" content="/programming/cpp/2021/03/15/cpp-vector.html" />
+<link rel="canonical" href="http://localhost:4000/programming/cpp/2021/03/15/cpp-vector.html" />
+<meta property="og:url" content="http://localhost:4000/programming/cpp/2021/03/15/cpp-vector.html" />
 <meta property="og:site_name" content="Hikarii" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-03-15T15:40:51+07:00" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="[Vietnamese] C++ Vector" />
 <script type="application/ld+json">
-{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/programming/cpp/2021/03/15/cpp-vector.html"},"url":"/programming/cpp/2021/03/15/cpp-vector.html","headline":"[Vietnamese] C++ Vector","dateModified":"2021-03-15T15:40:51+07:00","datePublished":"2021-03-15T15:40:51+07:00","description":"C++ là một ngôn ngữ có rất nhiều data structures mạnh mẽ, hữu ích cho competitive programming. Tuy nhiên, có một hiện tượng là các em dường như chưa nắm rõ được bản chất, cũng như cách dùng.","@context":"https://schema.org"}</script>
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/programming/cpp/2021/03/15/cpp-vector.html"},"url":"http://localhost:4000/programming/cpp/2021/03/15/cpp-vector.html","headline":"[Vietnamese] C++ Vector","dateModified":"2021-03-15T15:40:51+07:00","datePublished":"2021-03-15T15:40:51+07:00","description":"C++ là một ngôn ngữ có rất nhiều data structures mạnh mẽ, hữu ích cho competitive programming. Tuy nhiên, có một hiện tượng là các em dường như chưa nắm rõ được bản chất, cũng như cách dùng.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -81,12 +81,14 @@
     <p>C++ là một ngôn ngữ có rất nhiều data structures mạnh mẽ, hữu ích cho competitive programming. Tuy nhiên, có một hiện tượng là các em dường như chưa nắm rõ được bản chất, cũng như cách dùng.</p>
 
 <p>Có rất nhiều blog trên mạng về các loại data structures này rồi, search là ra một rổ. Cơ mà vì muốn quảng bá blog (hihi) nên anh cũng rảnh háng ngồi viết bài chơi.
-<strong>Lưu ý: anh sẽ bỏ qua một số kiến thức phức tạp như iterator, cấu trúc data bên trong các data structures, capacity,…</strong> Đứa nào muốn tìm hiểu thêm thì có thể alo anh hoặc giải KK VOI 2021, <strong>dlbm1302</strong> (orz).</p>
+<strong>Lưu ý: anh sẽ bỏ qua một số kiến thức phức tạp như iterator, cấu trúc data bên trong các data structures, capacity,…</strong>
+Đứa nào muốn tìm hiểu thêm thì có thể alo anh hoặc giải KK VOI 2021, <strong><em><a href="https://www.facebook.com/dlbm.1302">dlbm1302</a></em></strong> (orz).</p>
 
 <p>Bài viết đầu tiên trong series sẽ là về <strong>vector</strong>, một data structure cơ bản và rất thường dùng trong C++, cũng như competitive programming.</p>
 
-<h2 id="vector">Vector</h2>
-<p>Vector là dynamic array (mảng động). Còn vì sao nó lại gọi là <strong>vector</strong> mà không phải là <strong>dynamic_array</strong> hay <strong>darray</strong> hay cái gì đó thì đi hỏi bác Stroustrup :D</p>
+<h1 id="vector">Vector</h1>
+<p>Vector là dynamic array (mảng động). Kích cỡ của vector có thể tùy biến thay đổi, thay vì cố định như mảng thường.
+Còn vì sao nó lại gọi là <strong>vector</strong> mà không phải là <strong>dynamic_array</strong> hay <strong>darray</strong> hay cái gì đó thì đi hỏi bác Stroustrup :D</p>
 
 <p>Cú pháp khai báo vector là:</p>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">name</span><span class="p">;</span>
@@ -99,7 +101,7 @@ VD:</p>
 <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">vvi</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h1 id="gán-giá-trị-kích-cỡ">Gán giá trị, kích cỡ</h1>
+<h2 id="gán-giá-trị-kích-cỡ">Gán giá trị, kích cỡ</h2>
 <p>Mặc định, vector sẽ chẳng có phần tử nào cả.</p>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">;</span> <span class="c1">// a = {}</span>
 </code></pre></div></div>
@@ -117,41 +119,45 @@ Thế còn, nếu ta muốn khai báo một vector có <code class="language-pla
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
 </code></pre></div></div>
 
+<p>Hoặc, sử dụng <code class="language-plaintext highlighter-rouge">initializer_list</code>, ta cũng có thể gán giá trị cho vector như sau:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span> <span class="c1">// không cần dấu =</span>
+</code></pre></div></div>
+
 <p>Trong quá trình sử dụng, ta muốn “reset” vector về lại giá trị nào đó (như <code class="language-plaintext highlighter-rouge">memset</code>, ta không dùng được <code class="language-plaintext highlighter-rouge">memset</code> với vector), ta có thể làm như sau với <code class="language-plaintext highlighter-rouge">assign</code>:</p>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">;</span> <span class="c1">// khai báo trước đó</span>
 <span class="n">a</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span> <span class="c1">// a = {5, 5, ..., 5}</span>
 </code></pre></div></div>
 
 <p>Ta còn có thể sử dụng lệnh <code class="language-plaintext highlighter-rouge">resize</code> để đổi lại kích cỡ của vector:</p>
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
 <span class="n">a</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="c1">// a = {1, 2, 3}</span>
 </code></pre></div></div>
 
 <p><strong>Lưu ý:</strong> <code class="language-plaintext highlighter-rouge">resize</code> <strong>và</strong> <code class="language-plaintext highlighter-rouge">assign</code> <strong>chỉ khác nhau ở chỗ:</strong> <code class="language-plaintext highlighter-rouge">resize</code> <strong>không gán lại giá trị,</strong> <code class="language-plaintext highlighter-rouge">assign</code> <strong>thì có.</strong></p>
 
-<h1 id="truy-cập-phần-tử">Truy cập phần tử</h1>
+<h2 id="truy-cập-phần-tử">Truy cập phần tử</h2>
 <p>Ta hoàn toàn có thể truy cập phần tử của vector như mảng bình thường:</p>
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
 <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// in ra 4</span>
 </code></pre></div></div>
 
 <p>Ngoài ra, ta có thể sử dụng <code class="language-plaintext highlighter-rouge">at()</code> (cơ mà anh chẳng thấy ai dùng cả ._.)</p>
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
 <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">a</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// in ra 4</span>
 </code></pre></div></div>
 
 <p><strong>Lưu ý: vector (cũng giống mảng) bắt đầu đánh số chỉ số từ 0.</strong></p>
 
 <p>Ta có thể lấy phần tử đầu tiên và cuối cùng của vector bằng <code class="language-plaintext highlighter-rouge">front()</code> và <code class="language-plaintext highlighter-rouge">back()</code>:</p>
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
 <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">a</span><span class="p">.</span><span class="n">front</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="sc">' '</span> <span class="o">&lt;&lt;</span> <span class="n">a</span><span class="p">.</span><span class="n">back</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// in ra "1 5"</span>
 </code></pre></div></div>
 
-<h1 id="con-trỏ">Con trỏ</h1>
+<h2 id="con-trỏ">Con trỏ</h2>
 <p>Sơ qua thì chúng ta có <code class="language-plaintext highlighter-rouge">begin()</code>, <code class="language-plaintext highlighter-rouge">end()</code>, <code class="language-plaintext highlighter-rouge">rbegin()</code>, <code class="language-plaintext highlighter-rouge">rend()</code>,…<br />
 Bản thân con trỏ là một topic khó, anh sẽ bỏ qua. Anh sẽ cân nhắc update bổ sung nếu cần thiết.</p>
 
-<h1 id="kích-cỡ">Kích cỡ</h1>
+<h2 id="kích-cỡ">Kích cỡ</h2>
 <p>Function <code class="language-plaintext highlighter-rouge">empty()</code> sẽ cho ta biết vector có rỗng hay không:</p>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">;</span>
 <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">a</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// in ra 1, tức là true</span>
@@ -160,45 +166,84 @@ Bản thân con trỏ là một topic khó, anh sẽ bỏ qua. Anh sẽ cân nh�
 </code></pre></div></div>
 
 <p>Function <code class="language-plaintext highlighter-rouge">size()</code> sẽ cho ta biết kích cỡ của vector:</p>
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
 <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// in ra 5</span>
 </code></pre></div></div>
 
 <p>Ngoài ra, còn một số khái niệm về capacity, anh sẽ bỏ qua.</p>
 
-<h1 id="chỉnh-sửa">Chỉnh sửa</h1>
+<h2 id="chỉnh-sửa">Chỉnh sửa</h2>
 <p>Để <strong>thêm</strong> vào <strong>đằng sau</strong> của vector, ta dùng <code class="language-plaintext highlighter-rouge">push_back()</code>:</p>
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
 <span class="n">a</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">27022004</span><span class="p">);</span> <span class="c1">// a = {1, 2, 3, 4, 5, 27022004} ;)</span>
 </code></pre></div></div>
 
 <p>Ngoài ra, ta còn lệnh <code class="language-plaintext highlighter-rouge">emplace_back()</code>. Có thể anh sẽ viết riêng một blog ngắn về lệnh này. Tạm thời <code class="language-plaintext highlighter-rouge">push_back()</code> là ổn rồi.</p>
 
 <p>Để <strong>bỏ</strong> phần tử <strong>đằng sau</strong> của vector, ta dùng <code class="language-plaintext highlighter-rouge">pop_back()</code>:</p>
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
 <span class="n">a</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span> <span class="c1">// a = {1, 2, 3, 4}</span>
 </code></pre></div></div>
 
 <p>Để xóa toàn bộ vector, ta dùng <code class="language-plaintext highlighter-rouge">clear()</code>:</p>
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
 <span class="n">a</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span> <span class="c1">// a = {}</span>
 </code></pre></div></div>
 
 <p>Để đổi giá trị 2 vector cho nhau, ta có thể dùng <code class="language-plaintext highlighter-rouge">swap()</code>:</p>
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span>
-<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">};</span>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">b</span> <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">};</span>
 
 <span class="c1">// 1 trong 2 cách đều cho kết quả giống nhau, nhưng cách 2 nhanh hơn cách 1</span>
-<span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span>
-<span class="n">a</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+<span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span> <span class="c1">// hoặc a.swap(b);</span>
+<span class="c1">// a = {4, 5, 6}</span>
+<span class="c1">// b = {1, 2, 3}</span>
 </code></pre></div></div>
 
 <p>Các lệnh như <code class="language-plaintext highlighter-rouge">insert()</code>, <code class="language-plaintext highlighter-rouge">erase()</code>,… có liên quan tới <strong>con trỏ</strong>. Anh sẽ cân nhắc update bổ sung nếu cần thiết.</p>
 
+<h2 id="các-lệnh-hữu-ích-khác">Các lệnh hữu ích khác</h2>
+<p>(Cảm ơn idol <strong><em><a href="https://www.facebook.com/dlbm.1302">dlbm1302</a></em></strong> đã góp ý)</p>
+
+<p>Sắp xếp toàn bộ vector bằng <code class="language-plaintext highlighter-rouge">sort()</code>:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span> <span class="p">{</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">};</span>
+<span class="n">sort</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">a</span><span class="p">.</span><span class="n">end</span><span class="p">());</span> <span class="c1">// a = {1, 2, 3, 4, 5} : sort tăng dần</span>
+<span class="n">sort</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">rbegin</span><span class="p">(),</span> <span class="n">a</span><span class="p">.</span><span class="n">rend</span><span class="p">());</span> <span class="c1">// a = {5, 4, 3, 2, 1} : sort giảm dần</span>
+</code></pre></div></div>
+
+<p>Đảo ngược toàn bộ vector bằng <code class="language-plaintext highlighter-rouge">reverse()</code>:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">};</span>
+<span class="n">reverse</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">a</span><span class="p">.</span><span class="n">end</span><span class="p">());</span> <span class="c1">// a = {4, 0, 0, 2, 2, 0, 7, 2}</span>
+</code></pre></div></div>
+
+<p>Gán giá trị cho mảng bằng <code class="language-plaintext highlighter-rouge">fill() và fill_n()</code> (<code class="language-plaintext highlighter-rouge">fill() và fill_n()</code> là các lệnh tương tự <code class="language-plaintext highlighter-rouge">memset()</code>, nhưng mạnh mẽ hơn):</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+<span class="n">fill</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">a</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// a = {-1, -1, -1, -1, -1, -1}</span>
+<span class="n">fill_n</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span> <span class="c1">// a = {20, 20, 20, -1, -1, -1}</span>
+</code></pre></div></div>
+
+<p>Rải các phần tử bằng <code class="language-plaintext highlighter-rouge">iota()</code>:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+<span class="n">iota</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">a</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="mi">7</span><span class="p">);</span> <span class="c1">// a = {7, 8, 9, 10, 11}</span>
+</code></pre></div></div>
+
+<p>Tìm giá trị lớn nhất, nhỏ nhất ở trong vector:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">};</span>
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">max_element</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">a</span><span class="p">.</span><span class="n">end</span><span class="p">())</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// in ra 7</span>
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">min_element</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">a</span><span class="p">.</span><span class="n">end</span><span class="p">())</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// in ra 0</span>
+</code></pre></div></div>
+
+<p>Xóa các phần tử trùng lặp trong vector (có thể ứng dụng để nén sau này):</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">};</span>
+<span class="n">sort</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">a</span><span class="p">.</span><span class="n">end</span><span class="p">());</span> <span class="c1">// bắt buộc</span>
+<span class="n">a</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">unique</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">a</span><span class="p">.</span><span class="n">end</span><span class="p">()),</span> <span class="n">a</span><span class="p">.</span><span class="n">end</span><span class="p">());</span> <span class="c1">// a = {0, 2, 4, 7}</span>
+</code></pre></div></div>
+
 <h2 id="nguồn">Nguồn</h2>
 <ul>
   <li><a href="https://en.cppreference.com/w/cpp/container/vector">cppreference.com</a></li>
-  <li><a href="https://www.cplusplus.com/reference/vector/vector/">cplusplus.com</a></li>
+  <li><a href="https://www.cplusplus.com/reference/vector/vector">cplusplus.com</a></li>
 </ul>
 
   </div></div>
