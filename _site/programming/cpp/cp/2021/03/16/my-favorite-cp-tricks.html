@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<title>[Updating] My favorite competitive programming tricks</title>
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>[Updating] My favorite competitive programming tricks | Hikarii</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="[Updating] My favorite competitive programming tricks" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I would like to talk a bit about my favorite competitive programming tricks (and, maybe, the story behind them). I’m using C++17 (64-bit), but these should work with C++11 and above." />
+<meta property="og:description" content="I would like to talk a bit about my favorite competitive programming tricks (and, maybe, the story behind them). I’m using C++17 (64-bit), but these should work with C++11 and above." />
+<link rel="canonical" href="http://localhost:4000/programming/cpp/cp/2021/03/16/my-favorite-cp-tricks.html" />
+<meta property="og:url" content="http://localhost:4000/programming/cpp/cp/2021/03/16/my-favorite-cp-tricks.html" />
+<meta property="og:site_name" content="Hikarii" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-03-16T13:16:30+07:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[Updating] My favorite competitive programming tricks" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/programming/cpp/cp/2021/03/16/my-favorite-cp-tricks.html","headline":"[Updating] My favorite competitive programming tricks","dateModified":"2021-03-16T13:16:30+07:00","datePublished":"2021-03-16T13:16:30+07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/programming/cpp/cp/2021/03/16/my-favorite-cp-tricks.html"},"description":"I would like to talk a bit about my favorite competitive programming tricks (and, maybe, the story behind them). I’m using C++17 (64-bit), but these should work with C++11 and above.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/assets/js/darkmode.js"></script>
+
+</head><body>
+  <main class="container">
+    <section class="about">
+      <div class="about-header ">
+      <div class="about-title">
+      <a href="/">
+        
+        <img src="/assets/suisei.png" alt="Hikarii" />
+        
+      </a>
+      <h2 id="title">
+        <a href="/">Hikarii</a>
+      </h2>
+      </div><p class="tagline">An abnormal student.</p></div>
+      
+      <ul class="social about-footer "><a href="https://github.com/Hikarii0703" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://facebook.com/Hikarii0703" target="_blank">
+          <li>
+            <i class="icon-facebook-squared"></i>
+          </li>
+        </a></ul><nav class="navigation about-footer ">
+        <ul>
+          
+          <li>
+            <a href="/about">About</a>
+          </li>
+          
+        </ul>
+      </nav><p class="about-footer ">&copy;
+        2021</p><div class="about-footer ">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </section>
+    <section class="content">
+      <div class="post-container">
+  <a class="post-link" href="/programming/cpp/cp/2021/03/16/my-favorite-cp-tricks.html">
+    <h2 class="post-title">[Updating] My favorite competitive programming tricks</h2>
+  </a>
+  <div class="post-meta">
+    <div class="post-date"><i class="icon-calendar"></i>Mar 16, 2021</div><ul class="post-categories"><li>programming</li><li>cpp</li><li>cp</li></ul></div>
+  <div class="post">
+    <p>I would like to talk a bit about my favorite competitive programming tricks (and, maybe, the story behind them).<br />
+I’m using C++17 (64-bit), but these should work with C++11 and above.</p>
+
+<h2 id="alternative-operator-representations">Alternative operator representations</h2>
+
+<p>I’m quoting this from <a href="https://en.cppreference.com/w/cpp/language/operator_alternative">cppreference.com</a>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C++ (and C) source code may be written in any non-ASCII 7-bit character set that includes
+the ISO 646:1983 invariant character set. However, several C++ operators and punctuators
+require characters that are outside of the ISO 646 codeset: {, }, [, ], #, \, ^, |, ~.
+To be able to use character encodings where some or all of these symbols do not exist
+(such as the German DIN 66003),C++ defines the following alternatives composed of ISO 646 compatible characters.
+</code></pre></div></div>
+
+<p>Basically, the reason C++ has keywords like <code class="language-plaintext highlighter-rouge">and</code>, <code class="language-plaintext highlighter-rouge">or</code>, <code class="language-plaintext highlighter-rouge">compl</code>, etc is because some keyboards didn’t have the characters <code class="language-plaintext highlighter-rouge">&amp;</code>, <code class="language-plaintext highlighter-rouge">|</code>, <code class="language-plaintext highlighter-rouge">~</code> etc.<br />
+I like using these more. Despite requiring more keystrokes, these keywords can be typed using actual letters, without holding the Shift keys.
+They are also closer to the homerow, and it makes the codes look more like actual phrases and sentences (eg. <code class="language-plaintext highlighter-rouge">not empty(c)</code> vs <code class="language-plaintext highlighter-rouge">(!empty(c)))</code>.
+Most developers don’t actually like it though, which is why I don’t use it for actual development work. This is exclusively for competitive programming.</p>
+
+<h2 id="constexpr">constexpr</h2>
+
+<p><code class="language-plaintext highlighter-rouge">constexpr</code> is guaranteed to be assigned at compile time, while <code class="language-plaintext highlighter-rouge">const</code> doesn’t necessarily have to. Also, some functions like <code class="language-plaintext highlighter-rouge">static_assert()</code> only
+accept <code class="language-plaintext highlighter-rouge">constexpr</code> values.</p>
+
+<h2 id="auto">auto</h2>
+
+<p>Compare this:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">it</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+</code></pre></div></div>
+<p>to this:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">auto</span> <span class="n">it</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Isn’t this great and magical? <code class="language-plaintext highlighter-rouge">auto</code> can guess the declared type of a variable, so you don’t have to. However, it has side effects, so use them wisely.</p>
+
+<h2 id="structured-bindings">Structured bindings</h2>
+
+<p>This feature is officially available on C++17, but you can use this on C++11 and 14. Sure, you’ll get a warning, but it will still work.<br /></p>
+
+<p>Instead of:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+<span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+<span class="kt">int</span> <span class="n">z</span> <span class="o">=</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+<span class="kt">int</span> <span class="n">t</span> <span class="o">=</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">3</span><span class="o">&gt;</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+</code></pre></div></div>
+<p>you can do this:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">;</span>
+<span class="k">auto</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>You can also use the <code class="language-plaintext highlighter-rouge">const</code> keyword, or get the elements as references with <code class="language-plaintext highlighter-rouge">&amp;</code>.</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">;</span>
+<span class="k">const</span> <span class="k">auto</span> <span class="o">&amp;</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="range-based-for-loops">Range-based for-loops</h2>
+
+<p>There is the normal incremental for-loop, there is the iterator-based for-loops. But, the most intuitive of them all is range-based for-loops.</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">x</span> <span class="o">:</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="sc">' '</span><span class="p">;</span> <span class="c1">// prints "1 2 3 4 5 "</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>This is very convenient. One don’t have to deal with indices and iterators, just straight up plug a (few) variable(s) and it works. You can combine this
+with the <code class="language-plaintext highlighter-rouge">auto</code> keyword and structured bindings.</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">a</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span> <span class="o">&amp;</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">]</span> <span class="o">:</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// do something</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="emplaceemplace_back">emplace()/emplace_back()</h2>
+
+<p>This is a rather widely known <em>tricks</em> (it’s not really a trick, but it seems that there are still some people that aren’t aware of it).<br />
+Many people still use <code class="language-plaintext highlighter-rouge">push()</code> and <code class="language-plaintext highlighter-rouge">push_back()</code> to add an element to a container. However, there is a major difference between <code class="language-plaintext highlighter-rouge">push()/push_back()</code>
+and <code class="language-plaintext highlighter-rouge">emplace()/emplace_back()</code>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">push()/push_back()</code> requires an object as the parameter, ie. if it’s a container of <code class="language-plaintext highlighter-rouge">pair</code>, you need to pass a <code class="language-plaintext highlighter-rouge">pair</code>;
+if it’s a container of <code class="language-plaintext highlighter-rouge">tuple</code>, you need to pass a <code class="language-plaintext highlighter-rouge">tuple</code>, etc. If you already have an object ready to be passed, then that’s fine. If not, you
+will have to create one. After that, the container will create a new object within itself, and copy the passed object to the newly created object.
+So, you need to create 2 objects, instead of 1. If the object takes time and memory to construct, that’s a waste of efficiency.</p>
+
+<p><code class="language-plaintext highlighter-rouge">emplace()/emplace_back()</code>, however, requires <strong>members</strong> of an object as the parameters, not the whole object. If it’s a container of <code class="language-plaintext highlighter-rouge">pair&lt;int, int&gt;</code>,
+you only need to pass 2 <code class="language-plaintext highlighter-rouge">int</code>’s, instead of a <code class="language-plaintext highlighter-rouge">pair</code>. You don’t have to construct a new <code class="language-plaintext highlighter-rouge">pair</code>. The <code class="language-plaintext highlighter-rouge">int</code>’s will be referenced. ‘The container will still
+create a new object within itself, but it will take the passed parameters as the constructor parameters. In the end, you only need to create 1 object only,
+which is the one inside the container. This is a lot faster, compared to <code class="language-plaintext highlighter-rouge">push()/push_back()</code>.</p>
+
+<p>However, for simpler types like <code class="language-plaintext highlighter-rouge">int</code> or <code class="language-plaintext highlighter-rouge">long long</code>, it’s actually faster to create another copy, than to reference them. That’s why I simply choose
+<code class="language-plaintext highlighter-rouge">push()/push_back()</code> for these types.</p>
+
+<h2 id="fillfill_n">fill()/fill_n()</h2>
+
+<p>Many people use <code class="language-plaintext highlighter-rouge">memset()</code>. It is indeed fast, but it can’t fill an array with an arbitrary value, nor fill a certain range of the array.
+The better alternatives are <code class="language-plaintext highlighter-rouge">fill()/fill_n()</code>. They can be a bit slow, but they can fix the aforementioned problems. Also, if necessary, it will call
+<code class="language-plaintext highlighter-rouge">memset</code> underlying, to save some speed.</p>
+
+<p><strong>[To be continued]</strong></p>
+
+  </div></div>
+
+    </section>
+    <footer class="">
+      <ul class="social about-footer "><a href="https://github.com/Hikarii0703" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://facebook.com/Hikarii0703" target="_blank">
+          <li>
+            <i class="icon-facebook-squared"></i>
+          </li>
+        </a></ul><nav class="navigation about-footer ">
+        <ul>
+          
+          <li>
+            <a href="/about">About</a>
+          </li>
+          
+        </ul>
+      </nav><p class="about-footer ">&copy;
+        2021</p><div class="about-footer ">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </footer>
+  </main>
+  
+  <script type="text/javascript" src="/assets/js/darkmode.js"></script>
+  
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  
+</body>
+
+</html>

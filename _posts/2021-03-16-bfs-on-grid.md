@@ -2,10 +2,8 @@
 layout: post
 title:  "[Vietnamese] BFS on Grid"
 date:   2021-03-16 08:10:51 +0700
-categories: programming cpp
+categories: programming cpp cp
 ---
-
-# BFS on Grid
 
 BFS on Grid (BFS trên lưới, loang trên lưới) là một trong những kiến thức cơ bản của BFS, và hoàn toàn có thể ra trong đề thi OLP 30/4 cho khối 10.
 Thầy Khắc dạy có vẻ hơi chậm, nên nhảy sang đồ thị mà chưa được tiếp cận với BFS on Grid. Vì thế mà hôm nay, anh sẽ giới thiệu sơ qua về topic này.
@@ -14,6 +12,7 @@ Hiện tại anh thấy có Văn Hoàng là đã sử dụng được kỹ thu�
 Mấy đứa có thể liên hệ những đứa này để hiểu thêm.
 
 ## Đề bài
+
 Cho một lưới kích thước `n x m`. Tìm đường đi **ngắn nhất** từ ô `'S'` đến ô `'D'`. Những ô `'.'` là những ô được đi qua, còn những ô `'#'` thì không.
 Từ một ô, chỉ được phép di chuyển sang các ô kề cạnh (trên, dưới, trái, phải, **không được đi chéo**). In ra `-1` nếu không tìm thấy đường đi.<br/>
 VD:
