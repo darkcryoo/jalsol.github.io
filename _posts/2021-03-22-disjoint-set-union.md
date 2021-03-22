@@ -241,7 +241,7 @@ Vậy nên, có muôn vàn cách đặt tên hàm, nên nếu đọc code ngư�
 ### Suýt nữa là AC 4 bài Free Contest
 Tại kì [Testing Round 6](https://www.facebook.com/kc97blf/photos/3183003871925426) của Free Contest, mình rất akay vì bài METEORITE. Mình mới học DSU ngay chiều hôm đó,
 vừa học vừa dụi mắt, thấm mãi không nổi. Y như rằng, buổi tối ra đúng bài cần DSU .\_. Tôi vẫn tiếc, vì suýt nữa mình đã có lần đầu tiên AC 4 bài Free Contest trong đời.
-(Mà sau này mình còn một kì Free Contest nữa đắng hơn, 248/250, nhưng có người 250/250 nên không được vinh danh ;-;).
+(Mà sau này tôi còn một kì Free Contest nữa đắng hơn, 248/250, nhưng có người 250/250 nên không được vinh danh ;-;).
 
 ## Nguồn
 * [e-maxx / cp-algorithms](https://cp-algorithms.com/data_structures/disjoint_set_union.html)
