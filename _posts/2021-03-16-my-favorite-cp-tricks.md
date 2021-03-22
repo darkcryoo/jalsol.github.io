@@ -87,7 +87,7 @@ for (const auto &[x, y, z] : a) {
 
 ## emplace()/emplace\_back()
 
-This is a rather widely known *tricks* (it's not really a trick, but it seems that there are still some people that aren't aware of it).<br/>
+This is a rather widely known *tricks* (it's not really a trick, but it seems that there are some people who are still not aware of it).<br/>
 Many people still use `push()` and `push_back()` to add an element to a container. However, there is a major difference between `push()/push_back()`
 and `emplace()/emplace_back()`.
 
@@ -108,6 +108,6 @@ However, for simpler types like `int` or `long long`, it's actually faster to cr
 
 Many people use `memset()`. It is indeed fast, but it can't fill an array with an arbitrary value, nor fill a certain range of the array.
 The better alternatives are `fill()/fill_n()`. They can be a bit slow, but they can fix the aforementioned problems. Also, if necessary, it will call
-`memset` underlying, to save some speed.
+`memset` in the background to save some speed.
 
 **[To be continued]**

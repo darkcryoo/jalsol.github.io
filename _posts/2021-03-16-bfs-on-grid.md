@@ -6,10 +6,6 @@ categories: programming cpp cp
 ---
 
 BFS on Grid (BFS trên lưới, loang trên lưới) là một trong những kiến thức cơ bản của BFS, và hoàn toàn có thể ra trong đề thi OLP 30/4 cho khối 10.
-Thầy Khắc dạy có vẻ hơi chậm, nên nhảy sang đồ thị mà chưa được tiếp cận với BFS on Grid. Vì thế mà hôm nay, anh sẽ giới thiệu sơ qua về topic này.
-
-Hiện tại anh thấy có Văn Hoàng là đã sử dụng được kỹ thuật này, Trần Mạnh Hùng thì có hỏi anh và có cài thử.
-Mấy đứa có thể liên hệ những đứa này để hiểu thêm.
 
 ## Đề bài
 
@@ -39,7 +35,7 @@ Output:
 ## Phân tích
 
 Việc dùng BFS là ý tưởng hiển nhiên. **BFS luôn cho phép tìm đường đi ngắn nhất giữa 2 điểm bất kì (cạnh không trọng số)**.<br/>
-Trước hết, anh giới thiệu loại mảng đặc biệt, để hỗ trợ việc di chuyển kề cạnh:
+Trước hết, tôi sẽ giới thiệu loại mảng đặc biệt, để hỗ trợ việc di chuyển kề cạnh:
 ```cpp
 const int numDir = 4; // có 4 ô kề cạnh
 const int dx[] = {-1,  0,  1,  0};
@@ -48,12 +44,12 @@ const int dy[] = { 0,  1,  0, -1};
 Ý nghĩa của 2 mảng trên để làm gì?<br/>
 Giả sử, ta đang ở ô có tọa độ **(x, y)**:
 
-<img src="/assets/bfs_on_grid/grid1.png" alt="grid1">
+<img src="/assets/bfs_on_grid/grid1.png" alt="grid1"/>
 
 Di chuyển sang các ô **kề cạnh**, tức là di chuyển sang các ô **(x - 1, y)**, **(x, y + 1)**, **(x + 1, y)**, **(x, y - 1)**:
 
 
-<img src="/assets/bfs_on_grid/grid2.png" alt="grid2">
+<img src="/assets/bfs_on_grid/grid2.png" alt="grid2"/>
 
 Vậy, ta chỉ cần dùng một vòng for đơn giản:
 ```cpp
@@ -143,3 +139,4 @@ const int dy[]  = { 0,  1,  1,  1,  0, -1, -1, -1};
 * [PTIT - BCLKCOUN](https://www.spoj.com/PTIT/problems/BCLKCOUN)
 * [CSES - Labyrinth](https://cses.fi/problemset/task/1193)
 * [CSES - Monsters](https://cses.fi/problemset/task/1194)
+* [Codeforces - 598D](https://codeforces.com/problemset/problem/598/D)

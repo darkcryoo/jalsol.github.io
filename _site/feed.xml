@@ -1,4 +1,257 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-03-16T14:24:41+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Hikarii</title><subtitle>just a little blog of mine.</subtitle><entry><title type="html">[Updating] My favorite competitive programming tricks</title><link href="http://localhost:4000/programming/cpp/cp/2021/03/16/my-favorite-cp-tricks.html" rel="alternate" type="text/html" title="[Updating] My favorite competitive programming tricks" /><published>2021-03-16T13:16:30+07:00</published><updated>2021-03-16T13:16:30+07:00</updated><id>http://localhost:4000/programming/cpp/cp/2021/03/16/my-favorite-cp-tricks</id><content type="html" xml:base="http://localhost:4000/programming/cpp/cp/2021/03/16/my-favorite-cp-tricks.html">&lt;p&gt;I would like to talk a bit about my favorite competitive programming tricks (and, maybe, the story behind them).&lt;br /&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-03-23T00:07:12+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Hikarii</title><subtitle>just a little blog of mine.</subtitle><entry><title type="html">[Vietnamese] Disjoint Set Union</title><link href="http://localhost:4000/programming/cpp/cp/2021/03/22/disjoint-set-union.html" rel="alternate" type="text/html" title="[Vietnamese] Disjoint Set Union" /><published>2021-03-22T21:27:00+07:00</published><updated>2021-03-22T21:27:00+07:00</updated><id>http://localhost:4000/programming/cpp/cp/2021/03/22/disjoint-set-union</id><content type="html" xml:base="http://localhost:4000/programming/cpp/cp/2021/03/22/disjoint-set-union.html">&lt;p&gt;&lt;strong&gt;Disjoint Set Union (DSU)&lt;/strong&gt; là một data structure đa dụng, có thể dùng để giải quyết nhiều bài toán điển hình.
+DSU thường được dùng để &lt;strong&gt;nhóm các phần tử (union)&lt;/strong&gt; và &lt;strong&gt;kiểm tra xem phần tử thuộc nhóm nào (find)&lt;/strong&gt;.
+Chính vì thế, mà DSU còn có tên gọi khác là &lt;strong&gt;Union-Find&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;xây-dựng-dsu&quot;&gt;Xây dựng DSU&lt;/h2&gt;
+
+&lt;p&gt;Mỗi nhóm trong DSU sẽ có một phần tử làm đại diện cho toàn bộ nhóm. Phần tử đó gọi là &lt;strong&gt;leader/parent&lt;/strong&gt;.
+(&lt;strong&gt;parent&lt;/strong&gt; là tên phổ biến hơn, nhưng &lt;strong&gt;leader&lt;/strong&gt; lại thể hiện được đúng tính chất hơn. Để mang tính “hội nhập”, ta sẽ thống nhất gọi là &lt;strong&gt;parent&lt;/strong&gt;).
+Vì thế, ta có thể chia các nhóm, dựa trên việc ai là &lt;strong&gt;parent&lt;/strong&gt; của mỗi phần tử.&lt;br /&gt;
+VD:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/dsu/dsu1.png&quot; alt=&quot;dsu1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Như trên hình, ta có thể thấy có 3 nhóm:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Nhóm 1: 1, 2, 3, 4&lt;/li&gt;
+  &lt;li&gt;Nhóm 2: 5, 6, 7&lt;/li&gt;
+  &lt;li&gt;Nhóm 3: 8, 9, 10, 11, 12, 13&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Giả sử, ta gọi mảng &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parent[]&lt;/code&gt; là mảng lưu lại &lt;strong&gt;parent&lt;/strong&gt; của một đỉnh.
+Dễ thấy, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parent[1] == parent[2]&lt;/code&gt; vì 2 đỉnh này cùng chung một nhóm.
+Trong khi đó, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parent[6] != parent[9]&lt;/code&gt; vì 2 đỉnh này khác nhóm.&lt;/p&gt;
+
+&lt;p&gt;Vậy, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parent[x]&lt;/code&gt; bằng mấy? Như đã đề cập bên trên, mỗi nhóm đều phải có một &lt;strong&gt;parent&lt;/strong&gt; xác định nào đó để phân chia các phần tử
+còn lại thành các nhóm.&lt;/p&gt;
+
+&lt;p&gt;Vì thế, nếu &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parent[x] == p&lt;/code&gt; thì &lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt; sẽ là phần tử thuộc nhóm do &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;p&lt;/code&gt; làm parent&lt;/strong&gt;. Nếu &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parent[x] == x&lt;/code&gt; thì &lt;strong&gt;chính &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt; sẽ là parent trong nhóm của x&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;VD: với hình trên, mảng &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parent[]&lt;/code&gt; của chúng ta &lt;strong&gt;có thể&lt;/strong&gt; sẽ như sau:
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parent = {0, 1, 1, 1, 1, 5, 5, 5, 8, 8, 8, 8, 8, 8}&lt;/code&gt;&lt;br /&gt;
+(lưu ý: phần tử &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0&lt;/code&gt; kia là vì ta không có phần tử &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0&lt;/code&gt; trong đồ thị, tuy nhiên mảng C++ đánh chỉ số từ &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;Trong lúc cài đặt, mảng &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parent[]&lt;/code&gt; hoàn toàn có thể khác ví dụ mẫu bên trên, miễn là ta đảm bảo được những tính chất vừa trình bày như trên.&lt;br /&gt;
+VD: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parent = {0, 2, 2, 2, 2, 6, 6, 6, 9, 9, 9, 9, 9, 9}&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;thuật-trẻ-trâu&quot;&gt;Thuật trẻ trâu&lt;/h3&gt;
+
+&lt;p&gt;Đầu tiên, mọi đỉnh đều sẽ thuộc một nhóm riêng, chưa gộp ai với ai cả. Vì thế, với mỗi đỉnh thứ &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parent[i] = i&lt;/code&gt; (i.e. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parent[1] = 1&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parent[42]&lt;/code&gt; = 42…).&lt;/p&gt;
+
+&lt;p&gt;Ta sẽ có hàm đệ quy &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;find()&lt;/code&gt; để tìm &lt;strong&gt;parent&lt;/strong&gt; như sau:&lt;/p&gt;
+&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Nếu &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parent[x] == x&lt;/code&gt; thì lúc này &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt; là &lt;strong&gt;leader/parent&lt;/strong&gt;, vì thế nên ta không cần tìm nữa.
+Ngược lại, ta lại tìm tiếp parent của parent của &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt;, tìm nguyên dòng họ cho đến khi tìm thấy &lt;strong&gt;leader/parent&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Ngoài ra, ta có thể kiểm tra xem hai đỉnh có cùng chung nhóm không:&lt;/p&gt;
+&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sameSet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Đơn giản, hai thằng chung nhóm thì parent của cả hai thằng thực chất là một.&lt;/p&gt;
+
+&lt;p&gt;Hàm &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;join()&lt;/code&gt; để nhóm hai nhóm với nhau như sau:&lt;/p&gt;
+&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Dễ thấy, để gộp hai nhóm với nhau, ta chỉ đơn giản là lôi đầu parent của mỗi nhóm ra, rồi cho một thằng là parent của thằng còn lại.&lt;br /&gt;
+Đầu tiên, ta thay &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; và &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;b&lt;/code&gt; bằng parent của hai đỉnh này (i.e. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; hiện tại là parent của &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; lúc mới nhập, tương tự với b).
+Nếu hai thằng khác nhau, nghĩa là &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; và &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;b&lt;/code&gt; lúc mới nhập không cùng nhóm, ta gán một thằng là parent thằng kia.&lt;/p&gt;
+
+&lt;p&gt;Cách này trẻ trâu ở điểm nào?&lt;/p&gt;
+
+&lt;p&gt;Giả sử, đồ thị của chúng ta sau khi gán một hồi nhìn như này:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/dsu/dsu2.png&quot; alt=&quot;dsu2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;find(5)&lt;/code&gt; sẽ đi hết nguyên đoạn đường ngược về đỉnh &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt;. Tương tự, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;find(10)&lt;/code&gt; sẽ đi hết nguyên đoạn đường ngược về đỉnh &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;6&lt;/code&gt;.
+Độ phức tạp của cách cài này sẽ là O(n).&lt;/p&gt;
+
+&lt;p&gt;Hai hàm &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sameSet()&lt;/code&gt; và &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;join()&lt;/code&gt; đều phụ thuộc vào hàm &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;find()&lt;/code&gt;. Vì thế, độ phức tạp của hai hàm này cũng kà O(n) luôn.&lt;/p&gt;
+
+&lt;p&gt;Ta hoàn toàn có thể tối ưu cách cài đặt của chúng ta xuống độ phức tạp thấp hơn đáng kể.&lt;/p&gt;
+
+&lt;h3 id=&quot;path-compression&quot;&gt;Path compression&lt;/h3&gt;
+
+&lt;p&gt;Giả sử ta có hình sau:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/dsu/dsu3.png&quot; alt=&quot;dsu3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Lúc này, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parent[3] = 2, parent[2] = 1&lt;/code&gt;. Việc gọi &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;find(3)&lt;/code&gt; sẽ phải đi qua đỉnh &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2&lt;/code&gt;, rồi mới qua đỉnh &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt;.
+Trong khi đó, tại sao ta không nối thẳng &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3&lt;/code&gt; vào &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt; luôn cho khỏe, để đỡ phải qua &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2&lt;/code&gt;?&lt;/p&gt;
+
+&lt;p&gt;Vậy, ta chỉ cần gán thẳng &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parent[3] = find(parent[2])&lt;/code&gt; (hay &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parent[3] = 1&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;Chỉ thêm một chút như sau, tốc độ thuật toán cải thiện cực kì rõ rệt:&lt;/p&gt;
+&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Lúc này, độ phức tạp của &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;find()&lt;/code&gt; chỉ còn O(log n), và khiến cả độ phức tạp của &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;join()&lt;/code&gt; cũng trở thành O(log n) luôn.&lt;/p&gt;
+
+&lt;p&gt;Tuy nhiên, ta còn một phương pháp tối ưu nữa, làm cho thuật toán của chúng ta nhanh hơn nữa.&lt;/p&gt;
+
+&lt;h3 id=&quot;union-by-sizerank&quot;&gt;Union by size/rank&lt;/h3&gt;
+
+&lt;p&gt;Ta sẽ chỉ đề cập đến &lt;strong&gt;Union by size&lt;/strong&gt;. &lt;strong&gt;Union by rank&lt;/strong&gt; thực chất cũng có cùng tư tưởng, chỉ có khác biệt rất nhỏ ở cách cài.&lt;/p&gt;
+
+&lt;p&gt;Ta sẽ cần thêm mảng &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;size[]&lt;/code&gt;. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;size[x]&lt;/code&gt; sẽ cho biết có bao nhiêu phần tử là con của &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt; (bao gồm chính nó).&lt;br /&gt;
+VD:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/dsu/dsu4.png&quot; alt=&quot;dsu4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Dễ dàng thấy được &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;size[1] = 6&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;size[3] = 3&lt;/code&gt;. Thế thì, mảng &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;size[]&lt;/code&gt; này để làm gì?&lt;/p&gt;
+
+&lt;p&gt;Nếu gộp 2 nhóm này với nhau, ta sẽ có hai trường hợp:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Gộp nhóm lớn vào nhóm nhỏ: độ cao của cây sẽ là 5.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/dsu/dsu5.png&quot; alt=&quot;dsu5&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Gộp nhóm nhỏ vào nhóm lớn: độ cao của cây sẽ là 4.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/dsu/dsu6.png&quot; alt=&quot;dsu6&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Ta nhận xét rằng: gộp nhóm nhỏ vào nhóm lớn sẽ có lợi thế hơn so với gộp nhóm lớn vào nhóm nhỏ.
+Vậy, trong hai parent, &lt;strong&gt;ta sẽ gán parent có size nhỏ hơn vào size lớn hơn&lt;/strong&gt;.
+Đồng thời, ta nhận thấy &lt;strong&gt;size của parent được gộp vào sẽ được tăng thêm một lượng bằng size của parent kia&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;VD: lúc này, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parent[7] = 1&lt;/code&gt; và &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;size[1] += size[7]&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Trước khi cài đặt lại hàm &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;join()&lt;/code&gt;, nên nhớ là mọi phần tử trong &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;size[]&lt;/code&gt; đều có giá trị ban đầu là 1.&lt;/p&gt;
+
+&lt;p&gt;Ta cài đặt lại hàm &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;join()&lt;/code&gt; như sau:&lt;/p&gt;
+
+&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;swap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// lúc này size[a] &amp;gt;= size[b]&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;parent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Phương pháp cải tiến này cũng sẽ giảm độ phức tạp của hàm &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;join()&lt;/code&gt; còn O(log n).&lt;/p&gt;
+
+&lt;h3 id=&quot;kết-luận&quot;&gt;Kết luận&lt;/h3&gt;
+&lt;p&gt;Mỗi phương pháp cải tiến sẽ hạ độ phức tạp xuống còn O(log n).&lt;/p&gt;
+
+&lt;p&gt;Kết hợp cả hai phương pháp, độ phức tạp của DSU sẽ chỉ còn O(α(n)) (trong đó α(n) là hàm &lt;a href=&quot;https://en.wikipedia.org/wiki/Ackermann_function#Inverse&quot;&gt;Inverse Ackermann&lt;/a&gt;,
+là một hàm có tốc độ gia tăng cực kì chậm, n &amp;lt; 10^600 thì α(n) &amp;lt; 4, rất nhỏ, cực kì gần với O(1)).&lt;/p&gt;
+
+&lt;h3 id=&quot;extra-một-số-cách-cài-khác&quot;&gt;Extra: Một số cách cài khác&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;DSU có thể được cài đặt để nối các đỉnh giá trị âm(!) với nhau.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Có một số người gán lại parent như sau:
+    &lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;u&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;Cách này cũng uhhhh được, cơ mà nó hơi ngu, độ phức tạp của nó cũng khá là sát nhưng không tốt bằng &lt;strong&gt;Path Compression&lt;/strong&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Ngoài ra, ta có thể cài đặt để gộp chung mảng &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parent[]&lt;/code&gt; và &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;size[]&lt;/code&gt; lại thành một mảng duy nhất để tiết kiệm bộ nhớ
+    &lt;ul&gt;
+      &lt;li&gt;Ta sẽ gọi mảng gộp chung này là &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parent_or_size[]&lt;/code&gt; (nếu thấy dài quá thì cứ gọi đại là &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parent[]&lt;/code&gt; luôn cũng được)&lt;/li&gt;
+      &lt;li&gt;Mọi phần tử của &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parent_or_size[]&lt;/code&gt; có giá trị bằng &lt;strong&gt;-1&lt;/strong&gt;&lt;/li&gt;
+      &lt;li&gt;Nếu &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parent_or_size[x] &amp;lt; 0&lt;/code&gt;, thì &lt;strong&gt;x là parent, và -parent_or_size[x] tương đương size[x]&lt;/strong&gt;&lt;/li&gt;
+      &lt;li&gt;Ngược lại, nếu &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parent_or_size[x] &amp;gt; 0&lt;/code&gt; thì &lt;strong&gt;parent_or_size[x] là parent của x&lt;/strong&gt;&lt;/li&gt;
+      &lt;li&gt;Ta có cách cài như sau:&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parent_or_size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parent_or_size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parent_or_size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;u&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;u&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parent_or_size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parent_or_size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;swap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;parent_or_size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parent_or_size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;parent_or_size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;ứng-dụng&quot;&gt;Ứng dụng&lt;/h2&gt;
+
+&lt;h3 id=&quot;kiểm-tra-tính-liên-thông-của-đồ-thị-vô-hướng&quot;&gt;Kiểm tra tính liên thông của đồ thị vô hướng&lt;/h3&gt;
+&lt;p&gt;Cái này thì quá dễ hiểu luôn. Nếu hai đỉnh liên thông với nhau trong đồ thị vô hướng, thì hai đỉnh này sẽ nằm chung một nhóm.&lt;br /&gt;
+Ta còn có thể ứng dụng tính chất này để cài đặt &lt;strong&gt;Minimum Spanning Tree (Cây khung nhỏ nhất)&lt;/strong&gt; một cách dễ dàng bằng &lt;strong&gt;Kruskal’s Algorithm&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;offline-range-minimum-query-rmq-trong-trung-bình-oαn-mỗi-truy-vấn--arpas-trick&quot;&gt;Offline Range Minimum Query (RMQ) trong trung bình O(α(n)) mỗi truy vấn / Arpa’s trick&lt;/h3&gt;
+&lt;p&gt;Range Minimum Query là bài toán tìm phần tử nhỏ nhất trong đoạn [L, R]. Có một số cách giải, như ứng dụng Sparse Table, Segment Tree…,
+và DSU cũng có thể được sử dụng để tìm RMQ offline (nhập hêt truy vấn, xử lý, rồi mới đưa ra đáp án một lượt).&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://codeforces.com/profile/Arpa&quot;&gt;Arpa&lt;/a&gt; là người đã độc lập tìm ra thuật toán này, và biến thuật này phổ biến, mặc dù trước đó
+thuật này đã được tìm ra trước đó rồi.&lt;/p&gt;
+
+&lt;h3 id=&quot;tìm-lcatổ-tiên-chung-gần-nhất-trong-on--tarjans-offline-lca-algorithm&quot;&gt;Tìm LCA/Tổ tiên chung gần nhất trong O(n) / Tarjan’s offline LCA algorithm&lt;/h3&gt;
+&lt;p&gt;Thuật toán này được phát triển bởi &lt;a href=&quot;https://en.wikipedia.org/wiki/Robert_Tarjan&quot;&gt;Tarjan&lt;/a&gt; (ông còn có một thuật toán khác mang tên ông &lt;strong&gt;(Tarjan’s Algorithm)&lt;/strong&gt;
+để tìm &lt;strong&gt;SCC/Thành phần Liên thông Mạnh&lt;/strong&gt;, &lt;strong&gt;Khớp (Articulation Points, Cut Vertex…) và Cầu (Bridge, Cut Edge…)&lt;/strong&gt; cực kỳ nổi tiếng).&lt;/p&gt;
+
+&lt;p&gt;Thuật toán này có một nhược điểm là yêu cầu biết trước mọi truy vấn trước khi xử lý. Về ưu điểm, thuật toán này có độ phức tạp O(n), cài đặt đơn giản và bộ nhớ không quá nhiều
+(so sánh với Binary Lifting, Farach-Colton…)&lt;/p&gt;
+
+&lt;p&gt;Ngoài ra, còn rất nhiều ứng dụng khác của DSU, nhiều khi còn chẳng liên quan đến DSU hay liên quan đến đồ thị.&lt;/p&gt;
+
+&lt;h2 id=&quot;bên-lề&quot;&gt;Bên lề&lt;/h2&gt;
+
+&lt;h3 id=&quot;cách-gọi-tên-các-hàm&quot;&gt;Cách gọi tên các hàm&lt;/h3&gt;
+&lt;p&gt;Tôi thích dùng &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;root()&lt;/code&gt; và &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;unite()&lt;/code&gt;. “root” là danh từ và “unite” là động từ, trong khi &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;root()&lt;/code&gt; thuộc kiểu &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;int&lt;/code&gt; còn &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;unite()&lt;/code&gt; thuộc kiểu &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;void&lt;/code&gt;,
+nên &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;root(x)&lt;/code&gt; và &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;unite(u, v)&lt;/code&gt; nghe tràn đầy sự hợp lý. Một số người như bạn tôi, &lt;strong&gt;&lt;em&gt;dlbm1302&lt;/em&gt;&lt;/strong&gt; thích dùng &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;getPar()&lt;/code&gt; và &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;join()&lt;/code&gt;. &lt;a href=&quot;https://codeforces.com/profile/jiangly&quot;&gt;jiangly&lt;/a&gt;
+(Legendary Grandmaster, hiện đang top 1 Trung Quốc trên Codeforces, người tôi cực kì mến mộ) dùng &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;leader[]&lt;/code&gt; thay vì &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parent[]&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Vậy nên, có muôn vàn cách đặt tên hàm, nên nếu đọc code người khác thì phải để ý một chút.&lt;/p&gt;
+
+&lt;h3 id=&quot;suýt-nữa-là-ac-4-bài-free-contest&quot;&gt;Suýt nữa là AC 4 bài Free Contest&lt;/h3&gt;
+&lt;p&gt;Tại kì &lt;a href=&quot;https://www.facebook.com/kc97blf/photos/3183003871925426&quot;&gt;Testing Round 6&lt;/a&gt; của Free Contest, mình rất akay vì bài METEORITE. Mình mới học DSU ngay chiều hôm đó,
+vừa học vừa dụi mắt, thấm mãi không nổi. Y như rằng, buổi tối ra đúng bài cần DSU ._. Tôi vẫn tiếc, vì suýt nữa mình đã có lần đầu tiên AC 4 bài Free Contest trong đời.
+(Mà sau này mình còn một kì Free Contest nữa đắng hơn, 248/250, nhưng có người 250/250 nên không được vinh danh ;-;).&lt;/p&gt;
+
+&lt;h2 id=&quot;nguồn&quot;&gt;Nguồn&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://cp-algorithms.com/data_structures/disjoint_set_union.html&quot;&gt;e-maxx / cp-algorithms&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;bài-tập-liên-quan&quot;&gt;Bài tập liên quan&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://codeforces.com/group/FLVn1Sc504/contest/274496/problem/F&quot;&gt;VNOI - IOIBIN&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://cses.fi/problemset/task/1676&quot;&gt;CSES - Road Construction&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://codeforces.com/blog/entry/22747&quot;&gt;Blog Codeforces&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><category term="programming" /><category term="cpp" /><category term="cp" /><summary type="html">Disjoint Set Union (DSU) là một data structure đa dụng, có thể dùng để giải quyết nhiều bài toán điển hình. DSU thường được dùng để nhóm các phần tử (union) và kiểm tra xem phần tử thuộc nhóm nào (find). Chính vì thế, mà DSU còn có tên gọi khác là Union-Find.</summary></entry><entry><title type="html">[Updating] My favorite competitive programming tricks</title><link href="http://localhost:4000/programming/cpp/cp/2021/03/16/my-favorite-cp-tricks.html" rel="alternate" type="text/html" title="[Updating] My favorite competitive programming tricks" /><published>2021-03-16T13:16:30+07:00</published><updated>2021-03-16T13:16:30+07:00</updated><id>http://localhost:4000/programming/cpp/cp/2021/03/16/my-favorite-cp-tricks</id><content type="html" xml:base="http://localhost:4000/programming/cpp/cp/2021/03/16/my-favorite-cp-tricks.html">&lt;p&gt;I would like to talk a bit about my favorite competitive programming tricks (and, maybe, the story behind them).&lt;br /&gt;
 I’m using C++17 (64-bit), but these should work with C++11 and above.&lt;/p&gt;
 
 &lt;h2 id=&quot;alternative-operator-representations&quot;&gt;Alternative operator representations&lt;/h2&gt;
@@ -72,7 +325,7 @@ with the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;auto
 
 &lt;h2 id=&quot;emplaceemplace_back&quot;&gt;emplace()/emplace_back()&lt;/h2&gt;
 
-&lt;p&gt;This is a rather widely known &lt;em&gt;tricks&lt;/em&gt; (it’s not really a trick, but it seems that there are still some people that aren’t aware of it).&lt;br /&gt;
+&lt;p&gt;This is a rather widely known &lt;em&gt;tricks&lt;/em&gt; (it’s not really a trick, but it seems that there are some people who are still not aware of it).&lt;br /&gt;
 Many people still use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;push()&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;push_back()&lt;/code&gt; to add an element to a container. However, there is a major difference between &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;push()/push_back()&lt;/code&gt;
 and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;emplace()/emplace_back()&lt;/code&gt;.&lt;/p&gt;
 
@@ -93,13 +346,9 @@ which is the one inside the container. This is a lot faster, compared to &lt;cod
 
 &lt;p&gt;Many people use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;memset()&lt;/code&gt;. It is indeed fast, but it can’t fill an array with an arbitrary value, nor fill a certain range of the array.
 The better alternatives are &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fill()/fill_n()&lt;/code&gt;. They can be a bit slow, but they can fix the aforementioned problems. Also, if necessary, it will call
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;memset&lt;/code&gt; underlying, to save some speed.&lt;/p&gt;
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;memset&lt;/code&gt; in the background to save some speed.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;[To be continued]&lt;/strong&gt;&lt;/p&gt;</content><author><name></name></author><category term="programming" /><category term="cpp" /><category term="cp" /><summary type="html">I would like to talk a bit about my favorite competitive programming tricks (and, maybe, the story behind them). I’m using C++17 (64-bit), but these should work with C++11 and above.</summary></entry><entry><title type="html">[Vietnamese] BFS on Grid</title><link href="http://localhost:4000/programming/cpp/cp/2021/03/16/bfs-on-grid.html" rel="alternate" type="text/html" title="[Vietnamese] BFS on Grid" /><published>2021-03-16T08:10:51+07:00</published><updated>2021-03-16T08:10:51+07:00</updated><id>http://localhost:4000/programming/cpp/cp/2021/03/16/bfs-on-grid</id><content type="html" xml:base="http://localhost:4000/programming/cpp/cp/2021/03/16/bfs-on-grid.html">&lt;p&gt;BFS on Grid (BFS trên lưới, loang trên lưới) là một trong những kiến thức cơ bản của BFS, và hoàn toàn có thể ra trong đề thi OLP 30/4 cho khối 10.
-Thầy Khắc dạy có vẻ hơi chậm, nên nhảy sang đồ thị mà chưa được tiếp cận với BFS on Grid. Vì thế mà hôm nay, anh sẽ giới thiệu sơ qua về topic này.&lt;/p&gt;
-
-&lt;p&gt;Hiện tại anh thấy có Văn Hoàng là đã sử dụng được kỹ thuật này, Trần Mạnh Hùng thì có hỏi anh và có cài thử.
-Mấy đứa có thể liên hệ những đứa này để hiểu thêm.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;[To be continued]&lt;/strong&gt;&lt;/p&gt;</content><author><name></name></author><category term="programming" /><category term="cpp" /><category term="cp" /><summary type="html">I would like to talk a bit about my favorite competitive programming tricks (and, maybe, the story behind them). I’m using C++17 (64-bit), but these should work with C++11 and above.</summary></entry><entry><title type="html">[Vietnamese] BFS on Grid</title><link href="http://localhost:4000/programming/cpp/cp/2021/03/16/bfs-on-grid.html" rel="alternate" type="text/html" title="[Vietnamese] BFS on Grid" /><published>2021-03-16T08:10:51+07:00</published><updated>2021-03-16T08:10:51+07:00</updated><id>http://localhost:4000/programming/cpp/cp/2021/03/16/bfs-on-grid</id><content type="html" xml:base="http://localhost:4000/programming/cpp/cp/2021/03/16/bfs-on-grid.html">&lt;p&gt;BFS on Grid (BFS trên lưới, loang trên lưới) là một trong những kiến thức cơ bản của BFS, và hoàn toàn có thể ra trong đề thi OLP 30/4 cho khối 10.&lt;/p&gt;
 
 &lt;h2 id=&quot;đề-bài&quot;&gt;Đề bài&lt;/h2&gt;
 
@@ -128,7 +377,7 @@ Output:
 &lt;h2 id=&quot;phân-tích&quot;&gt;Phân tích&lt;/h2&gt;
 
 &lt;p&gt;Việc dùng BFS là ý tưởng hiển nhiên. &lt;strong&gt;BFS luôn cho phép tìm đường đi ngắn nhất giữa 2 điểm bất kì (cạnh không trọng số)&lt;/strong&gt;.&lt;br /&gt;
-Trước hết, anh giới thiệu loại mảng đặc biệt, để hỗ trợ việc di chuyển kề cạnh:&lt;/p&gt;
+Trước hết, tôi sẽ giới thiệu loại mảng đặc biệt, để hỗ trợ việc di chuyển kề cạnh:&lt;/p&gt;
 &lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numDir&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// có 4 ô kề cạnh&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
@@ -230,11 +479,11 @@ Giả sử, ta đang ở ô có tọa độ &lt;strong&gt;(x, y)&lt;/strong&gt;:
   &lt;li&gt;&lt;a href=&quot;https://www.spoj.com/PTIT/problems/BCLKCOUN&quot;&gt;PTIT - BCLKCOUN&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://cses.fi/problemset/task/1193&quot;&gt;CSES - Labyrinth&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://cses.fi/problemset/task/1194&quot;&gt;CSES - Monsters&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><category term="programming" /><category term="cpp" /><category term="cp" /><summary type="html">BFS on Grid (BFS trên lưới, loang trên lưới) là một trong những kiến thức cơ bản của BFS, và hoàn toàn có thể ra trong đề thi OLP 30/4 cho khối 10. Thầy Khắc dạy có vẻ hơi chậm, nên nhảy sang đồ thị mà chưa được tiếp cận với BFS on Grid. Vì thế mà hôm nay, anh sẽ giới thiệu sơ qua về topic này.</summary></entry><entry><title type="html">[Vietnamese] C++ Vector</title><link href="http://localhost:4000/programming/cpp/2021/03/15/cpp-vector.html" rel="alternate" type="text/html" title="[Vietnamese] C++ Vector" /><published>2021-03-15T15:40:51+07:00</published><updated>2021-03-15T15:40:51+07:00</updated><id>http://localhost:4000/programming/cpp/2021/03/15/cpp-vector</id><content type="html" xml:base="http://localhost:4000/programming/cpp/2021/03/15/cpp-vector.html">&lt;p&gt;C++ là một ngôn ngữ có rất nhiều data structures mạnh mẽ, hữu ích cho competitive programming. Tuy nhiên, có một hiện tượng là các em dường như chưa nắm rõ được bản chất, cũng như cách dùng.&lt;/p&gt;
+  &lt;li&gt;&lt;a href=&quot;https://codeforces.com/problemset/problem/598/D&quot;&gt;Codeforces - 598D&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><category term="programming" /><category term="cpp" /><category term="cp" /><summary type="html">BFS on Grid (BFS trên lưới, loang trên lưới) là một trong những kiến thức cơ bản của BFS, và hoàn toàn có thể ra trong đề thi OLP 30/4 cho khối 10.</summary></entry><entry><title type="html">[Vietnamese] C++ Vector</title><link href="http://localhost:4000/programming/cpp/2021/03/15/cpp-vector.html" rel="alternate" type="text/html" title="[Vietnamese] C++ Vector" /><published>2021-03-15T15:40:51+07:00</published><updated>2021-03-15T15:40:51+07:00</updated><id>http://localhost:4000/programming/cpp/2021/03/15/cpp-vector</id><content type="html" xml:base="http://localhost:4000/programming/cpp/2021/03/15/cpp-vector.html">&lt;p&gt;C++ là một ngôn ngữ có rất nhiều data structures mạnh mẽ, hữu ích cho competitive programming.&lt;/p&gt;
 
-&lt;p&gt;Có rất nhiều blog trên mạng về các loại data structures này rồi, search là ra một rổ. Cơ mà vì muốn quảng bá blog (hihi) nên anh cũng rảnh háng ngồi viết bài chơi.
-&lt;strong&gt;Lưu ý: anh sẽ bỏ qua một số kiến thức phức tạp như iterator, cấu trúc data bên trong các data structures, capacity,…&lt;/strong&gt;
-Đứa nào muốn tìm hiểu thêm thì có thể alo anh hoặc giải KK VOI 2021, &lt;strong&gt;&lt;em&gt;&lt;a href=&quot;https://www.facebook.com/dlbm.1302&quot;&gt;dlbm1302&lt;/a&gt;&lt;/em&gt;&lt;/strong&gt; (orz).&lt;/p&gt;
+&lt;p&gt;Có rất nhiều blog trên mạng về các loại data structures này rồi, search là ra một rổ. Cơ mà vì muốn quảng bá blog (hihi) nên tôi cũng rảnh háng ngồi viết bài chơi.
+&lt;strong&gt;Lưu ý: tôi sẽ bỏ qua một số kiến thức phức tạp như iterator, cấu trúc data bên trong các data structures, capacity,…&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;Bài viết đầu tiên trong series sẽ là về &lt;strong&gt;vector&lt;/strong&gt;, một data structure cơ bản và rất thường dùng trong C++, cũng như competitive programming.&lt;/p&gt;
 
@@ -254,7 +503,7 @@ VD:&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;gán-giá-trị-kích-cỡ&quot;&gt;Gán giá trị, kích cỡ&lt;/h2&gt;
-&lt;p&gt;Mặc định, vector sẽ chẳng có phần tử nào cả.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Mặc định, vector sẽ chẳng có phần tử nào cả.&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// a = {}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -307,7 +556,7 @@ Thế còn, nếu ta muốn khai báo một vector có &lt;code class=&quot;lang
 
 &lt;h2 id=&quot;con-trỏ&quot;&gt;Con trỏ&lt;/h2&gt;
 &lt;p&gt;Sơ qua thì chúng ta có &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;begin()&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;end()&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rbegin()&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rend()&lt;/code&gt;,…&lt;br /&gt;
-Bản thân con trỏ là một topic khó, anh sẽ bỏ qua. Anh sẽ cân nhắc update bổ sung nếu cần thiết.&lt;/p&gt;
+Bản thân con trỏ là một topic khó, ta sẽ bỏ qua. Sẽ cân nhắc update bổ sung nếu cần thiết.&lt;/p&gt;
 
 &lt;h2 id=&quot;kích-cỡ&quot;&gt;Kích cỡ&lt;/h2&gt;
 &lt;p&gt;Function &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;empty()&lt;/code&gt; sẽ cho ta biết vector có rỗng hay không:&lt;/p&gt;
@@ -322,15 +571,15 @@ Bản thân con trỏ là một topic khó, anh sẽ bỏ qua. Anh sẽ cân nh�
 &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// in ra 5&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Ngoài ra, còn một số khái niệm về capacity, anh sẽ bỏ qua.&lt;/p&gt;
+&lt;p&gt;Ngoài ra, còn một số khái niệm về capacity, ta sẽ bỏ qua.&lt;/p&gt;
 
 &lt;h2 id=&quot;chỉnh-sửa&quot;&gt;Chỉnh sửa&lt;/h2&gt;
 &lt;p&gt;Để &lt;strong&gt;thêm&lt;/strong&gt; vào &lt;strong&gt;đằng sau&lt;/strong&gt; của vector, ta dùng &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;push_back()&lt;/code&gt;:&lt;/p&gt;
 &lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push_back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;27022004&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// a = {1, 2, 3, 4, 5, 27022004} ;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push_back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20032021&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// a = {1, 2, 3, 4, 5, 20032021}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Ngoài ra, ta còn lệnh &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;emplace_back()&lt;/code&gt;. Có thể anh sẽ viết riêng một blog ngắn về lệnh này. Tạm thời &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;push_back()&lt;/code&gt; là ổn rồi.&lt;/p&gt;
+&lt;p&gt;Ngoài ra, ta còn lệnh &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;emplace_back()&lt;/code&gt;. Điểm lợi của &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;emplace_back()&lt;/code&gt; được đề cập ở &lt;a href=&quot;/programming/cpp/cp/2021/03/16/my-favorite-cp-tricks.html&quot;&gt;đây&lt;/a&gt; (tiếng Anh).&lt;/p&gt;
 
 &lt;p&gt;Để &lt;strong&gt;bỏ&lt;/strong&gt; phần tử &lt;strong&gt;đằng sau&lt;/strong&gt; của vector, ta dùng &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pop_back()&lt;/code&gt;:&lt;/p&gt;
 &lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
@@ -352,7 +601,7 @@ Bản thân con trỏ là một topic khó, anh sẽ bỏ qua. Anh sẽ cân nh�
 &lt;span class=&quot;c1&quot;&gt;// b = {1, 2, 3}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Các lệnh như &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;insert()&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;erase()&lt;/code&gt;,… có liên quan tới &lt;strong&gt;con trỏ&lt;/strong&gt;. Anh sẽ cân nhắc update bổ sung nếu cần thiết.&lt;/p&gt;
+&lt;p&gt;Các lệnh như &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;insert()&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;erase()&lt;/code&gt;,… có liên quan tới &lt;strong&gt;con trỏ&lt;/strong&gt;. Sẽ cân nhắc update bổ sung nếu cần thiết.&lt;/p&gt;
 
 &lt;h2 id=&quot;các-lệnh-hữu-ích-khác&quot;&gt;Các lệnh hữu ích khác&lt;/h2&gt;
 &lt;p&gt;(Cảm ơn idol &lt;strong&gt;&lt;em&gt;&lt;a href=&quot;https://www.facebook.com/dlbm.1302&quot;&gt;dlbm1302&lt;/a&gt;&lt;/em&gt;&lt;/strong&gt; đã góp ý)&lt;/p&gt;
@@ -396,7 +645,7 @@ Bản thân con trỏ là một topic khó, anh sẽ bỏ qua. Anh sẽ cân nh�
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://en.cppreference.com/w/cpp/container/vector&quot;&gt;cppreference.com&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.cplusplus.com/reference/vector/vector&quot;&gt;cplusplus.com&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><category term="programming" /><category term="cpp" /><summary type="html">C++ là một ngôn ngữ có rất nhiều data structures mạnh mẽ, hữu ích cho competitive programming. Tuy nhiên, có một hiện tượng là các em dường như chưa nắm rõ được bản chất, cũng như cách dùng.</summary></entry><entry><title type="html">First blog</title><link href="http://localhost:4000/misc/2021/03/14/my-first-post.html" rel="alternate" type="text/html" title="First blog" /><published>2021-03-14T22:40:51+07:00</published><updated>2021-03-14T22:40:51+07:00</updated><id>http://localhost:4000/misc/2021/03/14/my-first-post</id><content type="html" xml:base="http://localhost:4000/misc/2021/03/14/my-first-post.html">&lt;p&gt;Well, I’ve been feeling a bit fancy, so I’m making a new blog.&lt;/p&gt;
+&lt;/ul&gt;</content><author><name></name></author><category term="programming" /><category term="cpp" /><summary type="html">C++ là một ngôn ngữ có rất nhiều data structures mạnh mẽ, hữu ích cho competitive programming.</summary></entry><entry><title type="html">First blog</title><link href="http://localhost:4000/misc/2021/03/14/my-first-post.html" rel="alternate" type="text/html" title="First blog" /><published>2021-03-14T22:40:51+07:00</published><updated>2021-03-14T22:40:51+07:00</updated><id>http://localhost:4000/misc/2021/03/14/my-first-post</id><content type="html" xml:base="http://localhost:4000/misc/2021/03/14/my-first-post.html">&lt;p&gt;Well, I’ve been feeling a bit fancy, so I’m making a new blog.&lt;/p&gt;
 
 &lt;p&gt;It’s gonna be pretty boring. You have been warned.&lt;/p&gt;
 

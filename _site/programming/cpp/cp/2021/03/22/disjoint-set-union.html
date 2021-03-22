@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<title>[Vietnamese] Disjoint Set Union</title>
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>[Vietnamese] Disjoint Set Union | Hikarii</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="[Vietnamese] Disjoint Set Union" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Disjoint Set Union (DSU) là một data structure đa dụng, có thể dùng để giải quyết nhiều bài toán điển hình. DSU thường được dùng để nhóm các phần tử (union) và kiểm tra xem phần tử thuộc nhóm nào (find). Chính vì thế, mà DSU còn có tên gọi khác là Union-Find." />
+<meta property="og:description" content="Disjoint Set Union (DSU) là một data structure đa dụng, có thể dùng để giải quyết nhiều bài toán điển hình. DSU thường được dùng để nhóm các phần tử (union) và kiểm tra xem phần tử thuộc nhóm nào (find). Chính vì thế, mà DSU còn có tên gọi khác là Union-Find." />
+<link rel="canonical" href="http://localhost:4000/programming/cpp/cp/2021/03/22/disjoint-set-union.html" />
+<meta property="og:url" content="http://localhost:4000/programming/cpp/cp/2021/03/22/disjoint-set-union.html" />
+<meta property="og:site_name" content="Hikarii" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-03-22T21:27:00+07:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[Vietnamese] Disjoint Set Union" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/programming/cpp/cp/2021/03/22/disjoint-set-union.html"},"dateModified":"2021-03-22T21:27:00+07:00","url":"http://localhost:4000/programming/cpp/cp/2021/03/22/disjoint-set-union.html","headline":"[Vietnamese] Disjoint Set Union","description":"Disjoint Set Union (DSU) là một data structure đa dụng, có thể dùng để giải quyết nhiều bài toán điển hình. DSU thường được dùng để nhóm các phần tử (union) và kiểm tra xem phần tử thuộc nhóm nào (find). Chính vì thế, mà DSU còn có tên gọi khác là Union-Find.","datePublished":"2021-03-22T21:27:00+07:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/assets/js/darkmode.js"></script>
+
+</head><body>
+  <main class="container">
+    <section class="about">
+      <div class="about-header ">
+      <div class="about-title">
+      <a href="/">
+        
+        <img src="/assets/suisei.png" alt="Hikarii" />
+        
+      </a>
+      <h2 id="title">
+        <a href="/">Hikarii</a>
+      </h2>
+      </div><p class="tagline">An abnormal student.</p></div>
+      
+      <ul class="social about-footer "><a href="https://github.com/Hikarii0703" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://facebook.com/Hikarii0703" target="_blank">
+          <li>
+            <i class="icon-facebook-squared"></i>
+          </li>
+        </a></ul><nav class="navigation about-footer ">
+        <ul>
+          
+          <li>
+            <a href="/about">About</a>
+          </li>
+          
+        </ul>
+      </nav><p class="about-footer ">&copy;
+        2021</p><div class="about-footer ">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </section>
+    <section class="content">
+      <div class="post-container">
+  <a class="post-link" href="/programming/cpp/cp/2021/03/22/disjoint-set-union.html">
+    <h2 class="post-title">[Vietnamese] Disjoint Set Union</h2>
+  </a>
+  <div class="post-meta">
+    <div class="post-date"><i class="icon-calendar"></i>Mar 22, 2021</div><ul class="post-categories"><li>programming</li><li>cpp</li><li>cp</li></ul></div>
+  <div class="post">
+    <p><strong>Disjoint Set Union (DSU)</strong> là một data structure đa dụng, có thể dùng để giải quyết nhiều bài toán điển hình.
+DSU thường được dùng để <strong>nhóm các phần tử (union)</strong> và <strong>kiểm tra xem phần tử thuộc nhóm nào (find)</strong>.
+Chính vì thế, mà DSU còn có tên gọi khác là <strong>Union-Find</strong>.</p>
+
+<h2 id="xây-dựng-dsu">Xây dựng DSU</h2>
+
+<p>Mỗi nhóm trong DSU sẽ có một phần tử làm đại diện cho toàn bộ nhóm. Phần tử đó gọi là <strong>leader/parent</strong>.
+(<strong>parent</strong> là tên phổ biến hơn, nhưng <strong>leader</strong> lại thể hiện được đúng tính chất hơn. Để mang tính “hội nhập”, ta sẽ thống nhất gọi là <strong>parent</strong>).
+Vì thế, ta có thể chia các nhóm, dựa trên việc ai là <strong>parent</strong> của mỗi phần tử.<br />
+VD:</p>
+
+<p><img src="/assets/dsu/dsu1.png" alt="dsu1" /></p>
+
+<p>Như trên hình, ta có thể thấy có 3 nhóm:</p>
+<ul>
+  <li>Nhóm 1: 1, 2, 3, 4</li>
+  <li>Nhóm 2: 5, 6, 7</li>
+  <li>Nhóm 3: 8, 9, 10, 11, 12, 13</li>
+</ul>
+
+<p>Giả sử, ta gọi mảng <code class="language-plaintext highlighter-rouge">parent[]</code> là mảng lưu lại <strong>parent</strong> của một đỉnh.
+Dễ thấy, <code class="language-plaintext highlighter-rouge">parent[1] == parent[2]</code> vì 2 đỉnh này cùng chung một nhóm.
+Trong khi đó, <code class="language-plaintext highlighter-rouge">parent[6] != parent[9]</code> vì 2 đỉnh này khác nhóm.</p>
+
+<p>Vậy, <code class="language-plaintext highlighter-rouge">parent[x]</code> bằng mấy? Như đã đề cập bên trên, mỗi nhóm đều phải có một <strong>parent</strong> xác định nào đó để phân chia các phần tử
+còn lại thành các nhóm.</p>
+
+<p>Vì thế, nếu <code class="language-plaintext highlighter-rouge">parent[x] == p</code> thì <strong><code class="language-plaintext highlighter-rouge">x</code> sẽ là phần tử thuộc nhóm do <code class="language-plaintext highlighter-rouge">p</code> làm parent</strong>. Nếu <code class="language-plaintext highlighter-rouge">parent[x] == x</code> thì <strong>chính <code class="language-plaintext highlighter-rouge">x</code> sẽ là parent trong nhóm của x</strong>.</p>
+
+<p>VD: với hình trên, mảng <code class="language-plaintext highlighter-rouge">parent[]</code> của chúng ta <strong>có thể</strong> sẽ như sau:
+<code class="language-plaintext highlighter-rouge">parent = {0, 1, 1, 1, 1, 5, 5, 5, 8, 8, 8, 8, 8, 8}</code><br />
+(lưu ý: phần tử <code class="language-plaintext highlighter-rouge">0</code> kia là vì ta không có phần tử <code class="language-plaintext highlighter-rouge">0</code> trong đồ thị, tuy nhiên mảng C++ đánh chỉ số từ <code class="language-plaintext highlighter-rouge">0</code>).</p>
+
+<p>Trong lúc cài đặt, mảng <code class="language-plaintext highlighter-rouge">parent[]</code> hoàn toàn có thể khác ví dụ mẫu bên trên, miễn là ta đảm bảo được những tính chất vừa trình bày như trên.<br />
+VD: <code class="language-plaintext highlighter-rouge">parent = {0, 2, 2, 2, 2, 6, 6, 6, 9, 9, 9, 9, 9, 9}</code></p>
+
+<h3 id="thuật-trẻ-trâu">Thuật trẻ trâu</h3>
+
+<p>Đầu tiên, mọi đỉnh đều sẽ thuộc một nhóm riêng, chưa gộp ai với ai cả. Vì thế, với mỗi đỉnh thứ <code class="language-plaintext highlighter-rouge">i</code>, <code class="language-plaintext highlighter-rouge">parent[i] = i</code> (i.e. <code class="language-plaintext highlighter-rouge">parent[1] = 1</code>, <code class="language-plaintext highlighter-rouge">parent[42]</code> = 42…).</p>
+
+<p>Ta sẽ có hàm đệ quy <code class="language-plaintext highlighter-rouge">find()</code> để tìm <strong>parent</strong> như sau:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">find</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">parent</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="n">find</span><span class="p">(</span><span class="n">parent</span><span class="p">[</span><span class="n">x</span><span class="p">]);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Nếu <code class="language-plaintext highlighter-rouge">parent[x] == x</code> thì lúc này <code class="language-plaintext highlighter-rouge">x</code> là <strong>leader/parent</strong>, vì thế nên ta không cần tìm nữa.
+Ngược lại, ta lại tìm tiếp parent của parent của <code class="language-plaintext highlighter-rouge">x</code>, tìm nguyên dòng họ cho đến khi tìm thấy <strong>leader/parent</strong>.</p>
+
+<p>Ngoài ra, ta có thể kiểm tra xem hai đỉnh có cùng chung nhóm không:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">bool</span> <span class="nf">sameSet</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">find</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">==</span> <span class="n">find</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>Đơn giản, hai thằng chung nhóm thì parent của cả hai thằng thực chất là một.</p>
+
+<p>Hàm <code class="language-plaintext highlighter-rouge">join()</code> để nhóm hai nhóm với nhau như sau:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">join</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">!=</span> <span class="n">b</span><span class="p">)</span> <span class="n">parent</span><span class="p">[</span><span class="n">b</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Dễ thấy, để gộp hai nhóm với nhau, ta chỉ đơn giản là lôi đầu parent của mỗi nhóm ra, rồi cho một thằng là parent của thằng còn lại.<br />
+Đầu tiên, ta thay <code class="language-plaintext highlighter-rouge">a</code> và <code class="language-plaintext highlighter-rouge">b</code> bằng parent của hai đỉnh này (i.e. <code class="language-plaintext highlighter-rouge">a</code> hiện tại là parent của <code class="language-plaintext highlighter-rouge">a</code> lúc mới nhập, tương tự với b).
+Nếu hai thằng khác nhau, nghĩa là <code class="language-plaintext highlighter-rouge">a</code> và <code class="language-plaintext highlighter-rouge">b</code> lúc mới nhập không cùng nhóm, ta gán một thằng là parent thằng kia.</p>
+
+<p>Cách này trẻ trâu ở điểm nào?</p>
+
+<p>Giả sử, đồ thị của chúng ta sau khi gán một hồi nhìn như này:</p>
+
+<p><img src="/assets/dsu/dsu2.png" alt="dsu2" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">find(5)</code> sẽ đi hết nguyên đoạn đường ngược về đỉnh <code class="language-plaintext highlighter-rouge">1</code>. Tương tự, <code class="language-plaintext highlighter-rouge">find(10)</code> sẽ đi hết nguyên đoạn đường ngược về đỉnh <code class="language-plaintext highlighter-rouge">6</code>.
+Độ phức tạp của cách cài này sẽ là O(n).</p>
+
+<p>Hai hàm <code class="language-plaintext highlighter-rouge">sameSet()</code> và <code class="language-plaintext highlighter-rouge">join()</code> đều phụ thuộc vào hàm <code class="language-plaintext highlighter-rouge">find()</code>. Vì thế, độ phức tạp của hai hàm này cũng kà O(n) luôn.</p>
+
+<p>Ta hoàn toàn có thể tối ưu cách cài đặt của chúng ta xuống độ phức tạp thấp hơn đáng kể.</p>
+
+<h3 id="path-compression">Path compression</h3>
+
+<p>Giả sử ta có hình sau:</p>
+
+<p><img src="/assets/dsu/dsu3.png" alt="dsu3" /></p>
+
+<p>Lúc này, <code class="language-plaintext highlighter-rouge">parent[3] = 2, parent[2] = 1</code>. Việc gọi <code class="language-plaintext highlighter-rouge">find(3)</code> sẽ phải đi qua đỉnh <code class="language-plaintext highlighter-rouge">2</code>, rồi mới qua đỉnh <code class="language-plaintext highlighter-rouge">1</code>.
+Trong khi đó, tại sao ta không nối thẳng <code class="language-plaintext highlighter-rouge">3</code> vào <code class="language-plaintext highlighter-rouge">1</code> luôn cho khỏe, để đỡ phải qua <code class="language-plaintext highlighter-rouge">2</code>?</p>
+
+<p>Vậy, ta chỉ cần gán thẳng <code class="language-plaintext highlighter-rouge">parent[3] = find(parent[2])</code> (hay <code class="language-plaintext highlighter-rouge">parent[3] = 1</code>).</p>
+
+<p>Chỉ thêm một chút như sau, tốc độ thuật toán cải thiện cực kì rõ rệt:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">find</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">parent</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="n">parent</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">parent</span><span class="p">[</span><span class="n">x</span><span class="p">]);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Lúc này, độ phức tạp của <code class="language-plaintext highlighter-rouge">find()</code> chỉ còn O(log n), và khiến cả độ phức tạp của <code class="language-plaintext highlighter-rouge">join()</code> cũng trở thành O(log n) luôn.</p>
+
+<p>Tuy nhiên, ta còn một phương pháp tối ưu nữa, làm cho thuật toán của chúng ta nhanh hơn nữa.</p>
+
+<h3 id="union-by-sizerank">Union by size/rank</h3>
+
+<p>Ta sẽ chỉ đề cập đến <strong>Union by size</strong>. <strong>Union by rank</strong> thực chất cũng có cùng tư tưởng, chỉ có khác biệt rất nhỏ ở cách cài.</p>
+
+<p>Ta sẽ cần thêm mảng <code class="language-plaintext highlighter-rouge">size[]</code>. <code class="language-plaintext highlighter-rouge">size[x]</code> sẽ cho biết có bao nhiêu phần tử là con của <code class="language-plaintext highlighter-rouge">x</code> (bao gồm chính nó).<br />
+VD:</p>
+
+<p><img src="/assets/dsu/dsu4.png" alt="dsu4" /></p>
+
+<p>Dễ dàng thấy được <code class="language-plaintext highlighter-rouge">size[1] = 6</code>, <code class="language-plaintext highlighter-rouge">size[3] = 3</code>. Thế thì, mảng <code class="language-plaintext highlighter-rouge">size[]</code> này để làm gì?</p>
+
+<p>Nếu gộp 2 nhóm này với nhau, ta sẽ có hai trường hợp:</p>
+<ul>
+  <li>Gộp nhóm lớn vào nhóm nhỏ: độ cao của cây sẽ là 5.</li>
+</ul>
+
+<p><img src="/assets/dsu/dsu5.png" alt="dsu5" /></p>
+
+<ul>
+  <li>Gộp nhóm nhỏ vào nhóm lớn: độ cao của cây sẽ là 4.</li>
+</ul>
+
+<p><img src="/assets/dsu/dsu6.png" alt="dsu6" /></p>
+
+<p>Ta nhận xét rằng: gộp nhóm nhỏ vào nhóm lớn sẽ có lợi thế hơn so với gộp nhóm lớn vào nhóm nhỏ.
+Vậy, trong hai parent, <strong>ta sẽ gán parent có size nhỏ hơn vào size lớn hơn</strong>.
+Đồng thời, ta nhận thấy <strong>size của parent được gộp vào sẽ được tăng thêm một lượng bằng size của parent kia</strong>.</p>
+
+<p>VD: lúc này, <code class="language-plaintext highlighter-rouge">parent[7] = 1</code> và <code class="language-plaintext highlighter-rouge">size[1] += size[7]</code>.</p>
+
+<p>Trước khi cài đặt lại hàm <code class="language-plaintext highlighter-rouge">join()</code>, nên nhớ là mọi phần tử trong <code class="language-plaintext highlighter-rouge">size[]</code> đều có giá trị ban đầu là 1.</p>
+
+<p>Ta cài đặt lại hàm <code class="language-plaintext highlighter-rouge">join()</code> như sau:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">join</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">[</span><span class="n">b</span><span class="p">])</span> <span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span>
+
+    <span class="c1">// lúc này size[a] &gt;= size[b]</span>
+    <span class="n">size</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">+=</span> <span class="n">size</span><span class="p">[</span><span class="n">b</span><span class="p">];</span>
+    <span class="n">parent</span><span class="p">[</span><span class="n">b</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Phương pháp cải tiến này cũng sẽ giảm độ phức tạp của hàm <code class="language-plaintext highlighter-rouge">join()</code> còn O(log n).</p>
+
+<h3 id="kết-luận">Kết luận</h3>
+<p>Mỗi phương pháp cải tiến sẽ hạ độ phức tạp xuống còn O(log n).</p>
+
+<p>Kết hợp cả hai phương pháp, độ phức tạp của DSU sẽ chỉ còn O(α(n)) (trong đó α(n) là hàm <a href="https://en.wikipedia.org/wiki/Ackermann_function#Inverse">Inverse Ackermann</a>,
+là một hàm có tốc độ gia tăng cực kì chậm, n &lt; 10^600 thì α(n) &lt; 4, rất nhỏ, cực kì gần với O(1)).</p>
+
+<h3 id="extra-một-số-cách-cài-khác">Extra: Một số cách cài khác</h3>
+<ul>
+  <li>
+    <p>DSU có thể được cài đặt để nối các đỉnh giá trị âm(!) với nhau.</p>
+  </li>
+  <li>Có một số người gán lại parent như sau:
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">join</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">u</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
+  <span class="n">v</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">rand</span><span class="p">()</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="n">parent</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span>
+  <span class="k">else</span> <span class="n">parent</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+    <p>Cách này cũng uhhhh được, cơ mà nó hơi ngu, độ phức tạp của nó cũng khá là sát nhưng không tốt bằng <strong>Path Compression</strong>.</p>
+  </li>
+  <li>Ngoài ra, ta có thể cài đặt để gộp chung mảng <code class="language-plaintext highlighter-rouge">parent[]</code> và <code class="language-plaintext highlighter-rouge">size[]</code> lại thành một mảng duy nhất để tiết kiệm bộ nhớ
+    <ul>
+      <li>Ta sẽ gọi mảng gộp chung này là <code class="language-plaintext highlighter-rouge">parent_or_size[]</code> (nếu thấy dài quá thì cứ gọi đại là <code class="language-plaintext highlighter-rouge">parent[]</code> luôn cũng được)</li>
+      <li>Mọi phần tử của <code class="language-plaintext highlighter-rouge">parent_or_size[]</code> có giá trị bằng <strong>-1</strong></li>
+      <li>Nếu <code class="language-plaintext highlighter-rouge">parent_or_size[x] &lt; 0</code>, thì <strong>x là parent, và -parent_or_size[x] tương đương size[x]</strong></li>
+      <li>Ngược lại, nếu <code class="language-plaintext highlighter-rouge">parent_or_size[x] &gt; 0</code> thì <strong>parent_or_size[x] là parent của x</strong></li>
+      <li>Ta có cách cài như sau:</li>
+    </ul>
+
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kt">int</span> <span class="nf">find</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">parent_or_size</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+      <span class="k">return</span> <span class="n">parent_or_size</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">parent_or_size</span><span class="p">[</span><span class="n">x</span><span class="p">]);</span>
+  <span class="p">}</span>
+
+  <span class="kt">void</span> <span class="nf">join</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">u</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">u</span><span class="p">),</span> <span class="n">v</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">u</span> <span class="o">==</span> <span class="n">v</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+
+      <span class="k">if</span> <span class="p">(</span><span class="o">-</span><span class="n">parent_or_size</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">parent_or_size</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="p">{</span>
+          <span class="n">swap</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="n">parent_or_size</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">+=</span> <span class="n">parent_or_size</span><span class="p">[</span><span class="n">v</span><span class="p">];</span>
+      <span class="n">parent_or_size</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="ứng-dụng">Ứng dụng</h2>
+
+<h3 id="kiểm-tra-tính-liên-thông-của-đồ-thị-vô-hướng">Kiểm tra tính liên thông của đồ thị vô hướng</h3>
+<p>Cái này thì quá dễ hiểu luôn. Nếu hai đỉnh liên thông với nhau trong đồ thị vô hướng, thì hai đỉnh này sẽ nằm chung một nhóm.<br />
+Ta còn có thể ứng dụng tính chất này để cài đặt <strong>Minimum Spanning Tree (Cây khung nhỏ nhất)</strong> một cách dễ dàng bằng <strong>Kruskal’s Algorithm</strong>.</p>
+
+<h3 id="offline-range-minimum-query-rmq-trong-trung-bình-oαn-mỗi-truy-vấn--arpas-trick">Offline Range Minimum Query (RMQ) trong trung bình O(α(n)) mỗi truy vấn / Arpa’s trick</h3>
+<p>Range Minimum Query là bài toán tìm phần tử nhỏ nhất trong đoạn [L, R]. Có một số cách giải, như ứng dụng Sparse Table, Segment Tree…,
+và DSU cũng có thể được sử dụng để tìm RMQ offline (nhập hêt truy vấn, xử lý, rồi mới đưa ra đáp án một lượt).</p>
+
+<p><a href="https://codeforces.com/profile/Arpa">Arpa</a> là người đã độc lập tìm ra thuật toán này, và biến thuật này phổ biến, mặc dù trước đó
+thuật này đã được tìm ra trước đó rồi.</p>
+
+<h3 id="tìm-lcatổ-tiên-chung-gần-nhất-trong-on--tarjans-offline-lca-algorithm">Tìm LCA/Tổ tiên chung gần nhất trong O(n) / Tarjan’s offline LCA algorithm</h3>
+<p>Thuật toán này được phát triển bởi <a href="https://en.wikipedia.org/wiki/Robert_Tarjan">Tarjan</a> (ông còn có một thuật toán khác mang tên ông <strong>(Tarjan’s Algorithm)</strong>
+để tìm <strong>SCC/Thành phần Liên thông Mạnh</strong>, <strong>Khớp (Articulation Points, Cut Vertex…) và Cầu (Bridge, Cut Edge…)</strong> cực kỳ nổi tiếng).</p>
+
+<p>Thuật toán này có một nhược điểm là yêu cầu biết trước mọi truy vấn trước khi xử lý. Về ưu điểm, thuật toán này có độ phức tạp O(n), cài đặt đơn giản và bộ nhớ không quá nhiều
+(so sánh với Binary Lifting, Farach-Colton…)</p>
+
+<p>Ngoài ra, còn rất nhiều ứng dụng khác của DSU, nhiều khi còn chẳng liên quan đến DSU hay liên quan đến đồ thị.</p>
+
+<h2 id="bên-lề">Bên lề</h2>
+
+<h3 id="cách-gọi-tên-các-hàm">Cách gọi tên các hàm</h3>
+<p>Tôi thích dùng <code class="language-plaintext highlighter-rouge">root()</code> và <code class="language-plaintext highlighter-rouge">unite()</code>. “root” là danh từ và “unite” là động từ, trong khi <code class="language-plaintext highlighter-rouge">root()</code> thuộc kiểu <code class="language-plaintext highlighter-rouge">int</code> còn <code class="language-plaintext highlighter-rouge">unite()</code> thuộc kiểu <code class="language-plaintext highlighter-rouge">void</code>,
+nên <code class="language-plaintext highlighter-rouge">root(x)</code> và <code class="language-plaintext highlighter-rouge">unite(u, v)</code> nghe tràn đầy sự hợp lý. Một số người như bạn tôi, <strong><em>dlbm1302</em></strong> thích dùng <code class="language-plaintext highlighter-rouge">getPar()</code> và <code class="language-plaintext highlighter-rouge">join()</code>. <a href="https://codeforces.com/profile/jiangly">jiangly</a>
+(Legendary Grandmaster, hiện đang top 1 Trung Quốc trên Codeforces, người tôi cực kì mến mộ) dùng <code class="language-plaintext highlighter-rouge">leader[]</code> thay vì <code class="language-plaintext highlighter-rouge">parent[]</code>.</p>
+
+<p>Vậy nên, có muôn vàn cách đặt tên hàm, nên nếu đọc code người khác thì phải để ý một chút.</p>
+
+<h3 id="suýt-nữa-là-ac-4-bài-free-contest">Suýt nữa là AC 4 bài Free Contest</h3>
+<p>Tại kì <a href="https://www.facebook.com/kc97blf/photos/3183003871925426">Testing Round 6</a> của Free Contest, mình rất akay vì bài METEORITE. Mình mới học DSU ngay chiều hôm đó,
+vừa học vừa dụi mắt, thấm mãi không nổi. Y như rằng, buổi tối ra đúng bài cần DSU ._. Tôi vẫn tiếc, vì suýt nữa mình đã có lần đầu tiên AC 4 bài Free Contest trong đời.
+(Mà sau này mình còn một kì Free Contest nữa đắng hơn, 248/250, nhưng có người 250/250 nên không được vinh danh ;-;).</p>
+
+<h2 id="nguồn">Nguồn</h2>
+<ul>
+  <li><a href="https://cp-algorithms.com/data_structures/disjoint_set_union.html">e-maxx / cp-algorithms</a></li>
+</ul>
+
+<h2 id="bài-tập-liên-quan">Bài tập liên quan</h2>
+<ul>
+  <li><a href="https://codeforces.com/group/FLVn1Sc504/contest/274496/problem/F">VNOI - IOIBIN</a></li>
+  <li><a href="https://cses.fi/problemset/task/1676">CSES - Road Construction</a></li>
+  <li><a href="https://codeforces.com/blog/entry/22747">Blog Codeforces</a></li>
+</ul>
+
+  </div></div>
+
+    </section>
+    <footer class="">
+      <ul class="social about-footer "><a href="https://github.com/Hikarii0703" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://facebook.com/Hikarii0703" target="_blank">
+          <li>
+            <i class="icon-facebook-squared"></i>
+          </li>
+        </a></ul><nav class="navigation about-footer ">
+        <ul>
+          
+          <li>
+            <a href="/about">About</a>
+          </li>
+          
+        </ul>
+      </nav><p class="about-footer ">&copy;
+        2021</p><div class="about-footer ">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </footer>
+  </main>
+  
+  <script type="text/javascript" src="/assets/js/darkmode.js"></script>
+  
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  
+</body>
+
+</html>

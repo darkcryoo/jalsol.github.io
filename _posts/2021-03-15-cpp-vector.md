@@ -5,11 +5,10 @@ date:   2021-03-15 15:40:51 +0700
 categories: programming cpp
 ---
 
-C++ là một ngôn ngữ có rất nhiều data structures mạnh mẽ, hữu ích cho competitive programming. Tuy nhiên, có một hiện tượng là các em dường như chưa nắm rõ được bản chất, cũng như cách dùng.
+C++ là một ngôn ngữ có rất nhiều data structures mạnh mẽ, hữu ích cho competitive programming.
 
-Có rất nhiều blog trên mạng về các loại data structures này rồi, search là ra một rổ. Cơ mà vì muốn quảng bá blog (hihi) nên anh cũng rảnh háng ngồi viết bài chơi.
-**Lưu ý: anh sẽ bỏ qua một số kiến thức phức tạp như iterator, cấu trúc data bên trong các data structures, capacity,...**
-Đứa nào muốn tìm hiểu thêm thì có thể alo anh hoặc giải KK VOI 2021, ***[dlbm1302](https://www.facebook.com/dlbm.1302)*** (orz).
+Có rất nhiều blog trên mạng về các loại data structures này rồi, search là ra một rổ. Cơ mà vì muốn quảng bá blog (hihi) nên tôi cũng rảnh háng ngồi viết bài chơi.
+**Lưu ý: tôi sẽ bỏ qua một số kiến thức phức tạp như iterator, cấu trúc data bên trong các data structures, capacity,...**
 
 Bài viết đầu tiên trong series sẽ là về **vector**, một data structure cơ bản và rất thường dùng trong C++, cũng như competitive programming.
 
@@ -31,7 +30,7 @@ vector<vector<int>> vvi;
 ```
 
 ## Gán giá trị, kích cỡ
-Mặc định, vector sẽ chẳng có phần tử nào cả.
+**Mặc định, vector sẽ chẳng có phần tử nào cả.**
 ```cpp
 vector<int> a; // a = {}
 ```
@@ -94,7 +93,7 @@ cout << a.front() << ' ' << a.back() << endl; // in ra "1 5"
 
 ## Con trỏ
 Sơ qua thì chúng ta có `begin()`, `end()`, `rbegin()`, `rend()`,...<br/>
-Bản thân con trỏ là một topic khó, anh sẽ bỏ qua. Anh sẽ cân nhắc update bổ sung nếu cần thiết.
+Bản thân con trỏ là một topic khó, ta sẽ bỏ qua. Sẽ cân nhắc update bổ sung nếu cần thiết.
 
 ## Kích cỡ
 Function `empty()` sẽ cho ta biết vector có rỗng hay không:
@@ -111,16 +110,16 @@ vector<int> a {1, 2, 3, 4, 5};
 cout << a.size() << endl; // in ra 5
 ```
 
-Ngoài ra, còn một số khái niệm về capacity, anh sẽ bỏ qua.
+Ngoài ra, còn một số khái niệm về capacity, ta sẽ bỏ qua.
 
 ## Chỉnh sửa
 Để **thêm** vào **đằng sau** của vector, ta dùng `push_back()`:
 ```cpp
 vector<int> a {1, 2, 3, 4, 5};
-a.push_back(27022004); // a = {1, 2, 3, 4, 5, 27022004} ;)
+a.push_back(20032021); // a = {1, 2, 3, 4, 5, 20032021}
 ```
 
-Ngoài ra, ta còn lệnh `emplace_back()`. Có thể anh sẽ viết riêng một blog ngắn về lệnh này. Tạm thời `push_back()` là ổn rồi.
+Ngoài ra, ta còn lệnh `emplace_back()`. Điểm lợi của `emplace_back()` được đề cập ở [đây](/programming/cpp/cp/2021/03/16/my-favorite-cp-tricks.html) (tiếng Anh).
 
 Để **bỏ** phần tử **đằng sau** của vector, ta dùng `pop_back()`:
 ```cpp
@@ -145,7 +144,7 @@ swap(a, b); // hoặc a.swap(b);
 // b = {1, 2, 3}
 ```
 
-Các lệnh như `insert()`, `erase()`,... có liên quan tới **con trỏ**. Anh sẽ cân nhắc update bổ sung nếu cần thiết.
+Các lệnh như `insert()`, `erase()`,... có liên quan tới **con trỏ**. Sẽ cân nhắc update bổ sung nếu cần thiết.
 
 ## Các lệnh hữu ích khác
 (Cảm ơn idol ***[dlbm1302](https://www.facebook.com/dlbm.1302)*** đã góp ý)

@@ -22,7 +22,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="[Updating] My favorite competitive programming tricks" />
 <script type="application/ld+json">
-{"@type":"BlogPosting","url":"http://localhost:4000/programming/cpp/cp/2021/03/16/my-favorite-cp-tricks.html","headline":"[Updating] My favorite competitive programming tricks","dateModified":"2021-03-16T13:16:30+07:00","datePublished":"2021-03-16T13:16:30+07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/programming/cpp/cp/2021/03/16/my-favorite-cp-tricks.html"},"description":"I would like to talk a bit about my favorite competitive programming tricks (and, maybe, the story behind them). I’m using C++17 (64-bit), but these should work with C++11 and above.","@context":"https://schema.org"}</script>
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/programming/cpp/cp/2021/03/16/my-favorite-cp-tricks.html"},"dateModified":"2021-03-16T13:16:30+07:00","url":"http://localhost:4000/programming/cpp/cp/2021/03/16/my-favorite-cp-tricks.html","headline":"[Updating] My favorite competitive programming tricks","description":"I would like to talk a bit about my favorite competitive programming tricks (and, maybe, the story behind them). I’m using C++17 (64-bit), but these should work with C++11 and above.","datePublished":"2021-03-16T13:16:30+07:00","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -152,7 +152,7 @@ with the <code class="language-plaintext highlighter-rouge">auto</code> keyword 
 
 <h2 id="emplaceemplace_back">emplace()/emplace_back()</h2>
 
-<p>This is a rather widely known <em>tricks</em> (it’s not really a trick, but it seems that there are still some people that aren’t aware of it).<br />
+<p>This is a rather widely known <em>tricks</em> (it’s not really a trick, but it seems that there are some people who are still not aware of it).<br />
 Many people still use <code class="language-plaintext highlighter-rouge">push()</code> and <code class="language-plaintext highlighter-rouge">push_back()</code> to add an element to a container. However, there is a major difference between <code class="language-plaintext highlighter-rouge">push()/push_back()</code>
 and <code class="language-plaintext highlighter-rouge">emplace()/emplace_back()</code>.</p>
 
@@ -173,7 +173,7 @@ which is the one inside the container. This is a lot faster, compared to <code c
 
 <p>Many people use <code class="language-plaintext highlighter-rouge">memset()</code>. It is indeed fast, but it can’t fill an array with an arbitrary value, nor fill a certain range of the array.
 The better alternatives are <code class="language-plaintext highlighter-rouge">fill()/fill_n()</code>. They can be a bit slow, but they can fix the aforementioned problems. Also, if necessary, it will call
-<code class="language-plaintext highlighter-rouge">memset</code> underlying, to save some speed.</p>
+<code class="language-plaintext highlighter-rouge">memset</code> in the background to save some speed.</p>
 
 <p><strong>[To be continued]</strong></p>
 

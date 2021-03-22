@@ -12,8 +12,8 @@
 <meta name="generator" content="Jekyll v3.9.0" />
 <meta property="og:title" content="[Vietnamese] C++ Vector" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="C++ là một ngôn ngữ có rất nhiều data structures mạnh mẽ, hữu ích cho competitive programming. Tuy nhiên, có một hiện tượng là các em dường như chưa nắm rõ được bản chất, cũng như cách dùng." />
-<meta property="og:description" content="C++ là một ngôn ngữ có rất nhiều data structures mạnh mẽ, hữu ích cho competitive programming. Tuy nhiên, có một hiện tượng là các em dường như chưa nắm rõ được bản chất, cũng như cách dùng." />
+<meta name="description" content="C++ là một ngôn ngữ có rất nhiều data structures mạnh mẽ, hữu ích cho competitive programming." />
+<meta property="og:description" content="C++ là một ngôn ngữ có rất nhiều data structures mạnh mẽ, hữu ích cho competitive programming." />
 <link rel="canonical" href="http://localhost:4000/programming/cpp/2021/03/15/cpp-vector.html" />
 <meta property="og:url" content="http://localhost:4000/programming/cpp/2021/03/15/cpp-vector.html" />
 <meta property="og:site_name" content="Hikarii" />
@@ -22,7 +22,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="[Vietnamese] C++ Vector" />
 <script type="application/ld+json">
-{"@type":"BlogPosting","url":"http://localhost:4000/programming/cpp/2021/03/15/cpp-vector.html","headline":"[Vietnamese] C++ Vector","dateModified":"2021-03-15T15:40:51+07:00","datePublished":"2021-03-15T15:40:51+07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/programming/cpp/2021/03/15/cpp-vector.html"},"description":"C++ là một ngôn ngữ có rất nhiều data structures mạnh mẽ, hữu ích cho competitive programming. Tuy nhiên, có một hiện tượng là các em dường như chưa nắm rõ được bản chất, cũng như cách dùng.","@context":"https://schema.org"}</script>
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/programming/cpp/2021/03/15/cpp-vector.html"},"dateModified":"2021-03-15T15:40:51+07:00","url":"http://localhost:4000/programming/cpp/2021/03/15/cpp-vector.html","headline":"[Vietnamese] C++ Vector","description":"C++ là một ngôn ngữ có rất nhiều data structures mạnh mẽ, hữu ích cho competitive programming.","datePublished":"2021-03-15T15:40:51+07:00","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -78,11 +78,10 @@
   <div class="post-meta">
     <div class="post-date"><i class="icon-calendar"></i>Mar 15, 2021</div><ul class="post-categories"><li>programming</li><li>cpp</li></ul></div>
   <div class="post">
-    <p>C++ là một ngôn ngữ có rất nhiều data structures mạnh mẽ, hữu ích cho competitive programming. Tuy nhiên, có một hiện tượng là các em dường như chưa nắm rõ được bản chất, cũng như cách dùng.</p>
+    <p>C++ là một ngôn ngữ có rất nhiều data structures mạnh mẽ, hữu ích cho competitive programming.</p>
 
-<p>Có rất nhiều blog trên mạng về các loại data structures này rồi, search là ra một rổ. Cơ mà vì muốn quảng bá blog (hihi) nên anh cũng rảnh háng ngồi viết bài chơi.
-<strong>Lưu ý: anh sẽ bỏ qua một số kiến thức phức tạp như iterator, cấu trúc data bên trong các data structures, capacity,…</strong>
-Đứa nào muốn tìm hiểu thêm thì có thể alo anh hoặc giải KK VOI 2021, <strong><em><a href="https://www.facebook.com/dlbm.1302">dlbm1302</a></em></strong> (orz).</p>
+<p>Có rất nhiều blog trên mạng về các loại data structures này rồi, search là ra một rổ. Cơ mà vì muốn quảng bá blog (hihi) nên tôi cũng rảnh háng ngồi viết bài chơi.
+<strong>Lưu ý: tôi sẽ bỏ qua một số kiến thức phức tạp như iterator, cấu trúc data bên trong các data structures, capacity,…</strong></p>
 
 <p>Bài viết đầu tiên trong series sẽ là về <strong>vector</strong>, một data structure cơ bản và rất thường dùng trong C++, cũng như competitive programming.</p>
 
@@ -102,7 +101,7 @@ VD:</p>
 </code></pre></div></div>
 
 <h2 id="gán-giá-trị-kích-cỡ">Gán giá trị, kích cỡ</h2>
-<p>Mặc định, vector sẽ chẳng có phần tử nào cả.</p>
+<p><strong>Mặc định, vector sẽ chẳng có phần tử nào cả.</strong></p>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">;</span> <span class="c1">// a = {}</span>
 </code></pre></div></div>
 
@@ -155,7 +154,7 @@ Thế còn, nếu ta muốn khai báo một vector có <code class="language-pla
 
 <h2 id="con-trỏ">Con trỏ</h2>
 <p>Sơ qua thì chúng ta có <code class="language-plaintext highlighter-rouge">begin()</code>, <code class="language-plaintext highlighter-rouge">end()</code>, <code class="language-plaintext highlighter-rouge">rbegin()</code>, <code class="language-plaintext highlighter-rouge">rend()</code>,…<br />
-Bản thân con trỏ là một topic khó, anh sẽ bỏ qua. Anh sẽ cân nhắc update bổ sung nếu cần thiết.</p>
+Bản thân con trỏ là một topic khó, ta sẽ bỏ qua. Sẽ cân nhắc update bổ sung nếu cần thiết.</p>
 
 <h2 id="kích-cỡ">Kích cỡ</h2>
 <p>Function <code class="language-plaintext highlighter-rouge">empty()</code> sẽ cho ta biết vector có rỗng hay không:</p>
@@ -170,15 +169,15 @@ Bản thân con trỏ là một topic khó, anh sẽ bỏ qua. Anh sẽ cân nh�
 <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// in ra 5</span>
 </code></pre></div></div>
 
-<p>Ngoài ra, còn một số khái niệm về capacity, anh sẽ bỏ qua.</p>
+<p>Ngoài ra, còn một số khái niệm về capacity, ta sẽ bỏ qua.</p>
 
 <h2 id="chỉnh-sửa">Chỉnh sửa</h2>
 <p>Để <strong>thêm</strong> vào <strong>đằng sau</strong> của vector, ta dùng <code class="language-plaintext highlighter-rouge">push_back()</code>:</p>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
-<span class="n">a</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">27022004</span><span class="p">);</span> <span class="c1">// a = {1, 2, 3, 4, 5, 27022004} ;)</span>
+<span class="n">a</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">20032021</span><span class="p">);</span> <span class="c1">// a = {1, 2, 3, 4, 5, 20032021}</span>
 </code></pre></div></div>
 
-<p>Ngoài ra, ta còn lệnh <code class="language-plaintext highlighter-rouge">emplace_back()</code>. Có thể anh sẽ viết riêng một blog ngắn về lệnh này. Tạm thời <code class="language-plaintext highlighter-rouge">push_back()</code> là ổn rồi.</p>
+<p>Ngoài ra, ta còn lệnh <code class="language-plaintext highlighter-rouge">emplace_back()</code>. Điểm lợi của <code class="language-plaintext highlighter-rouge">emplace_back()</code> được đề cập ở <a href="/programming/cpp/cp/2021/03/16/my-favorite-cp-tricks.html">đây</a> (tiếng Anh).</p>
 
 <p>Để <strong>bỏ</strong> phần tử <strong>đằng sau</strong> của vector, ta dùng <code class="language-plaintext highlighter-rouge">pop_back()</code>:</p>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
@@ -200,7 +199,7 @@ Bản thân con trỏ là một topic khó, anh sẽ bỏ qua. Anh sẽ cân nh�
 <span class="c1">// b = {1, 2, 3}</span>
 </code></pre></div></div>
 
-<p>Các lệnh như <code class="language-plaintext highlighter-rouge">insert()</code>, <code class="language-plaintext highlighter-rouge">erase()</code>,… có liên quan tới <strong>con trỏ</strong>. Anh sẽ cân nhắc update bổ sung nếu cần thiết.</p>
+<p>Các lệnh như <code class="language-plaintext highlighter-rouge">insert()</code>, <code class="language-plaintext highlighter-rouge">erase()</code>,… có liên quan tới <strong>con trỏ</strong>. Sẽ cân nhắc update bổ sung nếu cần thiết.</p>
 
 <h2 id="các-lệnh-hữu-ích-khác">Các lệnh hữu ích khác</h2>
 <p>(Cảm ơn idol <strong><em><a href="https://www.facebook.com/dlbm.1302">dlbm1302</a></em></strong> đã góp ý)</p>

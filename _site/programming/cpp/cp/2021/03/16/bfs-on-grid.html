@@ -12,8 +12,8 @@
 <meta name="generator" content="Jekyll v3.9.0" />
 <meta property="og:title" content="[Vietnamese] BFS on Grid" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="BFS on Grid (BFS trên lưới, loang trên lưới) là một trong những kiến thức cơ bản của BFS, và hoàn toàn có thể ra trong đề thi OLP 30/4 cho khối 10. Thầy Khắc dạy có vẻ hơi chậm, nên nhảy sang đồ thị mà chưa được tiếp cận với BFS on Grid. Vì thế mà hôm nay, anh sẽ giới thiệu sơ qua về topic này." />
-<meta property="og:description" content="BFS on Grid (BFS trên lưới, loang trên lưới) là một trong những kiến thức cơ bản của BFS, và hoàn toàn có thể ra trong đề thi OLP 30/4 cho khối 10. Thầy Khắc dạy có vẻ hơi chậm, nên nhảy sang đồ thị mà chưa được tiếp cận với BFS on Grid. Vì thế mà hôm nay, anh sẽ giới thiệu sơ qua về topic này." />
+<meta name="description" content="BFS on Grid (BFS trên lưới, loang trên lưới) là một trong những kiến thức cơ bản của BFS, và hoàn toàn có thể ra trong đề thi OLP 30/4 cho khối 10." />
+<meta property="og:description" content="BFS on Grid (BFS trên lưới, loang trên lưới) là một trong những kiến thức cơ bản của BFS, và hoàn toàn có thể ra trong đề thi OLP 30/4 cho khối 10." />
 <link rel="canonical" href="http://localhost:4000/programming/cpp/cp/2021/03/16/bfs-on-grid.html" />
 <meta property="og:url" content="http://localhost:4000/programming/cpp/cp/2021/03/16/bfs-on-grid.html" />
 <meta property="og:site_name" content="Hikarii" />
@@ -22,7 +22,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="[Vietnamese] BFS on Grid" />
 <script type="application/ld+json">
-{"@type":"BlogPosting","url":"http://localhost:4000/programming/cpp/cp/2021/03/16/bfs-on-grid.html","headline":"[Vietnamese] BFS on Grid","dateModified":"2021-03-16T08:10:51+07:00","datePublished":"2021-03-16T08:10:51+07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/programming/cpp/cp/2021/03/16/bfs-on-grid.html"},"description":"BFS on Grid (BFS trên lưới, loang trên lưới) là một trong những kiến thức cơ bản của BFS, và hoàn toàn có thể ra trong đề thi OLP 30/4 cho khối 10. Thầy Khắc dạy có vẻ hơi chậm, nên nhảy sang đồ thị mà chưa được tiếp cận với BFS on Grid. Vì thế mà hôm nay, anh sẽ giới thiệu sơ qua về topic này.","@context":"https://schema.org"}</script>
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/programming/cpp/cp/2021/03/16/bfs-on-grid.html"},"dateModified":"2021-03-16T08:10:51+07:00","url":"http://localhost:4000/programming/cpp/cp/2021/03/16/bfs-on-grid.html","headline":"[Vietnamese] BFS on Grid","description":"BFS on Grid (BFS trên lưới, loang trên lưới) là một trong những kiến thức cơ bản của BFS, và hoàn toàn có thể ra trong đề thi OLP 30/4 cho khối 10.","datePublished":"2021-03-16T08:10:51+07:00","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -78,11 +78,7 @@
   <div class="post-meta">
     <div class="post-date"><i class="icon-calendar"></i>Mar 16, 2021</div><ul class="post-categories"><li>programming</li><li>cpp</li><li>cp</li></ul></div>
   <div class="post">
-    <p>BFS on Grid (BFS trên lưới, loang trên lưới) là một trong những kiến thức cơ bản của BFS, và hoàn toàn có thể ra trong đề thi OLP 30/4 cho khối 10.
-Thầy Khắc dạy có vẻ hơi chậm, nên nhảy sang đồ thị mà chưa được tiếp cận với BFS on Grid. Vì thế mà hôm nay, anh sẽ giới thiệu sơ qua về topic này.</p>
-
-<p>Hiện tại anh thấy có Văn Hoàng là đã sử dụng được kỹ thuật này, Trần Mạnh Hùng thì có hỏi anh và có cài thử.
-Mấy đứa có thể liên hệ những đứa này để hiểu thêm.</p>
+    <p>BFS on Grid (BFS trên lưới, loang trên lưới) là một trong những kiến thức cơ bản của BFS, và hoàn toàn có thể ra trong đề thi OLP 30/4 cho khối 10.</p>
 
 <h2 id="đề-bài">Đề bài</h2>
 
@@ -111,7 +107,7 @@ Output:
 <h2 id="phân-tích">Phân tích</h2>
 
 <p>Việc dùng BFS là ý tưởng hiển nhiên. <strong>BFS luôn cho phép tìm đường đi ngắn nhất giữa 2 điểm bất kì (cạnh không trọng số)</strong>.<br />
-Trước hết, anh giới thiệu loại mảng đặc biệt, để hỗ trợ việc di chuyển kề cạnh:</p>
+Trước hết, tôi sẽ giới thiệu loại mảng đặc biệt, để hỗ trợ việc di chuyển kề cạnh:</p>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="kt">int</span> <span class="n">numDir</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span> <span class="c1">// có 4 ô kề cạnh</span>
 <span class="k">const</span> <span class="kt">int</span> <span class="n">dx</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">0</span><span class="p">};</span>
 <span class="k">const</span> <span class="kt">int</span> <span class="n">dy</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">};</span>
@@ -213,6 +209,7 @@ Giả sử, ta đang ở ô có tọa độ <strong>(x, y)</strong>:</p>
   <li><a href="https://www.spoj.com/PTIT/problems/BCLKCOUN">PTIT - BCLKCOUN</a></li>
   <li><a href="https://cses.fi/problemset/task/1193">CSES - Labyrinth</a></li>
   <li><a href="https://cses.fi/problemset/task/1194">CSES - Monsters</a></li>
+  <li><a href="https://codeforces.com/problemset/problem/598/D">Codeforces - 598D</a></li>
 </ul>
 
   </div></div>
