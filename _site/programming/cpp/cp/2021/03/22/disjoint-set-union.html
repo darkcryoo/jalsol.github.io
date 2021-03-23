@@ -14,15 +14,15 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Disjoint Set Union (DSU) là một data structure đa dụng, có thể dùng để giải quyết nhiều bài toán điển hình. DSU thường được dùng để nhóm các phần tử (union) và kiểm tra xem phần tử thuộc nhóm nào (find). Chính vì thế, mà DSU còn có tên gọi khác là Union-Find." />
 <meta property="og:description" content="Disjoint Set Union (DSU) là một data structure đa dụng, có thể dùng để giải quyết nhiều bài toán điển hình. DSU thường được dùng để nhóm các phần tử (union) và kiểm tra xem phần tử thuộc nhóm nào (find). Chính vì thế, mà DSU còn có tên gọi khác là Union-Find." />
-<link rel="canonical" href="/programming/cpp/cp/2021/03/22/disjoint-set-union.html" />
-<meta property="og:url" content="/programming/cpp/cp/2021/03/22/disjoint-set-union.html" />
+<link rel="canonical" href="http://localhost:4000/programming/cpp/cp/2021/03/22/disjoint-set-union.html" />
+<meta property="og:url" content="http://localhost:4000/programming/cpp/cp/2021/03/22/disjoint-set-union.html" />
 <meta property="og:site_name" content="Hikarii" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-03-22T21:27:00+07:00" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="[Vietnamese] Disjoint Set Union" />
 <script type="application/ld+json">
-{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/programming/cpp/cp/2021/03/22/disjoint-set-union.html"},"dateModified":"2021-03-22T21:27:00+07:00","url":"/programming/cpp/cp/2021/03/22/disjoint-set-union.html","headline":"[Vietnamese] Disjoint Set Union","description":"Disjoint Set Union (DSU) là một data structure đa dụng, có thể dùng để giải quyết nhiều bài toán điển hình. DSU thường được dùng để nhóm các phần tử (union) và kiểm tra xem phần tử thuộc nhóm nào (find). Chính vì thế, mà DSU còn có tên gọi khác là Union-Find.","datePublished":"2021-03-22T21:27:00+07:00","@context":"https://schema.org"}</script>
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/programming/cpp/cp/2021/03/22/disjoint-set-union.html"},"dateModified":"2021-03-22T21:27:00+07:00","url":"http://localhost:4000/programming/cpp/cp/2021/03/22/disjoint-set-union.html","headline":"[Vietnamese] Disjoint Set Union","description":"Disjoint Set Union (DSU) là một data structure đa dụng, có thể dùng để giải quyết nhiều bài toán điển hình. DSU thường được dùng để nhóm các phần tử (union) và kiểm tra xem phần tử thuộc nhóm nào (find). Chính vì thế, mà DSU còn có tên gọi khác là Union-Find.","datePublished":"2021-03-22T21:27:00+07:00","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -117,6 +117,14 @@ VD: <code class="language-plaintext highlighter-rouge">parent = {0, 2, 2, 2, 2, 
 <h3 id="thuật-trẻ-trâu">Thuật trẻ trâu</h3>
 
 <p>Đầu tiên, mọi đỉnh đều sẽ thuộc một nhóm riêng, chưa gộp ai với ai cả. Vì thế, với mỗi đỉnh thứ <code class="language-plaintext highlighter-rouge">i</code>, <code class="language-plaintext highlighter-rouge">parent[i] = i</code> (i.e. <code class="language-plaintext highlighter-rouge">parent[1] = 1</code>, <code class="language-plaintext highlighter-rouge">parent[42]</code> = 42…).</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">parent</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+
+    <span class="c1">// hoặc</span>
+    <span class="n">iota</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <p>Ta sẽ có hàm đệ quy <code class="language-plaintext highlighter-rouge">find()</code> để tìm <strong>parent</strong> như sau:</p>
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">find</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
@@ -158,7 +166,7 @@ Nếu hai thằng khác nhau, nghĩa là <code class="language-plaintext highlig
 <p><code class="language-plaintext highlighter-rouge">find(5)</code> sẽ đi hết nguyên đoạn đường ngược về đỉnh <code class="language-plaintext highlighter-rouge">1</code>. Tương tự, <code class="language-plaintext highlighter-rouge">find(10)</code> sẽ đi hết nguyên đoạn đường ngược về đỉnh <code class="language-plaintext highlighter-rouge">6</code>.
 Độ phức tạp của cách cài này sẽ là O(n).</p>
 
-<p>Hai hàm <code class="language-plaintext highlighter-rouge">sameSet()</code> và <code class="language-plaintext highlighter-rouge">join()</code> đều phụ thuộc vào hàm <code class="language-plaintext highlighter-rouge">find()</code>. Vì thế, độ phức tạp của hai hàm này cũng kà O(n) luôn.</p>
+<p>Hai hàm <code class="language-plaintext highlighter-rouge">sameSet()</code> và <code class="language-plaintext highlighter-rouge">join()</code> đều phụ thuộc vào hàm <code class="language-plaintext highlighter-rouge">find()</code>. Vì thế, độ phức tạp của hai hàm này cũng là O(n) luôn.</p>
 
 <p>Ta hoàn toàn có thể tối ưu cách cài đặt của chúng ta xuống độ phức tạp thấp hơn đáng kể.</p>
 
@@ -199,24 +207,36 @@ VD:</p>
 
 <p>Nếu gộp 2 nhóm này với nhau, ta sẽ có hai trường hợp:</p>
 <ul>
-  <li>Gộp nhóm lớn vào nhóm nhỏ: độ cao của cây sẽ là 5.</li>
+  <li>
+    <p>Gộp nhóm lớn vào nhóm nhỏ: độ cao của cây sẽ là 5.</p>
+
+    <p><img src="/assets/dsu/dsu5.png" alt="dsu5" /></p>
+  </li>
+  <li>
+    <p>Gộp nhóm nhỏ vào nhóm lớn: độ cao của cây sẽ là 4.</p>
+
+    <p><img src="/assets/dsu/dsu6.png" alt="dsu6" /></p>
+  </li>
 </ul>
 
-<p><img src="/assets/dsu/dsu5.png" alt="dsu5" /></p>
-
-<ul>
-  <li>Gộp nhóm nhỏ vào nhóm lớn: độ cao của cây sẽ là 4.</li>
-</ul>
-
-<p><img src="/assets/dsu/dsu6.png" alt="dsu6" /></p>
-
-<p>Ta nhận xét rằng: gộp nhóm nhỏ vào nhóm lớn sẽ có lợi thế hơn so với gộp nhóm lớn vào nhóm nhỏ.
+<p>Ta nhận xét rằng: gộp nhóm nhỏ vào nhóm lớn sẽ có lợi thế hơn so với gộp nhóm lớn vào nhóm nhỏ (độ cao 4 &lt; 5).
 Vậy, trong hai parent, <strong>ta sẽ gán parent có size nhỏ hơn vào size lớn hơn</strong>.
 Đồng thời, ta nhận thấy <strong>size của parent được gộp vào sẽ được tăng thêm một lượng bằng size của parent kia</strong>.</p>
 
 <p>VD: lúc này, <code class="language-plaintext highlighter-rouge">parent[7] = 1</code> và <code class="language-plaintext highlighter-rouge">size[1] += size[7]</code>.</p>
 
 <p>Trước khi cài đặt lại hàm <code class="language-plaintext highlighter-rouge">join()</code>, nên nhớ là mọi phần tử trong <code class="language-plaintext highlighter-rouge">size[]</code> đều có giá trị ban đầu là 1.</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">size</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+    <span class="c1">// hoặc</span>
+    <span class="n">fill</span><span class="p">(</span><span class="n">size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span> <span class="o">+</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+    <span class="c1">// hoặc</span>
+    <span class="n">fill_n</span><span class="p">(</span><span class="n">size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <p>Ta cài đặt lại hàm <code class="language-plaintext highlighter-rouge">join()</code> như sau:</p>
 
@@ -331,6 +351,7 @@ vừa học vừa dụi mắt, thấm mãi không nổi. Y như rằng, buổi t
   <li><a href="https://codeforces.com/group/FLVn1Sc504/contest/274496/problem/F">VNOI - IOIBIN</a></li>
   <li><a href="https://cses.fi/problemset/task/1676">CSES - Road Construction</a></li>
   <li><a href="https://codeforces.com/blog/entry/22747">Blog Codeforces</a></li>
+  <li>[sẽ cập nhật tiếp]</li>
 </ul>
 
   </div></div>

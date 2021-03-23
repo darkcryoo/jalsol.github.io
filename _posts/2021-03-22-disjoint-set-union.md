@@ -42,6 +42,15 @@ VD: `parent = {0, 2, 2, 2, 2, 6, 6, 6, 9, 9, 9, 9, 9, 9}`
 ### Thuật trẻ trâu
 
 Đầu tiên, mọi đỉnh đều sẽ thuộc một nhóm riêng, chưa gộp ai với ai cả. Vì thế, với mỗi đỉnh thứ `i`, `parent[i] = i` (i.e. `parent[1] = 1`, `parent[42]` = 42...).
+```cpp
+int main() {
+    for (int i = 1; i <= n; i++)
+        parent[i] = i;
+
+    // hoặc
+    iota(a + 1, a + n + 1, 1);
+}
+```
 
 Ta sẽ có hàm đệ quy `find()` để tìm **parent** như sau: 
 ```cpp
@@ -86,7 +95,7 @@ Giả sử, đồ thị của chúng ta sau khi gán một hồi nhìn như này
 `find(5)` sẽ đi hết nguyên đoạn đường ngược về đỉnh `1`. Tương tự, `find(10)` sẽ đi hết nguyên đoạn đường ngược về đỉnh `6`.
 Độ phức tạp của cách cài này sẽ là O(n).
 
-Hai hàm `sameSet()` và `join()` đều phụ thuộc vào hàm `find()`. Vì thế, độ phức tạp của hai hàm này cũng kà O(n) luôn.
+Hai hàm `sameSet()` và `join()` đều phụ thuộc vào hàm `find()`. Vì thế, độ phức tạp của hai hàm này cũng là O(n) luôn.
 
 Ta hoàn toàn có thể tối ưu cách cài đặt của chúng ta xuống độ phức tạp thấp hơn đáng kể.
 
@@ -129,19 +138,31 @@ Dễ dàng thấy được `size[1] = 6`, `size[3] = 3`. Thế thì, mảng `siz
 Nếu gộp 2 nhóm này với nhau, ta sẽ có hai trường hợp:
 * Gộp nhóm lớn vào nhóm nhỏ: độ cao của cây sẽ là 5.
 
-<img src="/assets/dsu/dsu5.png" alt="dsu5"/>
+    <img src="/assets/dsu/dsu5.png" alt="dsu5"/>
 
 * Gộp nhóm nhỏ vào nhóm lớn: độ cao của cây sẽ là 4.
 
-<img src="/assets/dsu/dsu6.png" alt="dsu6"/>
+    <img src="/assets/dsu/dsu6.png" alt="dsu6"/>
 
-Ta nhận xét rằng: gộp nhóm nhỏ vào nhóm lớn sẽ có lợi thế hơn so với gộp nhóm lớn vào nhóm nhỏ.
+Ta nhận xét rằng: gộp nhóm nhỏ vào nhóm lớn sẽ có lợi thế hơn so với gộp nhóm lớn vào nhóm nhỏ (độ cao 4 < 5).
 Vậy, trong hai parent, **ta sẽ gán parent có size nhỏ hơn vào size lớn hơn**.
 Đồng thời, ta nhận thấy **size của parent được gộp vào sẽ được tăng thêm một lượng bằng size của parent kia**.
 
 VD: lúc này, `parent[7] = 1` và `size[1] += size[7]`.
 
 Trước khi cài đặt lại hàm `join()`, nên nhớ là mọi phần tử trong `size[]` đều có giá trị ban đầu là 1.
+```cpp
+int main() {
+    for (int i = 1; i <= n; i++)
+        size[i] = 1;
+
+    // hoặc
+    fill(size + 1, size + n + 1, 1);
+
+    // hoặc
+    fill_n(size + 1, n, 1);
+}
+```
 
 Ta cài đặt lại hàm `join()` như sau:
 
@@ -250,3 +271,4 @@ vừa học vừa dụi mắt, thấm mãi không nổi. Y như rằng, buổi t
 * [VNOI - IOIBIN](https://codeforces.com/group/FLVn1Sc504/contest/274496/problem/F)
 * [CSES - Road Construction](https://cses.fi/problemset/task/1676)
 * [Blog Codeforces](https://codeforces.com/blog/entry/22747)
+* [sẽ cập nhật tiếp]
