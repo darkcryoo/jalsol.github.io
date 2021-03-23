@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<title>[Vietnamese] Dijkstra's Algorithm</title>
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>[Vietnamese] Dijkstra’s Algorithm | Hikarii</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="[Vietnamese] Dijkstra’s Algorithm" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Dijkstra’s Algorithm là một thuật toán nổi tiếng, phổ biến do Edsger W. Dijkstra phát minh ra, và được công bố vào năm 1959. Tương truyền rằng, Dijkstra chỉ mất đúng 20 phút để nghĩ VÀ thiết kế toàn bộ thuật toán khi đang đi uống cafe với vợ sắp cưới, mà không cần bút hay giấy nháp (orz)." />
+<meta property="og:description" content="Dijkstra’s Algorithm là một thuật toán nổi tiếng, phổ biến do Edsger W. Dijkstra phát minh ra, và được công bố vào năm 1959. Tương truyền rằng, Dijkstra chỉ mất đúng 20 phút để nghĩ VÀ thiết kế toàn bộ thuật toán khi đang đi uống cafe với vợ sắp cưới, mà không cần bút hay giấy nháp (orz)." />
+<link rel="canonical" href="/programming/cpp/cp/2021/03/23/dijkstra.html" />
+<meta property="og:url" content="/programming/cpp/cp/2021/03/23/dijkstra.html" />
+<meta property="og:site_name" content="Hikarii" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-03-23T09:14:46+07:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[Vietnamese] Dijkstra’s Algorithm" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/programming/cpp/cp/2021/03/23/dijkstra.html"},"dateModified":"2021-03-23T09:14:46+07:00","url":"/programming/cpp/cp/2021/03/23/dijkstra.html","headline":"[Vietnamese] Dijkstra’s Algorithm","description":"Dijkstra’s Algorithm là một thuật toán nổi tiếng, phổ biến do Edsger W. Dijkstra phát minh ra, và được công bố vào năm 1959. Tương truyền rằng, Dijkstra chỉ mất đúng 20 phút để nghĩ VÀ thiết kế toàn bộ thuật toán khi đang đi uống cafe với vợ sắp cưới, mà không cần bút hay giấy nháp (orz).","datePublished":"2021-03-23T09:14:46+07:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/assets/js/darkmode.js"></script>
+
+</head><body>
+  <main class="container">
+    <section class="about">
+      <div class="about-header ">
+      <div class="about-title">
+      <a href="/">
+        
+        <img src="/assets/suisei.png" alt="Hikarii" />
+        
+      </a>
+      <h2 id="title">
+        <a href="/">Hikarii</a>
+      </h2>
+      </div><p class="tagline">An abnormal student.</p></div>
+      
+      <ul class="social about-footer "><a href="https://github.com/Hikarii0703" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://facebook.com/Hikarii0703" target="_blank">
+          <li>
+            <i class="icon-facebook-squared"></i>
+          </li>
+        </a></ul><nav class="navigation about-footer ">
+        <ul>
+          
+          <li>
+            <a href="/about">About</a>
+          </li>
+          
+        </ul>
+      </nav><p class="about-footer ">&copy;
+        2021</p><div class="about-footer ">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </section>
+    <section class="content">
+      <div class="post-container">
+  <a class="post-link" href="/programming/cpp/cp/2021/03/23/dijkstra.html">
+    <h2 class="post-title">[Vietnamese] Dijkstra&#39;s Algorithm</h2>
+  </a>
+  <div class="post-meta">
+    <div class="post-date"><i class="icon-calendar"></i>Mar 23, 2021</div><ul class="post-categories"><li>programming</li><li>cpp</li><li>cp</li></ul></div>
+  <div class="post">
+    <p>Dijkstra’s Algorithm là một thuật toán nổi tiếng, phổ biến do <a href="https://en.wikipedia.org/wiki/Edsger_W._Dijkstra">Edsger W. Dijkstra</a> phát minh ra, và được công bố vào năm 1959.<br />
+Tương truyền rằng, Dijkstra <a href="https://cacm.acm.org/magazines/2010/8/96632-an-interview-with-edsger-w-dijkstra/fulltext"><strong>chỉ mất đúng 20 phút</strong></a>
+<strong>để nghĩ VÀ thiết kế toàn bộ thuật toán khi đang đi uống cafe với vợ sắp cưới, mà không cần bút hay giấy nháp</strong> (orz).</p>
+
+<p>Thuật toán này cho phép <strong>tìm đường đi ngắn nhất từ một đỉnh đến các đỉnh còn lại</strong>. Nghĩa là, giả sử ta chọn đỉnh bắt đầu là đỉnh <code class="language-plaintext highlighter-rouge">S</code>, thì thuật toán Dijkstra sẽ tìm đường đi ngắn nhất
+từ <code class="language-plaintext highlighter-rouge">S</code> <strong>sang toàn bộ các đỉnh còn lại trên đồ thị, trong một lần chạy duy nhất</strong>.</p>
+
+<p>Thuật toán Dijkstra rất hữu dụng trên đồ thị <strong>có trọng số không âm</strong>. Nguyên lý của Dijkstra dựa trên đặc điểm này. Vì thế, nếu đồ thị xuất hiện cả trọng số âm và dương thì không thể
+sử dụng thuật toán này.</p>
+
+<h2 id="lưu-trữ-đồ-thị-có-trọng-số">Lưu trữ đồ thị có trọng số</h2>
+
+<p>Thay vì dùng <code class="language-plaintext highlighter-rouge">vector&lt;int&gt; g[N]</code>, chúng ta sẽ sử dụng <code class="language-plaintext highlighter-rouge">vector&lt;pair&lt;int, int&gt;&gt; g[N]</code>, và thay đổi việc nhập như sau:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">m</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">c</span><span class="p">;</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">u</span> <span class="o">&gt;&gt;</span> <span class="n">v</span> <span class="o">&gt;&gt;</span> <span class="n">c</span><span class="p">;</span>
+
+    <span class="c1">// có thể dùng make_pair(v, c) thay cho {v, c}</span>
+    <span class="n">g</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">push_back</span><span class="p">({</span><span class="n">v</span><span class="p">,</span> <span class="n">c</span><span class="p">});</span>
+    <span class="n">g</span><span class="p">[</span><span class="n">v</span><span class="p">].</span><span class="n">push_back</span><span class="p">({</span><span class="n">u</span><span class="p">,</span> <span class="n">c</span><span class="p">});</span>
+
+    <span class="c1">// hoặc</span>
+    <span class="n">g</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span>
+    <span class="n">g</span><span class="p">[</span><span class="n">v</span><span class="p">].</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>*<code class="language-plaintext highlighter-rouge">emplace_back()</code> là gì và có lợi như nào đã được đề cập ở <a href="/programming/cpp/cp/2021/03/16/my-favorite-cp-tricks.html">đây</a> (tiếng Anh).</p>
+
+<h2 id="thuật-toán-dijkstra-on2--m">Thuật toán Dijkstra O(n^2 + m)</h2>
+
+<p>Ta cần chuẩn bị một vài thứ như sau:</p>
+<ul>
+  <li>Chọn một giá trị vừa đủ lớn làm ∞, gọi đó là <code class="language-plaintext highlighter-rouge">INF</code> (nếu tổng độ dài kiểu <code class="language-plaintext highlighter-rouge">int</code> thì <code class="language-plaintext highlighter-rouge">INF = 1e9</code>, <code class="language-plaintext highlighter-rouge">long long</code> thì <code class="language-plaintext highlighter-rouge">INF = 1e18</code>, không nên dùng <code class="language-plaintext highlighter-rouge">INT_MAX</code> hay <code class="language-plaintext highlighter-rouge">LLONG_MAX</code>)</li>
+  <li>Chọn một đỉnh làm <strong>đỉnh xuất phát</strong>, gọi đỉnh này là <code class="language-plaintext highlighter-rouge">S</code></li>
+  <li>Gọi mảng <code class="language-plaintext highlighter-rouge">d[]</code>, định nghĩa: <strong><code class="language-plaintext highlighter-rouge">d[x]</code> là độ dài đường đi ngắn nhất từ <code class="language-plaintext highlighter-rouge">S</code> đến <code class="language-plaintext highlighter-rouge">x</code></strong> (e.g. <code class="language-plaintext highlighter-rouge">S = 5</code>, <code class="language-plaintext highlighter-rouge">x = 3</code> thì <code class="language-plaintext highlighter-rouge">d[x]</code> là đường đi ngắn nhất từ 5 đến 3)</li>
+  <li>Ban đầu, <code class="language-plaintext highlighter-rouge">d[S] = 0</code> (vì đường đi ngắn nhất từ <code class="language-plaintext highlighter-rouge">S</code> đến <code class="language-plaintext highlighter-rouge">S</code> có độ dài là <code class="language-plaintext highlighter-rouge">0</code>). Với các đỉnh <code class="language-plaintext highlighter-rouge">i</code> còn lại, <code class="language-plaintext highlighter-rouge">d[i] = INF</code> (vì ta chưa tìm được đường đi ngắn nhất từ <code class="language-plaintext highlighter-rouge">S</code> đến <code class="language-plaintext highlighter-rouge">i</code>)</li>
+  <li>Gọi mảng <code class="language-plaintext highlighter-rouge">visited[]</code>, đánh dấu xem đỉnh đã được thăm trong quá trình duyệt chưa</li>
+</ul>
+
+<p>Sau khi đã chuẩn bị được những yêu cầu trên, ta bắt đầu thuật toán Dijkstra:</p>
+<ul>
+  <li>Tìm đỉnh <code class="language-plaintext highlighter-rouge">u</code> <strong>chưa thăm</strong>; trong các đỉnh chưa thăm, đỉnh <code class="language-plaintext highlighter-rouge">u</code> sẽ là đỉnh sao cho <strong><code class="language-plaintext highlighter-rouge">d[u]</code> là bé nhất</strong></li>
+  <li>Đánh dấu đỉnh <code class="language-plaintext highlighter-rouge">u</code> đã thăm</li>
+  <li>Với mọi đỉnh <code class="language-plaintext highlighter-rouge">v</code> kề với <code class="language-plaintext highlighter-rouge">u</code> và trọng số giữa hai đỉnh là <code class="language-plaintext highlighter-rouge">c</code>, ta sẽ dãn ra: nếu <code class="language-plaintext highlighter-rouge">d[v] &gt; d[u] + c</code> thì <code class="language-plaintext highlighter-rouge">d[v] = d[u] + c</code></li>
+</ul>
+
+<p>Lặp lại các bước nêu trên đúng <code class="language-plaintext highlighter-rouge">n</code> lần, ta đã hoàn thành thuật toán.</p>
+
+<p>Ta cài đặt như sau:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="kt">int</span> <span class="n">INF</span> <span class="o">=</span> <span class="mf">1e9</span><span class="p">;</span> <span class="c1">// giả sử tổng độ dài đường đi không quá kiểu 1e9</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">g</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+
+<span class="kt">int</span> <span class="n">d</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+<span class="kt">bool</span> <span class="n">visited</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+
+<span class="kt">void</span> <span class="nf">Dijkstra</span><span class="p">(</span><span class="kt">int</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">fill</span><span class="p">(</span><span class="n">d</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">d</span> <span class="o">+</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">INF</span><span class="p">);</span>
+    <span class="n">fill</span><span class="p">(</span><span class="n">visited</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">visited</span> <span class="o">+</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+
+    <span class="n">d</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">rep</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">rep</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">rep</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">u</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">u</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="o">||</span> <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">d</span><span class="p">[</span><span class="n">u</span><span class="p">]))</span> <span class="p">{</span>
+                <span class="n">u</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">==</span> <span class="n">INF</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+
+        <span class="n">visited</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">e</span> <span class="o">:</span> <span class="n">g</span><span class="p">[</span><span class="n">u</span><span class="p">])</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">v</span> <span class="o">=</span> <span class="n">e</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
+            <span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="n">e</span><span class="p">.</span><span class="n">second</span><span class="p">;</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">d</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">+</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">d</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">+</span> <span class="n">c</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Lưu ý: sau khi chạy xong thuật toán Dijkstra, nếu <code class="language-plaintext highlighter-rouge">d[x] == INF</code> thì nghĩa là không tồn tại đường đi từ <code class="language-plaintext highlighter-rouge">S</code> đến <code class="language-plaintext highlighter-rouge">x</code>.</p>
+
+<p>*Range-based for loop (tức là cái <code class="language-plaintext highlighter-rouge">for (e : g[u])</code> bên trên ấy) được đề cập ở <a href="/programming/cpp/cp/2021/03/16/my-favorite-cp-tricks.html">đây</a> (tiếng Anh).</p>
+
+<p>Độ phức tạp của cách cài đặt này hiển nhiên là O(n^2 + m). Trong trường hợp <code class="language-plaintext highlighter-rouge">m ≈ n^2</code> (tức là đồ thị dày), thuật toán này được coi là tối ưu.
+Tuy nhiên, trong trường hợp <code class="language-plaintext highlighter-rouge">m</code> nhỏ hơn (hay là đồ thị thưa, hầu hết mọi bài sẽ rơi vào trường hợp này), ta còn một thuật toán cải tiến dùng <strong>heap/priority_queue</strong>
+có độ phức tạp O((n + m) log n).</p>
+
+<h2 id="thuật-toán-dijkstra-cải-tiến-on--m-log-n">Thuật toán Dijkstra cải tiến O((n + m) log n)</h2>
+
+<p>Ta nhận thấy, thay vì phải duyệt O(n) để tìm kiếm đỉnh <code class="language-plaintext highlighter-rouge">u</code> thích hợp, ta chỉ cần sử dụng <strong>min heap</strong> để tìm <code class="language-plaintext highlighter-rouge">u</code> trong O(log n).
+Nhìn chung, cách cài này rất giống <strong>BFS</strong>, ta chỉ thay đổi một số chi tiết.
+Ta cài đặt như sau:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="kt">int</span> <span class="n">INF</span> <span class="o">=</span> <span class="mf">1e9</span><span class="p">;</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">g</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+
+<span class="kt">int</span> <span class="n">d</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+
+<span class="kt">void</span> <span class="nf">Dijkstra</span><span class="p">(</span><span class="kt">int</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">fill</span><span class="p">(</span><span class="n">d</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">d</span> <span class="o">+</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">INF</span><span class="p">);</span>
+    <span class="n">d</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="c1">// min heap</span>
+    <span class="n">priority_queue</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="n">greater</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;&gt;&gt;</span> <span class="n">q</span><span class="p">;</span>
+
+    <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span> <span class="n">s</span><span class="p">});</span> <span class="c1">// hoặc q.emplace(0, s);</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">u</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">second</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">du</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">first</span><span class="p">;</span>
+        <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">du</span> <span class="o">!=</span> <span class="n">d</span><span class="p">[</span><span class="n">u</span><span class="p">])</span> <span class="k">continue</span><span class="p">;</span> <span class="c1">// (*)</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">e</span> <span class="o">:</span> <span class="n">g</span><span class="p">[</span><span class="n">u</span><span class="p">])</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">v</span> <span class="o">=</span> <span class="n">e</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
+            <span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="n">e</span><span class="p">.</span><span class="n">second</span><span class="p">;</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">d</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">+</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">d</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">+</span> <span class="n">c</span><span class="p">;</span>
+                <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">({</span><span class="n">d</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="n">v</span><span class="p">});</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Bước cải tiến ở (*) rất quan trọng. Một đặc điểm của <code class="language-plaintext highlighter-rouge">priority_queue</code> là nó cho phép lưu các phần tử giống nhau.
+Có thể ta có rất nhiều đỉnh <code class="language-plaintext highlighter-rouge">u</code> ở trong <code class="language-plaintext highlighter-rouge">priority_queue</code>, nhưng ta chỉ cần thăm một trong số đó. Vậy nên, sau lần thăm đầu tiên, giá trị của <code class="language-plaintext highlighter-rouge">d[u]</code> sẽ bị thay đổi,
+không giống với <code class="language-plaintext highlighter-rouge">du</code> đang còn sót lại ở trong <code class="language-plaintext highlighter-rouge">priority_queue</code>. Nếu không cải tiến ở đây, độ phức tạp có thể lên đến O(nm).</p>
+
+<p>Sau khi cài đặt như trên, độ phức tạp sẽ là O((n + m) log n), tối ưu cho đồ thị thưa, ít cạnh. Đây cũng là cách cài đặt thường thấy trong các kì thi lập trình.</p>
+
+<h2 id="nguồn">Nguồn</h2>
+<ul>
+  <li><a href="https://cp-algorithms.com/graph/dijkstra.html">e-maxx / cp-algorithms (Dijkstra O(n^2 + m))</a></li>
+  <li><a href="https://cp-algorithms.com/graph/dijkstra_sparse.html">e-maxx / cp-algorithms (Dijkstra O((n + m) log n))</a></li>
+</ul>
+
+<h2 id="bài-tập-liên-quan">Bài tập liên quan</h2>
+<ul>
+  <li><a href="https://codeforces.com/problemset/problem/20/C">Codeforces - 20C</a></li>
+  <li><a href="https://codeforces.com/group/FLVn1Sc504/contest/274518/problem/W">VNOI - QBSCHOOL</a></li>
+  <li><a href="https://codeforces.com/group/FLVn1Sc504/contest/274566/problem/N">VNOI - TRAFFICN</a></li>
+  <li><a href="https://cses.fi/problemset/task/1671">CSES - Shortest Routes I</a></li>
+  <li><a href="https://cses.fi/problemset/task/1195">CSES - Flight Discount</a></li>
+  <li><a href="https://cses.fi/problemset/task/1202">CSES - Investigation</a></li>
+  <li><a href="https://codeforces.com/group/FLVn1Sc504/contest/274521/problem/V">VNOI - ROADS</a></li>
+  <li><a href="https://cses.fi/problemset/task/1196">CSES - Flight Routes</a></li>
+</ul>
+
+  </div></div>
+
+    </section>
+    <footer class="">
+      <ul class="social about-footer "><a href="https://github.com/Hikarii0703" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://facebook.com/Hikarii0703" target="_blank">
+          <li>
+            <i class="icon-facebook-squared"></i>
+          </li>
+        </a></ul><nav class="navigation about-footer ">
+        <ul>
+          
+          <li>
+            <a href="/about">About</a>
+          </li>
+          
+        </ul>
+      </nav><p class="about-footer ">&copy;
+        2021</p><div class="about-footer ">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </footer>
+  </main>
+  
+  <script type="text/javascript" src="/assets/js/darkmode.js"></script>
+  
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  
+</body>
+
+</html>
