@@ -10,5 +10,5 @@ This is my personal blog, where I share stuff that people would probably see as 
 Most likely, they will be just things that happen in my life, and some academic things I want to write.
 
 Social media:
-* [Github](https://github.com/Hikarii0703)
-* [SoundCloud](https://soundcloud.com/hikarii0703)
+* [Github](https://github.com/jalsol)
+* [SoundCloud](https://soundcloud.com/jalsol)
