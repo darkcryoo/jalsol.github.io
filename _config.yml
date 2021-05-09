@@ -21,7 +21,7 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 
 plainwhite:
   name: Hikarii
-  tagline: An abnormal student.
+  tagline: just a little spark of light
   date_format: "%b %-d, %Y"
   portfolio_image: "assets/suisei.png"
 
