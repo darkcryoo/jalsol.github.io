@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<title>Free Contest 126</title>
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Free Contest 126 | just a little spark of light</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Free Contest 126" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Free Contest 126 has been finished tonight. I got the 18th place, which is fairly normal, although I expected a lot more. There are editorial for all the problems, but I feel like I want to explain a bit more." />
+<meta property="og:description" content="Free Contest 126 has been finished tonight. I got the 18th place, which is fairly normal, although I expected a lot more. There are editorial for all the problems, but I feel like I want to explain a bit more." />
+<link rel="canonical" href="http://localhost:4000/programming/2021/05/22/free-contest-126.html" />
+<meta property="og:url" content="http://localhost:4000/programming/2021/05/22/free-contest-126.html" />
+<meta property="og:site_name" content="just a little spark of light" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-05-22T23:00:00+07:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Free Contest 126" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/programming/2021/05/22/free-contest-126.html"},"dateModified":"2021-05-22T23:00:00+07:00","url":"http://localhost:4000/programming/2021/05/22/free-contest-126.html","headline":"Free Contest 126","description":"Free Contest 126 has been finished tonight. I got the 18th place, which is fairly normal, although I expected a lot more. There are editorial for all the problems, but I feel like I want to explain a bit more.","datePublished":"2021-05-22T23:00:00+07:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/assets/js/darkmode.js"></script>
+
+</head><body>
+  <main class="container">
+    <section class="about">
+      <div class="about-header ">
+      <div class="about-title">
+      <a href="/">
+        
+        <img src="/assets/jalsol.png" alt="Hikarii" />
+        
+      </a>
+      <h2 id="title">
+        <a href="/">Hikarii</a>
+      </h2>
+      </div><p class="tagline">just a little spark of light</p></div>
+      
+      <ul class="social about-footer "><a href="https://github.com/jalsol" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a></ul><nav class="navigation about-footer ">
+        <ul>
+          
+          <li>
+            <a href="/about">About</a>
+          </li>
+          
+        </ul>
+      </nav><p class="about-footer ">&copy;
+        2021</p><div class="about-footer ">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </section>
+    <section class="content">
+      <div class="post-container">
+  <a class="post-link" href="/programming/2021/05/22/free-contest-126.html">
+    <h2 class="post-title">Free Contest 126</h2>
+  </a>
+  <div class="post-meta">
+    <div class="post-date"><i class="icon-calendar"></i>May 22, 2021</div><ul class="post-categories"><li>programming</li></ul></div>
+  <div class="post">
+    <p><a href="https://www.facebook.com/kc97blf/photos/a.1881533165405843/3592513880974421/">Free Contest 126</a> has been finished tonight. I got the 18th place, which is fairly normal, although I expected a lot more.<br />
+There are editorial for all the problems, but I feel like I want to explain a bit more.</p>
+
+<p>I couldn’t solve <strong>CANDY</strong>, and I almost got <strong>ATRAVEL</strong>. I will explain <strong>ATRAVEL</strong> later.</p>
+
+<h1 id="letters">LETTERS</h1>
+<p><strong>Statement</strong>: A string of size <code class="language-plaintext highlighter-rouge">n</code> contains <code class="language-plaintext highlighter-rouge">'a'</code>, <code class="language-plaintext highlighter-rouge">'b'</code>, or <code class="language-plaintext highlighter-rouge">'?'</code>. You can replace <code class="language-plaintext highlighter-rouge">'?'</code> with either <code class="language-plaintext highlighter-rouge">'a'</code> or <code class="language-plaintext highlighter-rouge">'b'</code>. After replacing all the <code class="language-plaintext highlighter-rouge">'?'</code>, for each adjacent pair of characters, we define the following:<br /></p>
+
+<ul>
+  <li>“aa” = 0</li>
+  <li>“ab” = 1</li>
+  <li>“bb” = 0</li>
+  <li>“ba” = -1</li>
+</ul>
+
+<p>The total value of the string is the sum of values of all adjacent pairs. Find the maximum possible value with the given string.</p>
+
+<p><strong>Trivia</strong>: I was the second person in the contest to get AC for this problem (the first is <a href="https://codeforces.com/profile/darkkcyan">darkkcyan</a>, the top 1 guy who solved all problems in the contest). Tbh, I don’t like the official editorial for this problem.</p>
+
+<p><strong>Solution</strong>: Let’s create a new array called <code class="language-plaintext highlighter-rouge">a</code>, and assign <code class="language-plaintext highlighter-rouge">a[i]</code> to <code class="language-plaintext highlighter-rouge">1</code> if <code class="language-plaintext highlighter-rouge">s[i] == 'a'</code>, or <code class="language-plaintext highlighter-rouge">0</code> if otherwise.<br />
+If you calculate the value of the string, it will look something like:<br /></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(a[0] - a[1]) + (a[1] - a[2]) + ... + (a[n - 2] - a[n - 1])
+</code></pre></div></div>
+<p>or, we can rearrange the terms like:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a[0] + (-a[1] + a[1]) + (-a[2] + a[2]) + ... + (-a[n - 2] + a[n - 2]) - a[n - 1]
+</code></pre></div></div>
+<p>Cancelling out the terms, we are left with:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a[0] - a[n - 1]
+</code></pre></div></div>
+<p>Clearly, we only need to care about the first and the last element, and we can safely skip the rest in the middle. Now just check for all possible cases of <code class="language-plaintext highlighter-rouge">s[0]</code> and <code class="language-plaintext highlighter-rouge">s[n - 1]</code>, and we are done.</p>
+
+<h1 id="kperms">KPERMS</h1>
+<p><strong>Statement</strong>: Given 2 numbers <code class="language-plaintext highlighter-rouge">n</code> and <code class="language-plaintext highlighter-rouge">k</code>. Find a permutation of <code class="language-plaintext highlighter-rouge">n</code> (call it <code class="language-plaintext highlighter-rouge">p</code>) so that the set of:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{ |p[1] - p[2]|, |p[2] - p[3]|, ..., |p[n - 1] - p[n]| }
+</code></pre></div></div>
+<p>has exactly <code class="language-plaintext highlighter-rouge">k</code> different elements.</p>
+
+<p><strong>Trivia</strong>: My solution isn’t really as nice as the official one. I kinda wasted some time stress testing before getting one-hit-AC. The official solution solves two base cases: <code class="language-plaintext highlighter-rouge">k = 1</code> and <code class="language-plaintext highlighter-rouge">k = n - 1</code>. Then, for general cases, they split it into two parts, one half with <code class="language-plaintext highlighter-rouge">n - k - 1</code> and one half with <code class="language-plaintext highlighter-rouge">k + 1</code>, and combine it together.</p>
+
+<p><strong>Solution</strong>: Let’s consider the case of <code class="language-plaintext highlighter-rouge">n = 6, k = 3</code>. The permutation first looks like <code class="language-plaintext highlighter-rouge">1 2 3 4 5 6</code>. Now, we only have one unique value, while <code class="language-plaintext highlighter-rouge">k = 3</code>.<br /></p>
+<ul>
+  <li>If we put <code class="language-plaintext highlighter-rouge">6</code> after <code class="language-plaintext highlighter-rouge">1</code> (<code class="language-plaintext highlighter-rouge">1 6 2 3 4 5</code>), we have 3 unique values.</li>
+  <li>If we put <code class="language-plaintext highlighter-rouge">5</code> after <code class="language-plaintext highlighter-rouge">2</code> (<code class="language-plaintext highlighter-rouge">1 6 2 5 3 4</code>), we have 5 unique values.</li>
+</ul>
+
+<p>=&gt; Every time we put <code class="language-plaintext highlighter-rouge">n - i + 1</code> after <code class="language-plaintext highlighter-rouge">i</code>, the number of unique values increases by 2.</p>
+
+<p>Now, the number of unique numbers will be odd if we continue this way. But, what if it’s even, say, <code class="language-plaintext highlighter-rouge">k = 4</code>?</p>
+
+<p>Let’s look at the permutation where <code class="language-plaintext highlighter-rouge">n = 6, k = 5</code> (<code class="language-plaintext highlighter-rouge">1 6 2 5 3 4</code>). The last element that was being moved is <code class="language-plaintext highlighter-rouge">5</code>. So, reversing all elements after <code class="language-plaintext highlighter-rouge">5</code> (<code class="language-plaintext highlighter-rouge">1 6 2 5 4 3</code>) will give us the answer.</p>
+
+<h1 id="k-numbers">K-NUMBERS</h1>
+<p><strong>Statement</strong>: Given an array <code class="language-plaintext highlighter-rouge">a</code> with size <code class="language-plaintext highlighter-rouge">n</code>, members of which will have the value from <code class="language-plaintext highlighter-rouge">1</code> to <code class="language-plaintext highlighter-rouge">n</code>. The <em>k-amazing number</em> is the smallest number that appears on all contiguous subarrays with size <code class="language-plaintext highlighter-rouge">k</code> of <code class="language-plaintext highlighter-rouge">a</code>. If such number doesn’t exist, define it as <code class="language-plaintext highlighter-rouge">-1</code>.</p>
+
+<p><strong>Trivia</strong>: I was really quick to solve this problem, because it’s a complete rip-off from <a href="https://codeforces.com/contest/1417/problem/C">this Codeforces problem</a>.</p>
+
+<p><strong>Solution</strong>: The English editorial for this problem is already in the link above.</p>
+
+<h1 id="atravel">ATRAVEL</h1>
+<p><strong>Statement</strong>:</p>
+
+<p><strong>Trivia</strong>:</p>
+
+<p><strong>Solution</strong>:</p>
+
+
+  </div></div>
+
+    </section>
+    <footer class="">
+      <ul class="social about-footer "><a href="https://github.com/jalsol" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a></ul><nav class="navigation about-footer ">
+        <ul>
+          
+          <li>
+            <a href="/about">About</a>
+          </li>
+          
+        </ul>
+      </nav><p class="about-footer ">&copy;
+        2021</p><div class="about-footer ">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </footer>
+  </main>
+  
+  <script type="text/javascript" src="/assets/js/darkmode.js"></script>
+  
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  
+</body>
+
+</html>
