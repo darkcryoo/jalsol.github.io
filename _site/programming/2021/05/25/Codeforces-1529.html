@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<title>Codeforces Round #722 (Div. 2)</title>
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Codeforces Round #722 (Div. 2) | just a little spark of light</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Codeforces Round #722 (Div. 2)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Codeforces Round #722 was held today yesterday (holy shit it’s already 3AM). I had quite a roller coaster of emotions, tbh. It was a combined round, so I was somewhat worried. The score distribution was released and I almost lost my mind there." />
+<meta property="og:description" content="Codeforces Round #722 was held today yesterday (holy shit it’s already 3AM). I had quite a roller coaster of emotions, tbh. It was a combined round, so I was somewhat worried. The score distribution was released and I almost lost my mind there." />
+<link rel="canonical" href="http://localhost:4000/programming/2021/05/25/Codeforces-1529.html" />
+<meta property="og:url" content="http://localhost:4000/programming/2021/05/25/Codeforces-1529.html" />
+<meta property="og:site_name" content="just a little spark of light" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-05-25T03:00:00+07:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Codeforces Round #722 (Div. 2)" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/programming/2021/05/25/Codeforces-1529.html"},"dateModified":"2021-05-25T03:00:00+07:00","url":"http://localhost:4000/programming/2021/05/25/Codeforces-1529.html","headline":"Codeforces Round #722 (Div. 2)","description":"Codeforces Round #722 was held today yesterday (holy shit it’s already 3AM). I had quite a roller coaster of emotions, tbh. It was a combined round, so I was somewhat worried. The score distribution was released and I almost lost my mind there.","datePublished":"2021-05-25T03:00:00+07:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/assets/js/darkmode.js"></script>
+
+</head><body>
+  <main class="container">
+    <section class="about">
+      <div class="about-header ">
+      <div class="about-title">
+      <a href="/">
+        
+        <img src="/assets/jalsol.png" alt="Hikarii" />
+        
+      </a>
+      <h2 id="title">
+        <a href="/">Hikarii</a>
+      </h2>
+      </div><p class="tagline">just a little spark of light</p></div>
+      
+      <ul class="social about-footer "><a href="https://github.com/jalsol" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a></ul><nav class="navigation about-footer ">
+        <ul>
+          
+          <li>
+            <a href="/about">About</a>
+          </li>
+          
+        </ul>
+      </nav><p class="about-footer ">&copy;
+        2021</p><div class="about-footer ">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </section>
+    <section class="content">
+      <div class="post-container">
+  <a class="post-link" href="/programming/2021/05/25/Codeforces-1529.html">
+    <h2 class="post-title">Codeforces Round #722 (Div. 2)</h2>
+  </a>
+  <div class="post-meta">
+    <div class="post-date"><i class="icon-calendar"></i>May 25, 2021</div><ul class="post-categories"><li>programming</li></ul></div>
+  <div class="post">
+    <p><a href="https://codeforces.com/blog/entry/90986">Codeforces Round #722</a> was held <del>today</del> yesterday (holy shit it’s already 3AM). I had quite a roller coaster of emotions, tbh. It was a combined round, so I was somewhat worried. The score distribution was released and I almost lost my mind there.</p>
+
+<p>I started solving Div2A and Div2B quite quickly (compared to my normal performances, but still slow in general). I somewhat struggled with C, but then I decided to give it a try and got accepted (lost one submission because of integer overflow smh ;-;). Overall, I was hesitant when solving these problems, some cost me a lot of rating.</p>
+
+<h1 id="a-eshag-loves-big-arrays">A. Eshag Loves Big Arrays</h1>
+<p>A very easy problem. As expected from a Div2A. I was really quick to implement the solution and submitted right away.</p>
+
+<p>Notice that, if <code class="language-plaintext highlighter-rouge">a &lt; b</code> then <code class="language-plaintext highlighter-rouge">a &lt; (a + b) / 2 &lt; b</code>. So, no matter which we choose, only the larger numbers get deleted. That means the numbers with minimum value will stay. We just have to find the minimum value, and count how many of them there are in the array.</p>
+
+<p><strong>Submission</strong>: <a href="https://codeforces.com/contest/1529/submission/117267118">117267118</a></p>
+
+<h1 id="b-sifid-and-strange-subsequences">B. Sifid and Strange Subsequences</h1>
+<p>I was slightly slow on this problem, but I was still within top 700 when I got AC. Things were still fine right then, my performance was <span style="color:blue">Expert</span>-level.</p>
+
+<p>We can see that, the statement asks that <code class="language-plaintext highlighter-rouge">min |ai - aj| &gt;= Max</code> for every pair of <code class="language-plaintext highlighter-rouge">(i, j)</code>. It’s trivial that <code class="language-plaintext highlighter-rouge">min |ai - aj|</code> is the difference of 2 adjacent numbers of the <strong>sorted</strong> array.</p>
+
+<p>Define <code class="language-plaintext highlighter-rouge">d[i]</code> as <code class="language-plaintext highlighter-rouge">min(d[i - 1], |a[i] - a[i - 1]|)</code>. The array is sorted, which means <code class="language-plaintext highlighter-rouge">a[i]</code> is the maximum element from <code class="language-plaintext highlighter-rouge">1</code> to <code class="language-plaintext highlighter-rouge">i</code>, and <code class="language-plaintext highlighter-rouge">d[i]</code> is the minimum difference. If <code class="language-plaintext highlighter-rouge">d[i] &lt; a[i]</code>, the condition of <code class="language-plaintext highlighter-rouge">min |ai - aj| &gt;= Max</code> fails, <code class="language-plaintext highlighter-rouge">i</code> will be the answer (assuming the array is <code class="language-plaintext highlighter-rouge">0</code>-based). In case <code class="language-plaintext highlighter-rouge">d[i] &gt;= a[i]</code> for every <code class="language-plaintext highlighter-rouge">i</code>, the answer is obviously <code class="language-plaintext highlighter-rouge">n</code>.</p>
+
+<p><strong>Submission</strong>: <a href="https://codeforces.com/contest/1529/submission/117267141">117267141</a></p>
+
+<p>I found a nicer greedy solution. Take all non-positive integers (this is true because <code class="language-plaintext highlighter-rouge">Max &lt;= 0</code>, and absolute value will always be non-negative). Then, at most one positive integer can be taken.</p>
+
+<p><strong>Submission</strong>: <a href="https://codeforces.com/contest/1529/submission/117218964">117218964</a></p>
+
+<h1 id="c-parsas-humongous-tree">C. Parsa’s Humongous Tree</h1>
+<p>I struggled <strong><em>HARD</em></strong>, for no reasons at all. I tried looking for all possibilities, confused thinking about which value in the range <code class="language-plaintext highlighter-rouge">[Lu; Ru]</code> should be taken for <code class="language-plaintext highlighter-rouge">Au</code>. Then, when the contest had around 45 minutes left, I decided that I would go all-in, that <code class="language-plaintext highlighter-rouge">Au</code> would either be <code class="language-plaintext highlighter-rouge">Lu</code> or <code class="language-plaintext highlighter-rouge">Ru</code>, without proving (and it turned out to be correct).</p>
+
+<p>I quickly coded the solution, but it failed sample tests. I noticed that I wrote <code class="language-plaintext highlighter-rouge">=</code> instead of <code class="language-plaintext highlighter-rouge">+=</code>, and that alone wasted so much debugging time I shouldn’t have lost.</p>
+
+<p>Anyway, it’s a very standard DP-on-tree problem. <code class="language-plaintext highlighter-rouge">dp[u][0]</code> is the maximum value at node <code class="language-plaintext highlighter-rouge">u</code>, if <code class="language-plaintext highlighter-rouge">Au = Lu</code>. Similarly, <code class="language-plaintext highlighter-rouge">dp[u][1]</code> is the maximum value at node <code class="language-plaintext highlighter-rouge">u</code>, if <code class="language-plaintext highlighter-rouge">Au = Ru</code>.</p>
+
+<p>Consider the case when <code class="language-plaintext highlighter-rouge">u</code> can travel to <code class="language-plaintext highlighter-rouge">v</code> (or <code class="language-plaintext highlighter-rouge">u</code> is the ancestor/parent of <code class="language-plaintext highlighter-rouge">v</code>). If you are familiar with DP-on-tree, the DP formula is very trivial.</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">DFS</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">p</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">v</span> <span class="o">:</span> <span class="n">g</span><span class="p">[</span><span class="n">u</span><span class="p">])</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">v</span> <span class="o">==</span> <span class="n">p</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+ 
+        <span class="n">DFS</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">u</span><span class="p">);</span>
+        <span class="n">dp</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">max</span><span class="p">(</span>
+                        <span class="n">abs</span><span class="p">(</span><span class="n">L</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">-</span> <span class="n">L</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="o">+</span> <span class="n">dp</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                        <span class="n">abs</span><span class="p">(</span><span class="n">L</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">-</span> <span class="n">R</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="o">+</span> <span class="n">dp</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+                      <span class="p">);</span>
+        <span class="n">dp</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">max</span><span class="p">(</span>
+                        <span class="n">abs</span><span class="p">(</span><span class="n">R</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">-</span> <span class="n">L</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="o">+</span> <span class="n">dp</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                        <span class="n">abs</span><span class="p">(</span><span class="n">R</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">-</span> <span class="n">R</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="o">+</span> <span class="n">dp</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+                      <span class="p">);</span>
+    <span class="p">}</span>
+<span class="err">}</span>
+</code></pre></div></div>
+
+<p>I also made a minor mistake that costed me a submission: integer overflow. So, remember to check for that as well.
+The last-minute effort (well, not really, but I was about to break down and rage-quit) saved me some rating. I am glad that I got accepted, and I am glad that there are friends who still support me even when I’m in a big struggle.</p>
+
+<p><strong>Submission</strong>: <a href="https://codeforces.com/contest/1529/submission/117267676">117267676</a></p>
+
+<h1 id="final-words">Final words</h1>
+<p>This contest was really fun (because I got accepted right on the verge of rage-quitting so it was satisfying :D). I somewhat like the problems, they can be used as teaching materials. I tried reading the editorial and explanations on D, and it took me 3 hours to understand, so I wouldn’t really want to write anything about that problem here.</p>
+
+<p>Still, I’m a bit disappointed at myself for not keeping up the <span style="color:blue">Expert</span>-level performance throughout the contest, which kind of makes me question whether I have ever made a progress.</p>
+
+  </div></div>
+
+    </section>
+    <footer class="">
+      <ul class="social about-footer "><a href="https://github.com/jalsol" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a></ul><nav class="navigation about-footer ">
+        <ul>
+          
+          <li>
+            <a href="/about">About</a>
+          </li>
+          
+        </ul>
+      </nav><p class="about-footer ">&copy;
+        2021</p><div class="about-footer ">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </footer>
+  </main>
+  
+  <script type="text/javascript" src="/assets/js/darkmode.js"></script>
+  
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  
+</body>
+
+</html>
