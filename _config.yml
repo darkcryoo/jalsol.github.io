@@ -20,7 +20,7 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 
 plainwhite:
-  name: Hikarii
+  name: jalsol
   tagline: just a little spark of light
   date_format: "%b %-d, %Y"
   portfolio_image: "assets/jalsol.png"
