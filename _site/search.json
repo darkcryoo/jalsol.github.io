@@ -1,10 +1,18 @@
 [
   
     {
+      "title"    : "Testing Round 16",
+      "category" : "",
+      "tags"     : "",
+      "url"      : "/freecontest/2021/05/29/FC-TR16.html",
+      "date"     : "2021-05-29 23:08:00 +0700"
+    } ,
+  
+    {
       "title"    : "Codeforces Round #722 (Div. 2)",
       "category" : "",
       "tags"     : "",
-      "url"      : "/programming/2021/05/25/Codeforces-1529.html",
+      "url"      : "/codeforces/2021/05/25/CF-1529.html",
       "date"     : "2021-05-25 03:00:00 +0700"
     } ,
   
@@ -12,7 +20,7 @@
       "title"    : "Free Contest 126",
       "category" : "",
       "tags"     : "",
-      "url"      : "/programming/2021/05/22/free-contest-126.html",
+      "url"      : "/freecontest/2021/05/22/FC-FC126.html",
       "date"     : "2021-05-22 23:00:00 +0700"
     } ,
   

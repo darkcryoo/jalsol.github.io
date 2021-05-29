@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<title>Testing Round 16</title>
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Testing Round 16 | just a little spark of light</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Testing Round 16" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Today, Free Contest held Testing Round 16, for testing the system." />
+<meta property="og:description" content="Today, Free Contest held Testing Round 16, for testing the system." />
+<link rel="canonical" href="http://localhost:4000/freecontest/2021/05/29/FC-TR16.html" />
+<meta property="og:url" content="http://localhost:4000/freecontest/2021/05/29/FC-TR16.html" />
+<meta property="og:site_name" content="just a little spark of light" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-05-29T23:08:00+07:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Testing Round 16" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/freecontest/2021/05/29/FC-TR16.html"},"dateModified":"2021-05-29T23:08:00+07:00","url":"http://localhost:4000/freecontest/2021/05/29/FC-TR16.html","headline":"Testing Round 16","description":"Today, Free Contest held Testing Round 16, for testing the system.","datePublished":"2021-05-29T23:08:00+07:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/assets/js/darkmode.js"></script>
+
+</head><body>
+  <main class="container">
+    <section class="about">
+      <div class="about-header ">
+      <div class="about-title">
+      <a href="/">
+        
+        <img src="/assets/jalsol.png" alt="jalsol" />
+        
+      </a>
+      <h2 id="title">
+        <a href="/">jalsol</a>
+      </h2>
+      </div><p class="tagline">just a little spark of light</p></div>
+      
+      <ul class="social about-footer "><a href="https://github.com/jalsol" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a></ul><nav class="navigation about-footer ">
+        <ul>
+          
+          <li>
+            <a href="/about">About</a>
+          </li>
+          
+        </ul>
+      </nav><p class="about-footer ">&copy;
+        2021</p><div class="about-footer ">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </section>
+    <section class="content">
+      <div class="post-container">
+  <a class="post-link" href="/freecontest/2021/05/29/FC-TR16.html">
+    <h2 class="post-title">Testing Round 16</h2>
+  </a>
+  <div class="post-meta">
+    <div class="post-date"><i class="icon-calendar"></i>May 29, 2021</div><ul class="post-categories"><li>FreeContest</li></ul></div>
+  <div class="post">
+    <p>Today, Free Contest held <a href="https://www.facebook.com/kc97blf/posts/3598459260379883">Testing Round 16</a>, for testing the system.</p>
+
+<p>I solved 4 problems, but I’m not really happy, since I do think I could’ve solved the last unsolved problem.</p>
+
+<h1 id="aquery2">AQUERY2</h1>
+<p><strong>Statement</strong>: There are <code class="language-plaintext highlighter-rouge">Q</code> queries and an empty array. Each query includes two integers <code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">b</code>, and you’ll have to insert <code class="language-plaintext highlighter-rouge">a</code> into the array <code class="language-plaintext highlighter-rouge">b</code> times. Find the <code class="language-plaintext highlighter-rouge">k</code>-th smallest integer in the array.</p>
+
+<p><strong>Trivia</strong>: This problem has the shortest statement, so I went for it first. Unfortunately, it took me a few submissions to realize I forgot that <code class="language-plaintext highlighter-rouge">k</code> can exceed the value range of <code class="language-plaintext highlighter-rouge">int</code>. I even tried to stress test, saw nothing whent wrong, then became heavily confused and enraged.</p>
+
+<p><strong>Solution</strong>: Use a map (it has to be a map for convenience, not any kind of hash maps). A red-black-tree map gives the advantage that the keys are sorted. We will use this map as a counting array, where <code class="language-plaintext highlighter-rouge">cnt[x] = y</code> means there are <code class="language-plaintext highlighter-rouge">y</code> copies of <code class="language-plaintext highlighter-rouge">x</code>. Traverse through the map, if <code class="language-plaintext highlighter-rouge">k &lt;= y</code>, then <code class="language-plaintext highlighter-rouge">x</code> is the answer; otherwise reduce <code class="language-plaintext highlighter-rouge">k</code> by <code class="language-plaintext highlighter-rouge">y</code>.</p>
+
+<h1 id="cprefix">CPREFIX</h1>
+<p><strong>Statement</strong>: Given a string <code class="language-plaintext highlighter-rouge">s</code>. For each prefix from <code class="language-plaintext highlighter-rouge">s[0]</code> to <code class="language-plaintext highlighter-rouge">s[i]</code>, count how many times it appears in the string.</p>
+
+<p><strong>Trivia</strong>: I tried to come up with a solution using Z-algorithm (I don’t know how to code KMP). I was still a bit mad because of things that had happened at the previous problem. I have decided to just go to <a href="https://cp-algorithms.com/string/prefix-function.html">cp-algorithms</a> and copied their code. Luckily, there is also a section where they solved the exact problem, so I went with it. After the contest finished, I came up with a hash solution (which happens to be the same as the editorial), and a solution using Z-algorithm (counting the occurrences in the <code class="language-plaintext highlighter-rouge">z[]</code> array, prefix sum and stuff).</p>
+
+<p><strong>Solution</strong>: Just visit the link below. I know, KMP is hard, but you can straight up use the <code class="language-plaintext highlighter-rouge">pi[]</code> array to answer.</p>
+
+<h1 id="taskset">TASKSET</h1>
+<p><strong>Statement</strong>: X is a beautiful number if <code class="language-plaintext highlighter-rouge">X = 2^n</code> or <code class="language-plaintext highlighter-rouge">X = 3 * 2^n</code>. Given N, reduce N by one the least amount of times until N is beautiful. Find that number of times.</p>
+
+<p><strong>Trivia</strong>: This is probably one of the easiest problems in the problemset. I made no mistake this time, implementing a quick brute-force with a few lines of code.</p>
+
+<p><strong>Solution</strong>: Just brute-force? It’s very simple, but be careful in case integer overflow occurs.</p>
+
+<h1 id="warp">WARP</h1>
+<p><strong>Statement</strong>: Given an array <code class="language-plaintext highlighter-rouge">a</code> of size <code class="language-plaintext highlighter-rouge">n</code>. You start at index <code class="language-plaintext highlighter-rouge">1</code>. You can go from index <code class="language-plaintext highlighter-rouge">i</code> to index <code class="language-plaintext highlighter-rouge">j</code> if:</p>
+
+<ul>
+  <li>i &lt; j</li>
+  <li>There exists a number <code class="language-plaintext highlighter-rouge">k</code> so that <code class="language-plaintext highlighter-rouge">floor(a[i] / 2^k)</code> and <code class="language-plaintext highlighter-rouge">floor(a[j] / 2^k)</code> are both odd.</li>
+</ul>
+
+<p>Now, the number of paths to go from index <code class="language-plaintext highlighter-rouge">i</code> to index <code class="language-plaintext highlighter-rouge">j</code> is defined as the number of different <code class="language-plaintext highlighter-rouge">k</code>’s that satisfy the above statement.</p>
+
+<p>Find the number of different paths from index <code class="language-plaintext highlighter-rouge">1</code> to index <code class="language-plaintext highlighter-rouge">n</code>.</p>
+
+<p><strong>Trivia</strong>: I found the <code class="language-plaintext highlighter-rouge">O(n^2)</code> solution after thinking for a while, but struggled to optimize it. I tried different ways, but only one really works. I raged, slammed the table like a true gamer, and screamed. But, I managed to get back and successfully solved the problem.</p>
+
+<p><strong>Solution</strong>: Notice the following property:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>floor(x / 2^k) == (x &gt;&gt; k)
+</code></pre></div></div>
+
+<p>So, if <code class="language-plaintext highlighter-rouge">floor(x / 2^k)</code> is odd, then the right-most bit of <code class="language-plaintext highlighter-rouge">x &gt;&gt; k</code> is <code class="language-plaintext highlighter-rouge">1</code>, or:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(x &gt;&gt; k &amp; 1) == 1
+</code></pre></div></div>
+
+<p>If there exists a number <code class="language-plaintext highlighter-rouge">k</code> that satisfies the condition, then:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(x &gt;&gt; k &amp; 1) == (y &gt;&gt; k &amp; 1) == 1
+</code></pre></div></div>
+<p>or, the <code class="language-plaintext highlighter-rouge">k</code>-th bits of <code class="language-plaintext highlighter-rouge">x</code> and <code class="language-plaintext highlighter-rouge">y</code> are both <code class="language-plaintext highlighter-rouge">1</code>.</p>
+
+<p>Which means, the number of different <code class="language-plaintext highlighter-rouge">k</code>’s that satisfy the condition is the number of bit <code class="language-plaintext highlighter-rouge">1</code> of <code class="language-plaintext highlighter-rouge">(x &amp; y)</code>.</p>
+
+<p>Denoting <code class="language-plaintext highlighter-rouge">dp[x]</code> as the number of paths from <code class="language-plaintext highlighter-rouge">1</code> to <code class="language-plaintext highlighter-rouge">x</code>, one can quickly construct an <code class="language-plaintext highlighter-rouge">O(n^2)</code> solution like this:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">;</span> <span class="o">--</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">__builtin_popcount</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>But, how can this be optimized? I discovered this after trying to calculate the sum of <code class="language-plaintext highlighter-rouge">popcount(a[i] &amp; a[j])</code> for every pair of <code class="language-plaintext highlighter-rouge">(i, j)</code>.</p>
+
+<p>We use another array, called <code class="language-plaintext highlighter-rouge">cnt</code>, and it will have around 32 elements. <code class="language-plaintext highlighter-rouge">cnt[x]</code> will tell how many numbers so far have the <code class="language-plaintext highlighter-rouge">x</code>-th bit equal to 1. Clearly, for each number <code class="language-plaintext highlighter-rouge">a[i]</code>, we traverse through each bit of it. If its <code class="language-plaintext highlighter-rouge">x</code>-th bit is off, then we can safely ignore. If it is on, however, we need to count every number before <code class="language-plaintext highlighter-rouge">a[i]</code> that also have their <code class="language-plaintext highlighter-rouge">x</code>-th bits on.</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">32</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="n">j</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="o">++</span><span class="n">cnt</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">32</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="n">j</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">sum</span> <span class="o">+=</span> <span class="n">cnt</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">32</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="n">j</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="o">++</span><span class="n">cnt</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>By reusing this formula,</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="nf">__builtin_popcount</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<p>instead of adding <code class="language-plaintext highlighter-rouge">1</code> to <code class="language-plaintext highlighter-rouge">cnt[x]</code>, we will add the whole value of <code class="language-plaintext highlighter-rouge">dp[i]</code> like this:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">32</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="n">j</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">cnt</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">dp</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">32</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="n">j</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">cnt</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">32</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="n">j</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">cnt</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+  </div></div>
+
+    </section>
+    <footer class="">
+      <ul class="social about-footer "><a href="https://github.com/jalsol" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a></ul><nav class="navigation about-footer ">
+        <ul>
+          
+          <li>
+            <a href="/about">About</a>
+          </li>
+          
+        </ul>
+      </nav><p class="about-footer ">&copy;
+        2021</p><div class="about-footer ">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </footer>
+  </main>
+  
+  <script type="text/javascript" src="/assets/js/darkmode.js"></script>
+  
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  
+</body>
+
+</html>
