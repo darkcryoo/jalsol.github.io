@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<title>Codeforces Deltix Round Spring 2021</title>
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Codeforces Deltix Round Spring 2021 | just a little spark of light</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Codeforces Deltix Round Spring 2021" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Codeforces Deltix Round Spring 2021 was held a few days ago. I participated, but didn’t write a blog until now." />
+<meta property="og:description" content="Codeforces Deltix Round Spring 2021 was held a few days ago. I participated, but didn’t write a blog until now." />
+<link rel="canonical" href="http://localhost:4000/codeforces/2021/06/01/CF-1523.html" />
+<meta property="og:url" content="http://localhost:4000/codeforces/2021/06/01/CF-1523.html" />
+<meta property="og:site_name" content="just a little spark of light" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-06-01T05:00:00+07:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Codeforces Deltix Round Spring 2021" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/codeforces/2021/06/01/CF-1523.html"},"dateModified":"2021-06-01T05:00:00+07:00","url":"http://localhost:4000/codeforces/2021/06/01/CF-1523.html","headline":"Codeforces Deltix Round Spring 2021","description":"Codeforces Deltix Round Spring 2021 was held a few days ago. I participated, but didn’t write a blog until now.","datePublished":"2021-06-01T05:00:00+07:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/assets/js/darkmode.js"></script>
+
+</head><body>
+  <main class="container">
+    <section class="about">
+      <div class="about-header ">
+      <div class="about-title">
+      <a href="/">
+        
+        <img src="/assets/jalsol.png" alt="jalsol" />
+        
+      </a>
+      <h2 id="title">
+        <a href="/">jalsol</a>
+      </h2>
+      </div><p class="tagline">just a little spark of light</p></div>
+      
+      <ul class="social about-footer "><a href="https://github.com/jalsol" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a></ul><nav class="navigation about-footer ">
+        <ul>
+          
+          <li>
+            <a href="/about">About</a>
+          </li>
+          
+        </ul>
+      </nav><p class="about-footer ">&copy;
+        2021</p><div class="about-footer ">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </section>
+    <section class="content">
+      <div class="post-container">
+  <a class="post-link" href="/codeforces/2021/06/01/CF-1523.html">
+    <h2 class="post-title">Codeforces Deltix Round Spring 2021</h2>
+  </a>
+  <div class="post-meta">
+    <div class="post-date"><i class="icon-calendar"></i>Jun 1, 2021</div><ul class="post-categories"><li>Codeforces</li></ul></div>
+  <div class="post">
+    <p><a href="https://codeforces.com/blog/entry/90915">Codeforces Deltix Round Spring 2021</a> was held a few days ago. I participated, but didn’t write a blog until now.</p>
+
+<p>This round saw my personal best performance at any Codeforces round I have ever taken so far: Performance rating of <span style="color: #a0a">1965</span>.</p>
+
+<p><a href="https://codeforces.com/profile/tourist"><span style="color: black">t</span><span style="color: red">ourist</span></a> went wild this round. He seems to perform really well when the round is big, or it has prizes. He won a <strong>PS5</strong> just for being the top 1. <a href="https://codeforces.com/profile/Radewoosh"><span style="color: black">R</span><span style="color: red">adewoosh</span></a> broke the 3<span style="color: red">700</span> limit, staying at the top 1 position of the whole website site.</p>
+
+<p>Many have criticized the round for various reasons: too confusing statements (C), unoriginal problem (E), weak pretests (A), etc. Perhaps I got such performance because others were down? (lul)</p>
+
+<h1 id="a-game-of-life">A. Game of Life</h1>
+<p>Many high-rated coders failed the system tests, including some <span style="color:red">Grandmasters</span>, despite the problem being very easy.</p>
+
+<p>It can be noticed that a cell can expand at most <code class="language-plaintext highlighter-rouge">n</code> times, so brute-forcing for <code class="language-plaintext highlighter-rouge">min(m, n)</code> times is good enough to pass the tests. There are some other <code class="language-plaintext highlighter-rouge">O(n)</code> solutions, but I think one doesn’t have to go through such hassles when <code class="language-plaintext highlighter-rouge">O(n^2)</code> is good enough.</p>
+
+<p>I misread the problem statement for a few minutes:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>it has **exactly 1** alive neighbor
+</code></pre></div></div>
+
+<p>I was wondering where my brute-force went wrong. Turned out I thought 2 alive neighbors is ok, while it isn’t.</p>
+
+<h1 id="b-lord-of-the-values">B. Lord of the Values</h1>
+<p>A fun problem in my opinion. I skimmed through the problem statement and saw that <code class="language-plaintext highlighter-rouge">n</code> is even. That was it, I had no other ideas. Then I read it again, this time to really understand what the problem wants.</p>
+
+<p>I couldn’t find anything else, so I decided to play around with the two operations. I tried solving this small problem first: converting <code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">b</code> to <code class="language-plaintext highlighter-rouge">-a</code> and <code class="language-plaintext highlighter-rouge">-b</code>. At this point, I understood why <code class="language-plaintext highlighter-rouge">n</code> has to be even. If this worked with any pair, then the problem would be solved.</p>
+
+<p>I tried many sequences, and I found this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> a     ;  b   (initial)
+ a + b ;  b      (1)
+ a + b ; -a      (2)
+ b     ; -a      (1)
+-a + b ; -a      (1)
+-a + b ; -b      (2)
+-a     ; -b      (1)
+</code></pre></div></div>
+
+<p>So, for each pair, by applying the above sequences of operations, <code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">b</code> are converted into <code class="language-plaintext highlighter-rouge">-a</code> and <code class="language-plaintext highlighter-rouge">-b</code>. Each pair requires 6 operations, so <code class="language-plaintext highlighter-rouge">n</code>/2 pairs require 6*(<code class="language-plaintext highlighter-rouge">n</code>/2) operations, which will be 3000 if <code class="language-plaintext highlighter-rouge">n</code> = 1000, less than 5000.</p>
+
+<p>It’s the first time I’ve solved this kind of constructive algorithms problem, and I am proud of myself.</p>
+
+<h1 id="c-compression-and-expansion">C. Compression and Expansion</h1>
+<p>One of the more controversial problems. Some contestants wanted this round to be unrated, because of this problem.</p>
+
+<p><a target="_blank" href="https://codeforces.com/blog/entry/90915?#comment-797718">
+<img src="/assets/CF_1523/1.png" alt="Contestants want round unrated" />
+</a></p>
+
+<p>However, K<span style="color: red">AN</span>, one of the coordinators of this round, decided to keep the round unrated. Many aren’t pleased with this decision. (holy shit my performance didn’t go to the trashcan)</p>
+
+<p><a target="_blank" href="https://codeforces.com/blog/entry/90915?#comment-797970">
+<img src="/assets/CF_1523/2.png" alt="KAN's decision" />
+</a></p>
+
+<p>I got the idea of the solution by looking at the image, which is weird and unusual, but many people seem to agree with me.</p>
+
+<p>Let’s set the controversy aside, and go back to the problem. Many people solved this using a stack, but I personally used a static array and a pointer (as that made more sense to me, despite the idea being the same).</p>
+
+<p>If <code class="language-plaintext highlighter-rouge">a[i]</code> is 1, then the most optimal option is to append this to the end of the current item. Else, traverse the array from the back, until we find an element equal to <code class="language-plaintext highlighter-rouge">a[i] - 1</code>.</p>
+
+<p>I was surprised to see the 1600 tag, because this is a lot easier in my honest opinion.</p>
+
+<h1 id="final-words">Final words</h1>
+<p>My performance was really awesome. I tried solving D, but I had no idea at all. Apparently, D requires SOS DP, which I have heard of but never bothered to learn. Many contestants with higher rating than me failed because of FST on A, or because they can’t get C.</p>
+
+<p>My rank jumped straight from <span style="color: gray">Newbie</span> to <span style="color: #03a89e">Specialist</span>, which is great, but I’m not satisfied: I want to reach 
+<span style="color: blue">Expert</span>. I am still on the new account boost, with 2 contests left. I need to get positive delta, and combined with the +100 boost, I will get the goal.</p>
+
+  </div></div>
+
+    </section>
+    <footer class="">
+      <ul class="social about-footer "><a href="https://github.com/jalsol" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a></ul><nav class="navigation about-footer ">
+        <ul>
+          
+          <li>
+            <a href="/about">About</a>
+          </li>
+          
+        </ul>
+      </nav><p class="about-footer ">&copy;
+        2021</p><div class="about-footer ">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </footer>
+  </main>
+  
+  <script type="text/javascript" src="/assets/js/darkmode.js"></script>
+  
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  
+</body>
+
+</html>
